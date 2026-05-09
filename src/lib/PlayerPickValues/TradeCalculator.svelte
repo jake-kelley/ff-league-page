@@ -46,6 +46,8 @@
     const totalA = $derived(sideA.reduce((sum, p) => sum + (p.value ?? 0), 0));
     const totalB = $derived(sideB.reduce((sum, p) => sum + (p.value ?? 0), 0));
 
+    const FAIR_THRESHOLD = 0.05;
+
     const verdict = $derived.by(() => {
         if (sideA.length === 0 || sideB.length === 0) {
             return { label: 'Add players to both sides to evaluate', tone: 'neutral', diff: 0, pct: 0 };
@@ -55,7 +57,7 @@
         const pct = max === 0 ? 0 : Math.abs(diff) / max;
         let label;
         let tone;
-        if (pct < 0.05) {
+        if (pct < FAIR_THRESHOLD) {
             label = 'Even trade';
             tone = 'fair';
         } else if (pct < 0.15) {
@@ -70,6 +72,106 @@
         }
         return { label, tone, diff, pct };
     });
+
+    const positionCounts = (side) => {
+        const counts = {};
+        for (const p of side) {
+            const pos = p.position || '—';
+            counts[pos] = (counts[pos] ?? 0) + 1;
+        }
+        return Object.entries(counts).sort((a, b) => b[1] - a[1]);
+    };
+
+    const breakdownA = $derived(positionCounts(sideA));
+    const breakdownB = $derived(positionCounts(sideB));
+    const topPieceA = $derived(sideA.length ? sideA.reduce((m, p) => (p.value ?? 0) > (m.value ?? 0) ? p : m) : null);
+    const topPieceB = $derived(sideB.length ? sideB.reduce((m, p) => (p.value ?? 0) > (m.value ?? 0) ? p : m) : null);
+
+    const lighterSide = $derived.by(() => {
+        if (sideA.length === 0 || sideB.length === 0) return null;
+        if (totalA === totalB) return null;
+        return totalA < totalB ? 'A' : 'B';
+    });
+    const gap = $derived(Math.abs(totalA - totalB));
+    const heavierTotal = $derived(Math.max(totalA, totalB));
+
+    const projectedPct = (addedValue) => {
+        if (!lighterSide) return 0;
+        const newLighter = (lighterSide === 'A' ? totalA : totalB) + addedValue;
+        const newMax = Math.max(newLighter, heavierTotal);
+        if (newMax === 0) return 0;
+        return Math.abs(newLighter - heavierTotal) / newMax;
+    };
+
+    const findClosestIdx = (sortedValues, target) => {
+        let lo = 0;
+        let hi = sortedValues.length - 1;
+        while (lo < hi) {
+            const mid = (lo + hi) >>> 1;
+            if (sortedValues[mid] < target) lo = mid + 1;
+            else hi = mid;
+        }
+        return lo;
+    };
+
+    const suggestions = $derived.by(() => {
+        if (!lighterSide || verdict.pct < FAIR_THRESHOLD || players.length === 0) {
+            return { singles: [], pairs: [] };
+        }
+        const inTrade = new Set([...sideA, ...sideB].map((p) => p.id));
+        const pool = players.filter((p) => !inTrade.has(p.id) && (p.value ?? 0) > 0);
+
+        const singles = pool
+            .map((p) => ({ player: p, pct: projectedPct(p.value) }))
+            .filter((s) => s.pct < FAIR_THRESHOLD)
+            .sort((a, b) => Math.abs(a.player.value - gap) - Math.abs(b.player.value - gap))
+            .slice(0, 6);
+
+        let pairs = [];
+        if (singles.length < 4) {
+            const sorted = [...pool].sort((a, b) => a.value - b.value);
+            const sortedValues = sorted.map((p) => p.value);
+            const sample = [...pool]
+                .sort((a, b) => Math.abs(a.value - gap / 2) - Math.abs(b.value - gap / 2))
+                .slice(0, 80);
+            const seen = new Set();
+            for (const p of sample) {
+                const partnerTarget = gap - p.value;
+                if (partnerTarget <= 0) continue;
+                const idx = findClosestIdx(sortedValues, partnerTarget);
+                for (const ci of [idx - 1, idx, idx + 1]) {
+                    if (ci < 0 || ci >= sorted.length) continue;
+                    const q = sorted[ci];
+                    if (q.id === p.id) continue;
+                    const sum = p.value + q.value;
+                    if (projectedPct(sum) >= FAIR_THRESHOLD) continue;
+                    const a = p.value <= q.value ? p : q;
+                    const b = p.value <= q.value ? q : p;
+                    const key = `${a.id}|${b.id}`;
+                    if (seen.has(key)) continue;
+                    seen.add(key);
+                    pairs.push({ pieces: [a, b], sum, pct: projectedPct(sum) });
+                }
+            }
+            pairs = pairs
+                .sort((x, y) => Math.abs(x.sum - gap) - Math.abs(y.sum - gap))
+                .slice(0, 4);
+        }
+
+        return { singles, pairs };
+    });
+
+    const addSuggestion = (player) => {
+        if (!lighterSide) return;
+        addToSide(lighterSide, player);
+    };
+
+    const addPair = (combo) => {
+        const side = lighterSide;
+        if (!side) return;
+        addToSide(side, combo.pieces[0]);
+        addToSide(side, combo.pieces[1]);
+    };
 
     const reset = () => {
         sideA = [];
@@ -210,6 +312,100 @@
         color: inherit;
     }
     .reset button:hover { background: var(--f3f3f3); }
+
+    .analysis {
+        margin-top: 20px;
+        background: var(--fff);
+        padding: 16px;
+        border-radius: 8px;
+    }
+    .analysis h4, .suggestions h4 {
+        margin: 0 0 10px;
+        font-size: 1em;
+    }
+    .breakdown-grid {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 16px;
+    }
+    @media (max-width: 700px) {
+        .breakdown-grid { grid-template-columns: 1fr; }
+    }
+    .breakdown-col strong {
+        display: block;
+        margin-bottom: 4px;
+    }
+    .breakdown-pos {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 6px;
+        margin-bottom: 6px;
+    }
+    .pos-chip {
+        background: var(--f3f3f3);
+        border-radius: 12px;
+        padding: 2px 10px;
+        font-size: 0.85em;
+    }
+    .top-piece {
+        font-size: 0.85em;
+        color: #666;
+    }
+
+    .suggestions {
+        margin-top: 16px;
+        background: var(--fff);
+        padding: 16px;
+        border-radius: 8px;
+    }
+    .hint {
+        margin: 0 0 10px;
+        font-size: 0.9em;
+        color: #666;
+    }
+    .suggestion-section + .suggestion-section {
+        margin-top: 12px;
+    }
+    .suggestion-section strong {
+        display: block;
+        font-size: 0.9em;
+        margin-bottom: 6px;
+    }
+    .suggestion-list {
+        list-style: none;
+        padding: 0;
+        margin: 0;
+    }
+    .suggestion-list li + li { margin-top: 4px; }
+    .suggestion-btn {
+        width: 100%;
+        text-align: left;
+        background: var(--f3f3f3);
+        border: 1px solid transparent;
+        border-radius: 6px;
+        padding: 8px 10px;
+        cursor: pointer;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        gap: 10px;
+        font-size: 0.9em;
+        color: inherit;
+    }
+    .suggestion-btn:hover {
+        border-color: var(--ccc);
+        background: var(--fff);
+    }
+    .sugg-name { flex: 1 1 auto; font-weight: 500; }
+    .sugg-value { color: #666; font-variant-numeric: tabular-nums; }
+    .sugg-fairness {
+        color: #155724;
+        background: #d4edda;
+        border-radius: 10px;
+        padding: 1px 8px;
+        font-size: 0.8em;
+        white-space: nowrap;
+    }
 </style>
 
 <div class="wrapper">
@@ -316,6 +512,80 @@
                     </div>
                 {/if}
             </div>
+
+            {#if sideA.length > 0 && sideB.length > 0}
+                <div class="analysis">
+                    <h4>Trade Analysis</h4>
+                    <div class="breakdown-grid">
+                        <div class="breakdown-col">
+                            <strong>Side A</strong>
+                            <div class="breakdown-pos">
+                                {#each breakdownA as [pos, count] (pos)}
+                                    <span class="pos-chip">{pos} × {count}</span>
+                                {/each}
+                            </div>
+                            {#if topPieceA}
+                                <div class="top-piece">Top piece: {topPieceA.name} ({topPieceA.value.toLocaleString()})</div>
+                            {/if}
+                        </div>
+                        <div class="breakdown-col">
+                            <strong>Side B</strong>
+                            <div class="breakdown-pos">
+                                {#each breakdownB as [pos, count] (pos)}
+                                    <span class="pos-chip">{pos} × {count}</span>
+                                {/each}
+                            </div>
+                            {#if topPieceB}
+                                <div class="top-piece">Top piece: {topPieceB.name} ({topPieceB.value.toLocaleString()})</div>
+                            {/if}
+                        </div>
+                    </div>
+                </div>
+            {/if}
+
+            {#if lighterSide && verdict.pct >= FAIR_THRESHOLD}
+                <div class="suggestions">
+                    <h4>Suggestions to even out (within 5%)</h4>
+                    <p class="hint">
+                        Side {lighterSide} is short by {gap.toLocaleString()}. Click any option to add it to Side {lighterSide}.
+                    </p>
+                    {#if suggestions.singles.length > 0}
+                        <div class="suggestion-section">
+                            <strong>Single-piece options</strong>
+                            <ul class="suggestion-list">
+                                {#each suggestions.singles as s (s.player.id)}
+                                    <li>
+                                        <button class="suggestion-btn" onclick={() => addSuggestion(s.player)}>
+                                            <span class="sugg-name">{s.player.name} <span class="ac-meta">({s.player.position}{s.player.team ? ` · ${s.player.team}` : ''})</span></span>
+                                            <span class="sugg-value">{s.player.value.toLocaleString()}</span>
+                                            <span class="sugg-fairness">→ {(s.pct * 100).toFixed(1)}% off</span>
+                                        </button>
+                                    </li>
+                                {/each}
+                            </ul>
+                        </div>
+                    {/if}
+                    {#if suggestions.pairs.length > 0}
+                        <div class="suggestion-section">
+                            <strong>Two-piece combos</strong>
+                            <ul class="suggestion-list">
+                                {#each suggestions.pairs as combo (combo.pieces[0].id + '|' + combo.pieces[1].id)}
+                                    <li>
+                                        <button class="suggestion-btn" onclick={() => addPair(combo)}>
+                                            <span class="sugg-name">{combo.pieces[0].name} + {combo.pieces[1].name}</span>
+                                            <span class="sugg-value">{combo.sum.toLocaleString()}</span>
+                                            <span class="sugg-fairness">→ {(combo.pct * 100).toFixed(1)}% off</span>
+                                        </button>
+                                    </li>
+                                {/each}
+                            </ul>
+                        </div>
+                    {/if}
+                    {#if suggestions.singles.length === 0 && suggestions.pairs.length === 0}
+                        <p class="hint">No available pieces close this gap within 5%. Try drafting picks or removing a piece from the heavier side.</p>
+                    {/if}
+                </div>
+            {/if}
 
             {#if sideA.length > 0 || sideB.length > 0}
                 <div class="reset">
