@@ -23,7 +23,21 @@
 
     $: ({rosterID, year} = viewManager.managerID ? getRosterIDFromManagerID(leagueTeamManagers, viewManager.managerID) : {rosterID: viewManager.roster, year: null});
 
-    $: teamTransactions = transactions.filter(t => t.rosters.includes(parseInt(rosterID)));
+    $: teamTransactions = transactions.filter(t => {
+        if (viewManager.managerID) {
+            let season = t.season;
+            if (!leagueTeamManagers.teamManagersMap[season]) {
+                season--;
+                if (!leagueTeamManagers.teamManagersMap[season]) {
+                    season += 2;
+                }
+            }
+            const seasonMap = leagueTeamManagers.teamManagersMap[season];
+            if (!seasonMap) return false;
+            return t.rosters.some(rid => seasonMap[rid]?.managers?.includes(viewManager.managerID));
+        }
+        return t.rosters.includes(parseInt(rosterID));
+    });
 
     $: roster = rosters[rosterID];
 
