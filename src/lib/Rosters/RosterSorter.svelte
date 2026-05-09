@@ -161,15 +161,8 @@
 	</Button>
 </div>
 
-{#each divisions as division, ix}
-	{#if division.name}
-		<div class="banner banner-D-{ix + 1}">
-			<h2>{division.name}</h2>
-		</div>
-	{/if}
-	<div class="division">
-		{#each division.rosters as roster}
-			<Roster division={ix + 1} {expanded} {rosterPositions} {roster} {leagueTeamManagers} {players} {startersAndReserve} rosterValue={valueByRoster[roster.roster_id]} />
-		{/each}
-	</div>
-{/each}
+<div class="division">
+	{#each rosterArray as roster}
+		<Roster division={1} {expanded} {rosterPositions} {roster} {leagueTeamManagers} {players} {startersAndReserve} rosterValue={valueByRoster[roster.roster_id]} />
+	{/each}
+</div>
