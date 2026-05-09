@@ -16,11 +16,16 @@
         max-width: 820px;
         margin: 6em auto 8em;
         line-height: 1.55;
+        background: #fff;
+        color: #333;
+        padding: 2em 2.4em 3em;
+        border-radius: 10px;
     }
     h1 {
         font-size: 2.2em;
         text-align: center;
         margin: 1em 0 0.2em;
+        color: #1a1a1a;
     }
     .subtitle {
         text-align: center;
@@ -32,10 +37,12 @@
         font-size: 1.5em;
         line-height: 1.2em;
         margin-top: 2.2em;
+        color: #1a1a1a;
     }
     h3 {
         font-size: 1.15em;
         margin: 1.4em 0 0.4em;
+        color: #1a1a1a;
     }
     p, li {
         color: #555;
