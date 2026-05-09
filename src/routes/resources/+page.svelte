@@ -1,9 +1,11 @@
 <script>
 	import LinearProgress from '@smui/linear-progress';
-	import { News, Resources } from '$lib/components';
+	import { News } from '$lib/components';
+	import HelpfulResources from '$lib/HelpfulResources/HelpfulResources.svelte';
 
 	export let data;
 	const articlesData = data.articlesData;
+	const resourcesOverride = data.resourcesOverride;
 </script>
 
 <style>
@@ -16,7 +18,7 @@
     }
 </style>
 
-<Resources />
+<HelpfulResources override={resourcesOverride} />
 
 <hr />
 
@@ -27,9 +29,7 @@
 		<LinearProgress indeterminate />
 	</div>
 {:then news}
-	<!-- promise was fulfilled -->
 	<News {news}/>
 {:catch error}
-	<!-- promise was rejected -->
 	<p>Something went wrong: {error.message}</p>
 {/await}

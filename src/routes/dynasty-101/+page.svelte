@@ -1,5 +1,11 @@
 <script>
     import { onMount } from 'svelte';
+    import { marked } from 'marked';
+    import EditButton from '$lib/Edit/EditButton.svelte';
+
+    let { data } = $props();
+    let override = $state(data.override);
+    const overrideHtml = $derived(override ? marked.parse(override) : null);
 
     let s1, s2, s3, s4, s5, s6, s7, s8, s9;
     let activeSection = $state(1);
@@ -25,6 +31,7 @@
     };
 
     onMount(() => {
+        if (override) return;
         const refs = [s1, s2, s3, s4, s5, s6, s7, s8, s9];
         const observer = new IntersectionObserver(
             (entries) => {
@@ -270,6 +277,16 @@
         text-align: center;
     }
 
+    .override-content :global(h1) { font-size: 1.8em; margin: 0.4em 0 0.4em; color: #00316b; }
+    .override-content :global(h2) { font-size: 1.4em; margin: 1.6em 0 0.4em; color: #00316b; padding-bottom: 0.3em; border-bottom: 2px solid #e0e7f3; }
+    .override-content :global(h3) { font-size: 1.15em; margin: 1.4em 0 0.4em; color: #1a1a1a; }
+    .override-content :global(p), .override-content :global(li) { color: #444; }
+    .override-content :global(table) { border-collapse: collapse; width: 100%; margin: 1em 0; }
+    .override-content :global(th), .override-content :global(td) { padding: 8px 12px; border-bottom: 1px solid #e5e5e5; text-align: left; }
+    .override-content :global(th) { background: linear-gradient(180deg, #f5f9ff 0%, #e8f0fb 100%); color: #00316b; }
+    .override-content :global(blockquote) { border-left: 4px solid #1976d2; background: #e3f2fd; padding: 0.6em 1em; border-radius: 6px; }
+    .override-content :global(a) { color: #00316b; }
+
     @media (max-width: 900px) {
         .page {
             grid-template-columns: 1fr;
@@ -302,6 +319,21 @@
     }
 </style>
 
+<EditButton
+    storageKey="dynasty-101"
+    initialValue={override ?? ''}
+    label="Edit Dynasty 101"
+    helpText="Markdown content here REPLACES the entire Dynasty 101 page when saved. Leave empty (or click Reset) to use the built-in default."
+    onSaved={(v) => (override = v)}
+/>
+
+{#if override}
+    <article class="page" style="grid-template-columns: 1fr;">
+        <div class="wrap override-content">
+            {@html overrideHtml}
+        </div>
+    </article>
+{:else}
 <div class="page">
     <button
         class="mobile-toc-toggle"
@@ -646,3 +678,4 @@
         </p>
     </article>
 </div>
+{/if}

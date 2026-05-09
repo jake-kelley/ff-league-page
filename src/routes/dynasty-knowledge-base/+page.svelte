@@ -1,8 +1,20 @@
 <script>
+    import { marked } from 'marked';
+    import EditButton from '$lib/Edit/EditButton.svelte';
+
     let { data } = $props();
+    let articles = $state(data.articles);
 
     let query = $state('');
     let selectedSlug = $state(data.articles[0]?.slug ?? '');
+
+    const updateArticleContent = (slug, newContent) => {
+        articles = articles.map((a) => {
+            if (a.slug !== slug) return a;
+            const content = newContent ?? a.content;
+            return { ...a, content, contentHtml: marked.parse(content), hasOverride: !!newContent };
+        });
+    };
 
     const escapeHtml = (s) =>
         s.replace(/[&<>"']/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' })[c]);
@@ -18,8 +30,8 @@
 
     const filteredArticles = $derived.by(() => {
         const q = query.trim().toLowerCase();
-        if (!q) return data.articles.map((a) => ({ ...a, matchCount: 0 }));
-        return data.articles
+        if (!q) return articles.map((a) => ({ ...a, matchCount: 0 }));
+        return articles
             .map((a) => {
                 const titleHits = countMatches(a.title, q);
                 const contentHits = countMatches(a.content, q);
@@ -41,9 +53,9 @@
 
     const selected = $derived(
         filteredArticles.find((a) => a.slug === selectedSlug) ??
-            data.articles.find((a) => a.slug === selectedSlug) ??
+            articles.find((a) => a.slug === selectedSlug) ??
             filteredArticles[0] ??
-            data.articles[0]
+            articles[0]
     );
 
     const renderedContent = $derived.by(() => {
@@ -371,10 +383,22 @@
     }
 </style>
 
+{#if selected}
+    {#key selected.slug}
+        <EditButton
+            storageKey={`kb:${selected.slug}`}
+            initialValue={selected.content ?? ''}
+            label={`Edit · ${selected.title}`}
+            helpText="Markdown for THIS article. Saves an override that replaces the source .md file. Click Reset to restore the built-in default."
+            onSaved={(v) => updateArticleContent(selected.slug, v)}
+        />
+    {/key}
+{/if}
+
 <div class="wrap">
     <div class="header">
         <h1>Dynasty Knowledge Base</h1>
-        <p class="subtitle">{data.articles.length} articles · search and browse the full knowledge base</p>
+        <p class="subtitle">{articles.length} articles · search and browse the full knowledge base</p>
         <div class="search">
             <input
                 type="search"

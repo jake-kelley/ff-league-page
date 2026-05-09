@@ -1,10 +1,12 @@
 import { readFileSync, readdirSync } from 'node:fs';
 import { join } from 'node:path';
 import { marked } from 'marked';
+import { kvGet } from '$lib/server/contentStore';
 
 marked.setOptions({ gfm: true, breaks: false });
 
-export const prerender = true;
+// Cannot prerender now that overrides are read at request time.
+export const prerender = false;
 
 const KB_DIR = join(process.cwd(), 'fantasy-football-training-data');
 
@@ -60,18 +62,24 @@ export async function load() {
         .filter((f) => f.endsWith('.md') && !SKIP.has(f))
         .sort();
 
-    const articles = files.map((f) => {
-        const content = readFileSync(join(KB_DIR, f), 'utf-8');
-        return {
-            slug: f.replace(/\.md$/i, '').toLowerCase(),
-            filename: f,
-            title: deriveTitle(f, content),
-            category: categorize(f),
-            content,
-            contentHtml: marked.parse(content),
-            wordCount: content.trim().split(/\s+/).length,
-        };
-    });
+    const articles = await Promise.all(
+        files.map(async (f) => {
+            const slug = f.replace(/\.md$/i, '').toLowerCase();
+            const baseContent = readFileSync(join(KB_DIR, f), 'utf-8');
+            const override = await kvGet(`content:kb:${slug}`);
+            const content = override ?? baseContent;
+            return {
+                slug,
+                filename: f,
+                title: deriveTitle(f, content),
+                category: categorize(f),
+                content,
+                hasOverride: !!override,
+                contentHtml: marked.parse(content),
+                wordCount: content.trim().split(/\s+/).length,
+            };
+        })
+    );
 
     return { articles, categoryOrder: CATEGORY_ORDER };
 }

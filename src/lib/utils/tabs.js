@@ -109,7 +109,7 @@ export const tabs = [
     },
     {
         icon: 'lightbulb',
-        label: 'Resources',
+        label: 'Resources & News',
         dest: '/resources',
         key: 'resources',
     },
