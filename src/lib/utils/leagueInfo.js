@@ -119,7 +119,7 @@ export const managers = [
       "bio": "Manages Golden Charbonnet in Florida Men Incorporated (FMI).",
       "photo": "https://sleepercdn.com/uploads/e411a575c26e159e2ceceb093dd40d7a.jpg",
       "favoriteTeam": "mia",
-      "mode": "Rebuild",
+      "mode": "Win Now",
       "preferredContact": "Sleeper",
     },
   ]

@@ -61,6 +61,11 @@
         const sign = t > 0 ? '+' : '';
         return `${sign}${t}`;
     };
+
+    const PLAYER_FALLBACK = 'https://sleepercdn.com/images/v2/icons/player_default.webp';
+    const isPick = (pos) => pos === 'PICK' || pos === 'RDP';
+    const playerThumb = (sleeperId) =>
+        sleeperId ? `https://sleepercdn.com/content/nfl/players/thumb/${sleeperId}.jpg` : PLAYER_FALLBACK;
 </script>
 
 <style>
@@ -145,6 +150,26 @@
         background: #e8eef7;
         color: #00316b;
     }
+    .player-cell {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+    }
+    .thumb {
+        width: 36px;
+        height: 36px;
+        border-radius: 50%;
+        background: #e8eef7;
+        object-fit: cover;
+        flex-shrink: 0;
+        box-shadow: 0 1px 3px rgba(0, 0, 0, 0.08);
+    }
+    .thumb.pick {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 1.1em;
+    }
     .empty {
         text-align: center;
         padding: 30px;
@@ -206,7 +231,21 @@
                     {#each filtered as p (p.id)}
                         <tr>
                             <td class="num">{p.overallRank ?? '—'}</td>
-                            <td>{p.name}</td>
+                            <td>
+                                <div class="player-cell">
+                                    {#if isPick(p.position)}
+                                        <div class="thumb pick">📅</div>
+                                    {:else}
+                                        <img
+                                            class="thumb"
+                                            src={playerThumb(p.sleeperId)}
+                                            onerror={(e) => { e.currentTarget.onerror = null; e.currentTarget.src = PLAYER_FALLBACK; }}
+                                            alt=""
+                                        />
+                                    {/if}
+                                    <span>{p.name}</span>
+                                </div>
+                            </td>
                             <td><span class="pos-pill">{p.position}</span></td>
                             <td>{p.team || '—'}</td>
                             <td class="num">{p.age ?? '—'}</td>

@@ -87,6 +87,12 @@
     const topPieceA = $derived(sideA.length ? sideA.reduce((m, p) => (p.value ?? 0) > (m.value ?? 0) ? p : m) : null);
     const topPieceB = $derived(sideB.length ? sideB.reduce((m, p) => (p.value ?? 0) > (m.value ?? 0) ? p : m) : null);
 
+    const PLAYER_FALLBACK = 'https://sleepercdn.com/images/v2/icons/player_default.webp';
+    const isPick = (pos) => pos === 'PICK' || pos === 'RDP';
+    const playerThumb = (sleeperId) =>
+        sleeperId ? `https://sleepercdn.com/content/nfl/players/thumb/${sleeperId}.jpg` : PLAYER_FALLBACK;
+    const onThumbError = (e) => { e.currentTarget.onerror = null; e.currentTarget.src = PLAYER_FALLBACK; };
+
     const lighterSide = $derived.by(() => {
         if (sideA.length === 0 || sideB.length === 0) return null;
         if (totalA === totalB) return null;
@@ -246,10 +252,36 @@
         cursor: pointer;
         display: flex;
         justify-content: space-between;
+        align-items: center;
         gap: 10px;
     }
     .ac-item:hover { background: var(--f3f3f3); }
     .ac-meta { color: #888; font-size: 0.85em; }
+
+    .ac-name {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        flex: 1;
+        min-width: 0;
+    }
+
+    .thumb {
+        width: 32px;
+        height: 32px;
+        border-radius: 50%;
+        background: #e8eef7;
+        object-fit: cover;
+        flex-shrink: 0;
+        box-shadow: 0 1px 3px rgba(0, 0, 0, 0.08);
+    }
+    .thumb.sm { width: 28px; height: 28px; }
+    .thumb.pick {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 1em;
+    }
 
     .selected {
         list-style: none;
@@ -262,6 +294,14 @@
         align-items: center;
         padding: 6px 8px;
         border-radius: 4px;
+        gap: 8px;
+    }
+    .selected .name {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        flex: 1;
+        min-width: 0;
     }
     .selected li:nth-child(even) { background: var(--f3f3f3); }
     .selected .remove {
@@ -396,7 +436,7 @@
         border-color: var(--ccc);
         background: var(--fff);
     }
-    .sugg-name { flex: 1 1 auto; font-weight: 500; }
+    .sugg-name { flex: 1 1 auto; font-weight: 500; display: flex; align-items: center; gap: 8px; min-width: 0; }
     .sugg-value { color: #666; font-variant-numeric: tabular-nums; }
     .sugg-fairness {
         color: #155724;
@@ -442,7 +482,14 @@
                                         onclick={() => addToSide('A', s)}
                                         onkeydown={(e) => { if (e.key === 'Enter') addToSide('A', s); }}
                                     >
-                                        <span>{s.name} <span class="ac-meta">({s.position}{s.team ? ` · ${s.team}` : ''})</span></span>
+                                        <span class="ac-name">
+                                            {#if isPick(s.position)}
+                                                <span class="thumb sm pick">📅</span>
+                                            {:else}
+                                                <img class="thumb sm" src={playerThumb(s.sleeperId)} onerror={onThumbError} alt="" />
+                                            {/if}
+                                            <span>{s.name} <span class="ac-meta">({s.position}{s.team ? ` · ${s.team}` : ''})</span></span>
+                                        </span>
                                         <span class="ac-meta">{s.value.toLocaleString()}</span>
                                     </div>
                                 {/each}
@@ -452,7 +499,14 @@
                     <ul class="selected">
                         {#each sideA as p (p.id)}
                             <li>
-                                <span>{p.name} <span class="ac-meta">({p.position})</span></span>
+                                <span class="name">
+                                    {#if isPick(p.position)}
+                                        <span class="thumb sm pick">📅</span>
+                                    {:else}
+                                        <img class="thumb sm" src={playerThumb(p.sleeperId)} onerror={onThumbError} alt="" />
+                                    {/if}
+                                    <span>{p.name} <span class="ac-meta">({p.position})</span></span>
+                                </span>
                                 <span>
                                     <span class="ac-meta">{p.value.toLocaleString()}</span>
                                     <button class="remove" aria-label="Remove" onclick={() => removeFromSide('A', p.id)}>×</button>
@@ -482,7 +536,14 @@
                                         onclick={() => addToSide('B', s)}
                                         onkeydown={(e) => { if (e.key === 'Enter') addToSide('B', s); }}
                                     >
-                                        <span>{s.name} <span class="ac-meta">({s.position}{s.team ? ` · ${s.team}` : ''})</span></span>
+                                        <span class="ac-name">
+                                            {#if isPick(s.position)}
+                                                <span class="thumb sm pick">📅</span>
+                                            {:else}
+                                                <img class="thumb sm" src={playerThumb(s.sleeperId)} onerror={onThumbError} alt="" />
+                                            {/if}
+                                            <span>{s.name} <span class="ac-meta">({s.position}{s.team ? ` · ${s.team}` : ''})</span></span>
+                                        </span>
                                         <span class="ac-meta">{s.value.toLocaleString()}</span>
                                     </div>
                                 {/each}
@@ -492,7 +553,14 @@
                     <ul class="selected">
                         {#each sideB as p (p.id)}
                             <li>
-                                <span>{p.name} <span class="ac-meta">({p.position})</span></span>
+                                <span class="name">
+                                    {#if isPick(p.position)}
+                                        <span class="thumb sm pick">📅</span>
+                                    {:else}
+                                        <img class="thumb sm" src={playerThumb(p.sleeperId)} onerror={onThumbError} alt="" />
+                                    {/if}
+                                    <span>{p.name} <span class="ac-meta">({p.position})</span></span>
+                                </span>
                                 <span>
                                     <span class="ac-meta">{p.value.toLocaleString()}</span>
                                     <button class="remove" aria-label="Remove" onclick={() => removeFromSide('B', p.id)}>×</button>
@@ -556,7 +624,14 @@
                                 {#each suggestions.singles as s (s.player.id)}
                                     <li>
                                         <button class="suggestion-btn" onclick={() => addSuggestion(s.player)}>
-                                            <span class="sugg-name">{s.player.name} <span class="ac-meta">({s.player.position}{s.player.team ? ` · ${s.player.team}` : ''})</span></span>
+                                            <span class="sugg-name">
+                                                {#if isPick(s.player.position)}
+                                                    <span class="thumb sm pick">📅</span>
+                                                {:else}
+                                                    <img class="thumb sm" src={playerThumb(s.player.sleeperId)} onerror={onThumbError} alt="" />
+                                                {/if}
+                                                <span>{s.player.name} <span class="ac-meta">({s.player.position}{s.player.team ? ` · ${s.player.team}` : ''})</span></span>
+                                            </span>
                                             <span class="sugg-value">{s.player.value.toLocaleString()}</span>
                                             <span class="sugg-fairness">→ {(s.pct * 100).toFixed(1)}% off</span>
                                         </button>
@@ -572,7 +647,19 @@
                                 {#each suggestions.pairs as combo (combo.pieces[0].id + '|' + combo.pieces[1].id)}
                                     <li>
                                         <button class="suggestion-btn" onclick={() => addPair(combo)}>
-                                            <span class="sugg-name">{combo.pieces[0].name} + {combo.pieces[1].name}</span>
+                                            <span class="sugg-name">
+                                                {#if isPick(combo.pieces[0].position)}
+                                                    <span class="thumb sm pick">📅</span>
+                                                {:else}
+                                                    <img class="thumb sm" src={playerThumb(combo.pieces[0].sleeperId)} onerror={onThumbError} alt="" />
+                                                {/if}
+                                                {#if isPick(combo.pieces[1].position)}
+                                                    <span class="thumb sm pick">📅</span>
+                                                {:else}
+                                                    <img class="thumb sm" src={playerThumb(combo.pieces[1].sleeperId)} onerror={onThumbError} alt="" />
+                                                {/if}
+                                                <span>{combo.pieces[0].name} + {combo.pieces[1].name}</span>
+                                            </span>
                                             <span class="sugg-value">{combo.sum.toLocaleString()}</span>
                                             <span class="sugg-fairness">→ {(combo.pct * 100).toFixed(1)}% off</span>
                                         </button>
