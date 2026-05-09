@@ -1,6 +1,7 @@
 <script>
 	import LinearProgress from '@smui/linear-progress';
 	import { TransactionsPage } from '$lib/components'
+	import ActivitySummary from '$lib/Transactions/ActivitySummary.svelte';
     import { waitForAll } from '$lib/utils/helper';
 
     export let data;
@@ -36,7 +37,8 @@
             <p>Loading league transactions...</p>
             <LinearProgress indeterminate />
         </div>
-    {:then [{transactions, currentTeams, stale}, playersInfo, leagueTeamManagers]}
+    {:then [{transactions, currentTeams, totals, stale}, playersInfo, leagueTeamManagers]}
+        <ActivitySummary {totals} {leagueTeamManagers} />
         <TransactionsPage {playersInfo} {stale} {transactions} {currentTeams} {show} {query} queryPage={page} {perPage} postUpdate={true} {leagueTeamManagers} />
     {:catch error}
         <p class="center">Something went wrong: {error.message}</p>
