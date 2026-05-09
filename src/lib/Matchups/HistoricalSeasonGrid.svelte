@@ -191,6 +191,10 @@
         text-overflow: ellipsis;
         max-width: 140px;
     }
+    td.w, td.l, td.t {
+        padding: 4px 6px;
+        line-height: 1.15em;
+    }
     td.w {
         background: #e6f4ea;
         color: #1b5e20;
@@ -203,6 +207,25 @@
     td.t {
         background: #fff7d0;
         color: #5a4a00;
+    }
+    .cell-score {
+        font-weight: 700;
+        font-size: 1em;
+        font-variant-numeric: tabular-nums;
+    }
+    .cell-opp {
+        font-size: 0.72em;
+        font-weight: 500;
+        opacity: 0.78;
+        max-width: 78px;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+        margin: 1px auto 0;
+    }
+    .cell-opp .arrow {
+        opacity: 0.55;
+        margin-right: 1px;
     }
     .summary {
         background: #fafbfd;
@@ -224,10 +247,12 @@
 
     @media (max-width: 700px) {
         table { font-size: 0.78em; }
-        th, td { padding: 5px 6px; }
+        th, td { padding: 4px 5px; }
         .team-cell { min-width: 130px; }
         .team-cell img { width: 18px; height: 18px; }
         .team-cell .name { max-width: 100px; font-size: 0.95em; }
+        td.w, td.l, td.t { padding: 3px 5px; }
+        .cell-opp { max-width: 64px; font-size: 0.66em; }
     }
 </style>
 
@@ -284,7 +309,10 @@
                             {#each grid.weeks as w (w)}
                                 {@const cell = r.weeks[w]}
                                 {#if cell}
-                                    <td class={cell.result} title="vs {cell.opp} — {fmt(cell.points)} to {fmt(cell.oppPoints)}">{fmt(cell.points)}</td>
+                                    <td class={cell.result} title="vs {cell.opp} — {fmt(cell.points)} to {fmt(cell.oppPoints)}">
+                                        <div class="cell-score">{fmt(cell.points)}</div>
+                                        <div class="cell-opp"><span class="arrow">vs</span> {cell.opp}</div>
+                                    </td>
                                 {:else}
                                     <td>—</td>
                                 {/if}
