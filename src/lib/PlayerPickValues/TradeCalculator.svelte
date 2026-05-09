@@ -6,12 +6,55 @@
     let players = $state([]);
     let loadError = $state(null);
 
-    valueData
-        .then((d) => { players = d.players ?? []; })
-        .catch((err) => { loadError = err.message ?? String(err); });
-
     let sideA = $state([]);
     let sideB = $state([]);
+
+    const decodeAssetCodes = (raw, pool) => {
+        if (!raw) return [];
+        const result = [];
+        for (const code of raw.split(',')) {
+            const colon = code.indexOf(':');
+            if (colon < 0) continue;
+            const type = code.slice(0, colon);
+            const val = code.slice(colon + 1);
+            if (type === 'p') {
+                const p = pool.find((pl) => String(pl.sleeperId) === val);
+                if (p) result.push(p);
+            } else if (type === 'pick') {
+                const [yearStr, roundStr] = val.split('-');
+                const year = parseInt(yearStr, 10);
+                const round = parseInt(roundStr, 10);
+                const cands = pool.filter((pl) => {
+                    if (pl.position !== 'PICK' && pl.position !== 'RDP') return false;
+                    const m = pl.name.match(/(\d{4}).*?(\d)(?:st|nd|rd|th)/i);
+                    if (!m) return false;
+                    return parseInt(m[1], 10) === year && parseInt(m[2], 10) === round;
+                });
+                if (cands.length) {
+                    const vanilla = cands.find((p) => !/early|mid|late/i.test(p.name));
+                    result.push(vanilla ?? cands[0]);
+                }
+            }
+        }
+        return result;
+    };
+
+    const applyUrlTrade = (pool) => {
+        if (typeof window === 'undefined') return;
+        const params = new URLSearchParams(window.location.search);
+        const a = params.get('a');
+        const b = params.get('b');
+        if (!a && !b) return;
+        sideA = decodeAssetCodes(a, pool);
+        sideB = decodeAssetCodes(b, pool);
+    };
+
+    valueData
+        .then((d) => {
+            players = d.players ?? [];
+            applyUrlTrade(players);
+        })
+        .catch((err) => { loadError = err.message ?? String(err); });
     let queryA = $state('');
     let queryB = $state('');
 

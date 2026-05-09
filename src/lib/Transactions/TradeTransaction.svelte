@@ -1,9 +1,38 @@
 <script>
+	import { goto } from '$app/navigation';
 	import { gotoManager } from '$lib/utils/helper';
 	import { getTeamFromTeamManagers } from '$lib/utils/helperFunctions/universalFunctions';
 	import TransactionMove from './TransactionMove.svelte';
 
 	export let transaction, players, leagueTeamManagers;
+
+	const buildTradeCalcUrl = () => {
+		const sides = transaction.rosters.map(() => []);
+		for (const move of transaction.moves) {
+			for (let i = 0; i < move.length; i++) {
+				const cell = move[i];
+				if (!cell || cell === 'origin') continue;
+				if (cell.player) sides[i].push(`p:${cell.player}`);
+				else if (cell.pick) sides[i].push(`pick:${cell.pick.season}-${cell.pick.round}`);
+			}
+		}
+		if (sides.length < 2) return null;
+		const params = new URLSearchParams();
+		if (sides[0].length) params.set('a', sides[0].join(','));
+		if (sides[1].length) params.set('b', sides[1].join(','));
+		const qs = params.toString();
+		return qs ? `/trade-calculator?${qs}` : null;
+	};
+
+	const openInCalc = (e) => {
+		const url = buildTradeCalcUrl();
+		if (url) goto(url);
+	};
+
+	const teamHeaderClick = (e, owner) => {
+		e.stopPropagation();
+		gotoManager({ year: transaction.season, leagueTeamManagers, rosterID: owner });
+	};
 </script>
 
 <style>
@@ -12,6 +41,26 @@
         position: relative;
         flex-direction: column;
         margin-bottom: 1em;
+        cursor: pointer;
+        transition: transform 0.1s, box-shadow 0.1s;
+    }
+    .tradeTransaction:hover {
+        transform: translateY(-1px);
+    }
+    .tradeTransaction:hover tbody {
+        box-shadow: 0 4px 12px rgba(25, 118, 210, 0.12);
+    }
+    .calc-hint {
+        text-align: center;
+        font-size: 0.7em;
+        color: #1976d2;
+        font-weight: 600;
+        padding: 0.4em 0 0;
+        opacity: 0;
+        transition: opacity 0.15s;
+    }
+    .tradeTransaction:hover .calc-hint {
+        opacity: 1;
     }
     
     .name {
@@ -91,12 +140,19 @@
     }
 </style>
 
-<div class="tradeTransaction">
+<div
+    class="tradeTransaction"
+    role="button"
+    tabindex="0"
+    onclick={openInCalc}
+    onkeydown={(e) => { if (e.key === 'Enter') openInCalc(e); }}
+    title="Open in Trade Calculator"
+>
     <table>
         <thead>
             <tr>
                 {#each transaction.rosters as owner}
-                    <th class="name clickable" style="width: {1 / transaction.rosters.length * 100}%;" onclick={() => gotoManager({year: transaction.season, leagueTeamManagers, rosterID: owner})}>
+                    <th class="name clickable" style="width: {1 / transaction.rosters.length * 100}%;" onclick={(e) => teamHeaderClick(e, owner)}>
                         <div class="holder">
                             <img class="avatar" src="{getTeamFromTeamManagers(leagueTeamManagers, owner, transaction.season).avatar}" alt="{getTeamFromTeamManagers(leagueTeamManagers, owner, transaction.season).name} avatar"/>
                             <span class="ownerName">
@@ -120,4 +176,5 @@
     <span class="date">
         {transaction.date}
     </span>
+    <span class="calc-hint">📊 Click to analyze in Trade Calculator</span>
 </div>
