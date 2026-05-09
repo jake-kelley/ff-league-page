@@ -1,5 +1,3 @@
-import { readFileSync, readdirSync } from 'node:fs';
-import { join } from 'node:path';
 import { marked } from 'marked';
 import { kvGet } from '$lib/server/contentStore';
 
@@ -8,7 +6,13 @@ marked.setOptions({ gfm: true, breaks: false });
 // Cannot prerender now that overrides are read at request time.
 export const prerender = false;
 
-const KB_DIR = join(process.cwd(), 'fantasy-football-training-data');
+// Bundle every .md file at build time so the serverless function has them
+// without depending on the runtime filesystem layout.
+const rawFiles = import.meta.glob('/fantasy-football-training-data/*.md', {
+    query: '?raw',
+    import: 'default',
+    eager: true,
+});
 
 const SKIP = new Set([
     'COMBINED_dynasty_fantasy_football_training_corpus.md',
@@ -58,21 +62,24 @@ function deriveTitle(filename, content) {
 }
 
 export async function load() {
-    const files = readdirSync(KB_DIR)
-        .filter((f) => f.endsWith('.md') && !SKIP.has(f))
-        .sort();
+    const files = Object.entries(rawFiles)
+        .map(([path, content]) => {
+            const filename = path.split('/').pop();
+            return { filename, content };
+        })
+        .filter(({ filename }) => !SKIP.has(filename))
+        .sort((a, b) => a.filename.localeCompare(b.filename));
 
     const articles = await Promise.all(
-        files.map(async (f) => {
-            const slug = f.replace(/\.md$/i, '').toLowerCase();
-            const baseContent = readFileSync(join(KB_DIR, f), 'utf-8');
+        files.map(async ({ filename, content: baseContent }) => {
+            const slug = filename.replace(/\.md$/i, '').toLowerCase();
             const override = await kvGet(`content:kb:${slug}`);
             const content = override ?? baseContent;
             return {
                 slug,
-                filename: f,
-                title: deriveTitle(f, content),
-                category: categorize(f),
+                filename,
+                title: deriveTitle(filename, content),
+                category: categorize(filename),
                 content,
                 hasOverride: !!override,
                 contentHtml: marked.parse(content),
