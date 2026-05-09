@@ -1,102 +1,99 @@
 <div align="center">
   <img alt="League Page logo" src="https://storage.googleapis.com/nfl-player-data/League%20Page.png" width="100px" />
 
-  **[(Unofficial) Sleeper League Page Template](https://github.com/jake-kelley/ff-league-page/)**
+**MFFGA — Dynasty League Page**
 
+Custom Sleeper league site for the MFFGA dynasty league, deployed at [mffga.win](https://www.mffga.win).
 
-Generate a custom league page for your Sleeper fantasy football league in just a few steps
-  <br />
-  ![GitHub](https://img.shields.io/github/license/jake-kelley/ff-league-page) [![node](https://img.shields.io/badge/node-%3E%3D14-brightgreen)](https://github.com/jake-kelley/ff-league-page) ![GitHub top language](https://img.shields.io/github/languages/top/jake-kelley/ff-league-page?color=ff3e00) ![GitHub forks](https://img.shields.io/github/forks/jake-kelley/ff-league-page) ![GitHub pull requests](https://img.shields.io/github/issues-pr/jake-kelley/ff-league-page) ![GitHub issues](https://img.shields.io/github/issues-raw/jake-kelley/ff-league-page)
 </div>
 
+> Forked from the [(Unofficial) Sleeper League Page Template](https://github.com/nmelhado/league-page) and heavily extended for dynasty-format use. Original credit to Nicholas Melhado for the base.
 
-![League Page demo](https://storage.googleapis.com/nfl-player-data/league-page-demo.png)
+---
 
-<div align="center">
-<a href="https://www.legendsleagueff.com/" style="font-size:2em; text-decoration: underline;" >Live demo</a>
-</div>
+## What's in here
 
-<br>
-<br>
+A full-featured dynasty league site that pulls live data from the Sleeper API and adds tooling around it. Core features:
 
------------
+**League info**
+- Live rosters with FantasyCalc total-value badges, expandable benches, and a flattened layout (no division banners)
+- **Value Rankings** panel — positional stacked-bar leaderboard with league-average marker, per-team % vs avg, and a *Include rookie picks* toggle that recomputes totals + sort order on the fly
+- **Historical Matchups** — year dropdown back through `previous_league_id`; each past season renders as a dense per-week × per-manager grid with W/L color, opponent avatars, and PF / PA / Avg / High summary columns
+- Manager pages with all-time trade history (resolved by managerID, not the brittle current-season rosterID), favorite-team logos, contact icons, and rebuild-mode badges
+- **Constitution** + **Dynasty 101** primer — both markdown-driven with sticky TOC, active-section tracking, and a unified blue/orange/green callout palette
 
-<br>
-<br>
+**Trade tooling**
+- **Trade Calculator** with FantasyCalc values, positional analysis, and a *suggestion engine* that proposes single-piece adders (and 2-piece combos) to bring lopsided trades within 5% of fair
+- **Click any trade card → opens in the calculator with the trade pre-loaded.** Picks resolve to their actual draft slot via `slot_to_roster_id` / `draft_order` (e.g. `2026 Pick 1.07`), not generic `2026 1st`
+- Trade cards display the specific pick slot inline (`Pick 1.07`)
+- Player & pick values page with sortable filters and Sleeper player thumbnails
 
-## Features
-- Up-to-date league information
-- Easy to navigate trade and waiver history
-- Awards and accolades
-- Records and rankings for every season
-- Current season power rankings
-- Previous drafts and upcoming draft preview
-- Season matchups
-- Manager bio pages
-- League constitution
-- Helpful fantasy football resources and news<br><br>
-- Built using [Svelte](https://svelte.dev/docs) and [SvelteKit](https://kit.svelte.dev/docs)
-- Desktop, Mobile and [PWA](https://mobilesyrup.com/2020/05/24/how-install-progressive-web-app-pwa-android-ios-pc-mac/) compatible 
-- League information generated from [Sleeper API](https://docs.sleeper.app/)
+**Knowledge layer**
+- **Dynasty KB** — 50+ markdown articles, full-text search across title + body, sticky category sidebar with active-article highlighting, per-article match counts, and a fixed light reading panel
+- **Trades & Waivers** tab includes a *Manager Activity* panel showing all-time trade/waiver counts per team, sorted by total activity
+- **Helpful Resources & News** with an inline link editor (add / remove / reorder)
 
+**Editing (password-gated)**
+- Constitution, Dynasty 101, KB articles, and the Resources link list can all be edited live without a redeploy
+- Edit button → password prompt → 8-hour session cookie → in-place markdown textarea pre-filled with the current content
+- Persisted in Upstash Redis (Vercel marketplace KV); falls back to in-memory dev store when env vars are missing
+- "Reset to default" wipes the override and restores the bundled source
 
-## Roadmap
-  - [ ] Add integration tests
-  - [ ] Cleanup repo
-  - [x] ~~Test redraft leagues~~
-  - [x] ~~Playoff matchups and current bracket~~
-  - [ ] Dynasty power rankings
-  - [x] ~~Hyperlink all manager references~~
-  - [x] ~~Fix all css issues when actively resizing the window~~
+**Other touches**
+- Player thumbnails (Sleeper CDN) on roster rows, trade cards, value tables, and trade-calc autocompletes
+- Mobile compaction tuned for ≤768px (smaller player rows, condensed Value Rankings, banner removal)
+- Light reading panels stay light even in system dark mode (Constitution / Dynasty 101 / KB)
+- ChatGPT-style emoji headers across content pages
 
-## Some real-life League Pages
-- [Legends League](https://www.legendsleagueff.com/)
+## Tech stack
 
-### Setup your own League Page
-*If you've never touched a line of code, use the [Training Wheels Guide](./TRAINING_WHEELS.md) instead*
-- Fork this repo
-- Go to `/src/lib/utils/leagueInfo.js` and replace `your_league_id` (line 2) and `your_league_name` (line 3) with your Sleeper league ID and league name. (Optionally, also fill out the dues, and dynasty fields):
-![league ID instructions](https://storage.googleapis.com/nfl-player-data/league_id_instructions.png)
-- Write your homepage text (league intro/bio) `/src/lib/utils/leagueInfo.js` (lines 9-14)
-![homepage text](https://storage.googleapis.com/nfl-player-data/homepage_text.png)
-- Next, fill out and uncomment (delete the `// ` at the beginning of each line) the managers' object (lines 27 - 92), also located in `/src/lib/utils/leagueInfo.js`, there should be one object for each manager. The structure may change in the future (it has already 😅). The source of truth is down at the bottom, lines 104-126 (for assistance, consult the [Training Wheels guide](https://github.com/jake-kelley/ff-league-page/blob/master/TRAINING_WHEELS.md#ii-adding-managers-and-changing-the-homepage-text)).
-![manager object](https://storage.googleapis.com/nfl-player-data/managersObj.png)
-![manager rendering](https://storage.googleapis.com/nfl-player-data/managerRendering.png)
-- Add corresponding images for managers to the `/static/managers/` directory and make the sure the name matches with what was provided above
-- If you run into trouble adding managers, reference the [Training Wheels' Manager section](https://github.com/jake-kelley/ff-league-page/blob/master/TRAINING_WHEELS.md#ii-adding-managers-and-changing-the-homepage-text)
-- Add blog capabilities with [contenful](https://contentful.com/)
-    - Make a free contentful account
-    - Click on `Content model` in the top bar and create Blog Post (id: `blog_post`) and Blog Comment (id: `blog_comment`) content models that matches the specs below **(All fields are required)**:
-    ![content model](https://storage.googleapis.com/nfl-player-data/contentModel.jpg)
-    ![comment model](https://storage.googleapis.com/nfl-player-data/commentModel.jpg)
-        - Use sleeper your sleeper username for the author field when creating posts
-    - Create a Content Management API key
-    - For local development add a `.env` file to the root of your project and add the following variables
-        - `VITE_CONTENTFUL_ACCESS_TOKEN` with the corresponding value obtained from contenful
-        - `VITE_CONTENTFUL_SPACE` with your space ID, obtained from contenful
-    - Create a Content Delivery / Preview API key
-    - For local development add the following variable to your `.env` file
-        - `VITE_CONTENTFUL_CLIENT_ACCESS_TOKEN` with the `Content Delivery API - access token` from contenful
-    - To add the variables for production, go to your project settings and add the corresponding keys (using the same names as above) to the environment variables section
-    - For more detailed instructions, follow the [Training Wheels blog instructions](https://github.com/jake-kelley/ff-league-page/blob/master/TRAINING_WHEELS.md#iii-add-a-blog)
-    - Finally, set `enableBlog` to true in `src/lib/utils/leagueInfo.js`
-- Customize your league constitution `/src/routes/constitution/index.svelte` (remember to adjust the table of contents accordingly)
------------
-## For local developing [npm](https://docs.npmjs.com/getting-started/what-is-npm):
+- [SvelteKit](https://svelte.dev/docs/kit) with Svelte 5 runes mode
+- [`@sveltejs/adapter-vercel`](https://kit.svelte.dev/docs/adapter-vercel) — deployed on Vercel
+- [Sleeper API](https://docs.sleeper.app/) — rosters, transactions, drafts, matchups, brackets
+- [FantasyCalc API](https://api.fantasycalc.com/) — dynasty player + pick values (cached for 12h via a Vercel cron-warmed CDN cache)
+- [`marked`](https://marked.js.org/) — markdown rendering for KB, Constitution, Dynasty 101
+- [`@upstash/redis`](https://upstash.com/) — KV store for editor overrides + sessions
+- [SMUI](https://sveltematerialui.com/) — Material design components (data tables, buttons, etc.)
 
-    npm install
-    npm run dev --
-    npm run dev -- --host (to test on other devices locally)
+## Setup
 
-## For local developing with a container
+### League data
 
-    npm run docker-run
+`src/lib/utils/leagueInfo.js` — change:
 
-## To deploy on [Vercel](https://vercel.com/) for free:
-- Push up your changes
-- [Link your github repo to Vercel](https://vercel.com/guides/deploying-svelte-with-vercel#step-2:-deploying-your-svelte-app-with-vercel)
-- (Optional) If you want to add analytics, go to the [Analytics page in Vercel](https://vercel.com/d?to=%2F%5Bteam%5D%2F%5Bproject%5D%2Fanalytics&title=Open+Web+Analytics) and turn them on! They will start tracking after the next deployment.
-- That's it!
+- `leagueID` to your Sleeper league ID
+- `leagueName`, `dues`, `dynasty` to fit your league
+- `homepageText` for your league intro
+- `managers` array — one entry per manager with `name`, `managerID` (Sleeper user_id), `bio`, `photo`, optional `favoriteTeam` (lowercase NFL abbreviation), `mode` (`"Win Now"` / `"Rebuild"`), and `preferredContact` (`"Sleeper"`, `"Discord"`, `"Email"`, etc.)
 
-<!-- ## Development
-see [CONTRIBUTING.md](.github/CONTRIBUTING.md) -->
+### Environment variables (Vercel)
+
+| Var | Purpose |
+| --- | --- |
+| `EDIT_PASSWORD` | Shared password for the edit button on Constitution / Dynasty 101 / KB / Resources |
+| `UPSTASH_REDIS_REST_URL` | KV endpoint (auto-injected when you install Upstash Redis from Vercel Marketplace) |
+| `UPSTASH_REDIS_REST_TOKEN` | KV token (auto-injected) |
+| `VITE_CONTENTFUL_SPACE` | (Optional, for blog) Contentful space ID |
+| `VITE_CONTENTFUL_ACCESS_TOKEN` | (Optional, for blog) Contentful management token |
+| `VITE_CONTENTFUL_CLIENT_ACCESS_TOKEN` | (Optional, for blog) Contentful delivery token |
+
+### Cron
+
+`vercel.json` runs the FantasyCalc value cache-warmer once a day at 06:00 UTC. The endpoint (`/api/fetch_player_pick_values`) is set with a 12h CDN cache, so a single warm-up keeps values fresh through the day.
+
+### Local dev
+
+```sh
+npm install
+npm run dev
+```
+
+Without Upstash env vars, the editor uses an in-memory store — saves persist for the lifetime of the dev process and won't be visible to other users.
+
+### Deploy
+
+Pushing to `master` auto-deploys to Vercel. For ad-hoc deploys, `vercel --prod` from the repo root.
+
+## License
+
+MIT — see [LICENSE](./LICENSE).
