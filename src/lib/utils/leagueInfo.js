@@ -28,6 +28,7 @@ export const managers = [
       "name": "kdrew3",
       "bio": "Commissioner. Manages SLAB 49IRs in the Nerd Football Conference (NFC).",
       "photo": "https://sleepercdn.com/uploads/0d3803a5532f6efa7e856c6209d0789b.jpg",
+      "favoriteTeam": "min",
     },
     {
       "roster": 2,
@@ -35,6 +36,7 @@ export const managers = [
       "name": "footballguy07",
       "bio": "Manages a team in Florida Men Incorporated (FMI).",
       "photo": "https://sleepercdn.com/avatars/f0edbf4278f53f9425db175073df6584",
+      "favoriteTeam": "hou",
     },
     {
       "roster": 3,
@@ -42,6 +44,7 @@ export const managers = [
       "name": "Burninator37",
       "bio": "Commissioner. Manages Naberhood Watch in Florida Men Incorporated (FMI).",
       "photo": "https://sleepercdn.com/uploads/5cb0d03209ceb3f74840f104651deee3.jpg",
+      "favoriteTeam": "mia",
     },
     {
       "roster": 4,
@@ -49,6 +52,7 @@ export const managers = [
       "name": "enori39",
       "bio": "Manages enori in the Nerd Football Conference (NFC).",
       "photo": "https://sleepercdn.com/avatars/82aec8e811b839b8ec25d7b458afd57b",
+      "favoriteTeam": "min",
     },
     {
       "roster": 5,
@@ -56,6 +60,7 @@ export const managers = [
       "name": "iand98",
       "bio": "Manages a team in the Nerd Football Conference (NFC).",
       "photo": "https://sleepercdn.com/avatars/f0edbf4278f53f9425db175073df6584",
+      "favoriteTeam": "ne",
     },
     {
       "roster": 6,
@@ -63,6 +68,7 @@ export const managers = [
       "name": "an1k",
       "bio": "Manages 2Fast 2Felonious pt Deux in the Nerd Football Conference (NFC).",
       "photo": "https://sleepercdn.com/avatars/e7af4deab0289b4f5505646424895246",
+      "favoriteTeam": "kc",
     },
     {
       "roster": 7,
@@ -70,6 +76,7 @@ export const managers = [
       "name": "fvdiscipline",
       "bio": "Manages Burrowed time in the Nerd Football Conference (NFC).",
       "photo": "https://sleepercdn.com/avatars/b5b5681f00fd2d43c36488a8d561610a",
+      "favoriteTeam": "ne",
     },
     {
       "roster": 8,
@@ -77,6 +84,7 @@ export const managers = [
       "name": "NSDQ",
       "bio": "Manages Number 90 in Florida Men Incorporated (FMI).",
       "photo": "https://sleepercdn.com/avatars/dcf7134f5943f1f2d7cb02500ef12a85",
+      "favoriteTeam": "chi",
     },
     {
       "roster": 9,
@@ -84,6 +92,7 @@ export const managers = [
       "name": "KakeJelley",
       "bio": "Commissioner. Manages GoBills in Florida Men Incorporated (FMI).",
       "photo": "https://sleepercdn.com/avatars/5b1e688214667d9705bf9a59415414d5",
+      "favoriteTeam": "buf",
     },
     {
       "roster": 10,
@@ -91,6 +100,7 @@ export const managers = [
       "name": "Mullma",
       "bio": "Manages Golden Charbonnet in Florida Men Incorporated (FMI).",
       "photo": "https://sleepercdn.com/uploads/e411a575c26e159e2ceceb093dd40d7a.jpg",
+      "favoriteTeam": "mia",
     },
   ]
   
