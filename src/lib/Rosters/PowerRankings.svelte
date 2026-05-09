@@ -14,6 +14,15 @@
 
     $: ranked = [...rankings].sort((a, b) => b.total - a.total);
     $: maxTotal = ranked[0]?.total ?? 1;
+    $: leagueAvg = ranked.length
+        ? Math.round(ranked.reduce((s, r) => s + r.total, 0) / ranked.length)
+        : 0;
+    $: avgPct = maxTotal > 0 ? (leagueAvg / maxTotal) * 100 : 0;
+
+    const deltaPct = (total, avg) => {
+        if (!avg) return 0;
+        return Math.round(((total - avg) / avg) * 100);
+    };
 
     const teamFor = (rosterId) => {
         const season = leagueTeamManagers.currentSeason;
@@ -113,15 +122,35 @@
         min-width: 0;
     }
     .bar {
+        position: relative;
         display: flex;
         height: 18px;
         background: #f3f3f3;
         border-radius: 4px;
         overflow: hidden;
     }
-    .bar > span {
+    .bar > span:not(.avg-line) {
         height: 100%;
         display: block;
+    }
+    .avg-line {
+        position: absolute;
+        top: -3px;
+        bottom: -3px;
+        width: 2px;
+        background: #c62828;
+        z-index: 2;
+        pointer-events: none;
+    }
+    .avg-line::after {
+        content: '';
+        position: absolute;
+        top: -4px;
+        left: -3px;
+        width: 8px;
+        height: 8px;
+        border-radius: 50%;
+        background: #c62828;
     }
     .breakdown-labels {
         display: flex;
@@ -150,6 +179,54 @@
         text-align: right;
         white-space: nowrap;
     }
+    .delta {
+        display: block;
+        font-size: 0.75em;
+        font-weight: 600;
+        margin-top: 2px;
+        font-variant-numeric: tabular-nums;
+    }
+    .delta.pos { color: #2e7d32; }
+    .delta.neg { color: #c62828; }
+    .delta.zero { color: #888; }
+
+    .stats {
+        display: flex;
+        align-items: center;
+        gap: 16px;
+        flex-wrap: wrap;
+        margin: 0 0 1em;
+        padding: 0.6em 0.9em;
+        background: linear-gradient(135deg, #fff5f0 0%, #ffe4d4 100%);
+        border-left: 4px solid #c62828;
+        border-radius: 8px;
+        font-size: 0.9em;
+    }
+    .stats .label { color: #6a3010; font-weight: 500; margin-right: 4px; }
+    .stats .value {
+        color: #00316b;
+        font-weight: 700;
+        font-variant-numeric: tabular-nums;
+    }
+    .stats .marker {
+        display: inline-block;
+        width: 14px;
+        height: 2px;
+        background: #c62828;
+        position: relative;
+        margin-right: 6px;
+        vertical-align: middle;
+    }
+    .stats .marker::after {
+        content: '';
+        position: absolute;
+        top: -3px;
+        left: 3px;
+        width: 8px;
+        height: 8px;
+        border-radius: 50%;
+        background: #c62828;
+    }
 
     @media (max-width: 700px) {
         .row {
@@ -167,8 +244,12 @@
 </style>
 
 <section class="panel">
-    <h2>📊 Power Rankings</h2>
+    <h2>📊 Value Rankings</h2>
     <p class="sub">Total roster value (FantasyCalc — 1QB, 10-team, 1.0 PPR dynasty), including future rookie picks.</p>
+
+    <div class="stats">
+        <span><span class="marker"></span><span class="label">League average:</span><span class="value">{fmt(leagueAvg)}</span></span>
+    </div>
 
     <div class="legend">
         {#each POS_META as p (p.key)}
@@ -191,6 +272,9 @@
                             <span style="background: {p.color}; width: {(r.breakdown[p.key] / maxTotal) * 100}%"></span>
                         {/if}
                     {/each}
+                    {#if leagueAvg > 0}
+                        <span class="avg-line" title="League avg: {fmt(leagueAvg)}" style="left: {avgPct}%"></span>
+                    {/if}
                 </div>
                 <div class="breakdown-labels">
                     {#each POS_META as p (p.key)}
@@ -200,7 +284,15 @@
                     {/each}
                 </div>
             </div>
-            <div class="total">{fmt(r.total)}</div>
+            <div class="total">
+                {fmt(r.total)}
+                {#if leagueAvg > 0}
+                    {@const d = deltaPct(r.total, leagueAvg)}
+                    <span class="delta {d > 0 ? 'pos' : d < 0 ? 'neg' : 'zero'}">
+                        {d > 0 ? '+' : ''}{d}% vs avg
+                    </span>
+                {/if}
+            </div>
         </div>
     {/each}
 </section>
