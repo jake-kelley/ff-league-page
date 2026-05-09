@@ -1,32 +1,58 @@
 <script context="module">
 	import { leagueID } from '$lib/utils/leagueInfo';
 
-	let draftSlotsPromise = null;
+	let slotMapPromise = null;
 
-	export const getDraftSlots = () => {
-		if (draftSlotsPromise) return draftSlotsPromise;
-		draftSlotsPromise = (async () => {
-			const map = new Map();
+	// Returns Map<year, Map<rosterId, slot>>. Resolves slots via two paths:
+	//   1) slot_to_roster_id on the draft (only set once order is finalized)
+	//   2) draft_order (user_id -> slot) + leagueTeamManagers (rosterId -> user_ids)
+	// The second path covers pre_draft state where slot_to_roster_id is empty
+	// but the order has been assigned.
+	export const getDraftSlots = (leagueTeamManagers) => {
+		if (slotMapPromise) return slotMapPromise;
+		slotMapPromise = (async () => {
+			const result = new Map();
 			try {
 				const draftsRes = await fetch(`https://api.sleeper.app/v1/league/${leagueID}/drafts`);
-				if (!draftsRes.ok) return map;
+				if (!draftsRes.ok) return result;
 				const drafts = await draftsRes.json();
 				for (const d of drafts) {
-					if (!d.slot_to_roster_id) continue;
 					const year = parseInt(d.season, 10);
 					const yMap = new Map();
-					for (const [slot, rosterId] of Object.entries(d.slot_to_roster_id)) {
-						if (rosterId === null || rosterId === undefined) continue;
-						yMap.set(parseInt(rosterId, 10), parseInt(slot, 10));
+
+					if (d.slot_to_roster_id) {
+						for (const [slot, rosterId] of Object.entries(d.slot_to_roster_id)) {
+							if (rosterId === null || rosterId === undefined) continue;
+							yMap.set(parseInt(rosterId, 10), parseInt(slot, 10));
+						}
 					}
-					if (yMap.size) map.set(year, yMap);
+
+					if (yMap.size === 0 && d.draft_order && leagueTeamManagers) {
+						const seasonMap =
+							leagueTeamManagers.teamManagersMap[year] ??
+							leagueTeamManagers.teamManagersMap[leagueTeamManagers.currentSeason];
+						if (seasonMap) {
+							for (const [rosterIdStr, entry] of Object.entries(seasonMap)) {
+								const rosterId = parseInt(rosterIdStr, 10);
+								for (const userId of entry.managers ?? []) {
+									const slot = d.draft_order[userId];
+									if (slot) {
+										yMap.set(rosterId, parseInt(slot, 10));
+										break;
+									}
+								}
+							}
+						}
+					}
+
+					if (yMap.size) result.set(year, yMap);
 				}
 			} catch (err) {
 				console.error('Failed to load draft slots', err);
 			}
-			return map;
+			return result;
 		})();
-		return draftSlotsPromise;
+		return slotMapPromise;
 	};
 </script>
 
@@ -41,7 +67,7 @@
 
 	let slotMap = null;
 	onMount(async () => {
-		slotMap = await getDraftSlots();
+		slotMap = await getDraftSlots(leagueTeamManagers);
 	});
 
 	const findOriginRoster = (move) => {
@@ -57,8 +83,8 @@
 			if (!cell || cell === 'origin' || !cell.pick) return cell;
 			const year = parseInt(cell.pick.season, 10);
 			const owner = cell.pick.original_owner ?? origin;
-			const slot = currentSlotMap?.get(year)?.get(owner) ?? owner;
-			return { ...cell, pick: { ...cell.pick, slot } };
+			const slot = currentSlotMap?.get(year)?.get(owner);
+			return slot ? { ...cell, pick: { ...cell.pick, slot } } : cell;
 		});
 	};
 
@@ -77,10 +103,7 @@
 					const year = parseInt(cell.pick.season, 10);
 					const round = cell.pick.round;
 					const owner = cell.pick.original_owner ?? origin;
-					// Prefer real slot from a scheduled draft; otherwise fall back to the
-					// original-owner roster_id as a slot hint (works in leagues where the
-					// rookie draft order = roster_id order, which is the common default).
-					const slot = slotMap?.get(year)?.get(owner) ?? owner;
+					const slot = slotMap?.get(year)?.get(owner);
 					sides[i].push(slot ? `pick:${year}-${round}-${slot}` : `pick:${year}-${round}`);
 				}
 			}
@@ -94,8 +117,8 @@
 	};
 
 	const openInCalc = async () => {
-		const slotMap = await getDraftSlots();
-		const url = buildTradeCalcUrl(slotMap);
+		const resolved = slotMap ?? await getDraftSlots(leagueTeamManagers);
+		const url = buildTradeCalcUrl(resolved);
 		if (url) goto(url);
 	};
 
