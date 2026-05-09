@@ -121,8 +121,8 @@
 
 	const calcHeight = () => {
 		const isMobile = typeof window !== 'undefined' && window.innerWidth <= 768;
-		const multiplier = isMobile ? 38 : 52;
-		const headerH = isMobile ? 38 : 53;
+		const multiplier = isMobile ? 32 : 52;
+		const headerH = isMobile ? 32 : 53;
 		const benchLength = finalBench.length * multiplier + headerH;
 		let irLength = 0;
 		if(finalIR) {
@@ -218,21 +218,22 @@
 			margin: 4px auto 4px;
 		}
 		.result {
-			width: 9px;
+			width: 8px;
 		}
 		h3 {
-			font-size: 1.1em;
-			margin: 4px 0 2px;
+			font-size: 0.95em;
+			margin: 2px 0 1px;
 		}
 		h5 {
-			font-size: 1em;
+			font-size: 0.9em;
+			margin: 0 auto;
 		}
 		.teamAvatar {
-			height: 28px;
-			margin-right: 8px;
+			height: 22px;
+			margin-right: 6px;
 		}
 		.record {
-			margin-bottom: 3px;
+			margin-bottom: 2px;
 		}
 	}
 
@@ -284,9 +285,9 @@
 
 	@media (max-width: 768px) {
 		.valueBadge {
-			margin-top: 2px;
-			padding: 2px 8px;
-			font-size: 0.7em;
+			margin-top: 1px;
+			padding: 1px 7px;
+			font-size: 0.65em;
 		}
 	}
 </style>

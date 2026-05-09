@@ -106,6 +106,18 @@
 		}
 	}
 
+	@media (max-width: 768px) {
+		.banner {
+			height: 64px;
+			background-size: auto 64px;
+			margin: 4px auto 2px;
+			border-radius: 24px;
+		}
+		h2 {
+			font-size: 1.6em;
+		}
+	}
+
 	.banner h2 {
 		text-shadow: var(--fff) 0px 0px 3px, var(--fff) 0px 0px 3px, var(--fff) 0px 0px 3px,
             		 var(--fff) 0px 0px 3px, var(--fff) 0px 0px 3px, var(--fff) 0px 0px 3px;
@@ -133,10 +145,10 @@
 
 	@media (max-width: 768px) {
 		.division {
-			margin: 4px auto 8px;
+			margin: 2px auto 6px;
 		}
 		.expandButton {
-			margin: 1.5em auto 1em;
+			margin: 0.6em auto 0.6em;
 		}
 	}
 </style>

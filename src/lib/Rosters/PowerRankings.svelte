@@ -228,17 +228,70 @@
         background: #c62828;
     }
 
-    @media (max-width: 700px) {
+    @media (max-width: 768px) {
+        .panel {
+            padding: 0.8em 0.9em 1em;
+            margin: 0.8em auto;
+            border-radius: 10px;
+        }
+        .panel h2 {
+            font-size: 1.05em;
+        }
+        .panel .sub {
+            font-size: 0.72em;
+            margin-bottom: 0.7em;
+        }
+        .stats {
+            padding: 0.35em 0.7em;
+            font-size: 0.78em;
+            margin-bottom: 0.6em;
+        }
+        .legend {
+            font-size: 0.7em;
+            gap: 8px;
+            margin-bottom: 0.5em;
+        }
         .row {
-            grid-template-columns: 30px minmax(0, 1fr) auto;
+            grid-template-columns: 24px minmax(0, 1fr) auto;
             grid-template-rows: auto auto;
-            gap: 8px 12px;
+            gap: 2px 8px;
+            padding: 6px 0;
+        }
+        .rank {
+            font-size: 1.05em;
+        }
+        .team {
+            gap: 6px;
+        }
+        .team img {
+            width: 22px;
+            height: 22px;
+        }
+        .team .name {
+            font-size: 0.82em;
         }
         .bar-wrap {
             grid-column: 1 / -1;
         }
-        .panel {
-            padding: 1.2em 1em 1.4em;
+        .bar {
+            height: 10px;
+        }
+        .avg-line::after {
+            width: 6px;
+            height: 6px;
+            top: -3px;
+            left: -2px;
+        }
+        .breakdown-labels {
+            display: none;
+        }
+        .total {
+            font-size: 0.88em;
+            line-height: 1.1em;
+        }
+        .delta {
+            font-size: 0.66em;
+            margin-top: 1px;
         }
     }
 </style>
