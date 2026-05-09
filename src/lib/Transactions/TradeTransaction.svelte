@@ -31,6 +31,7 @@
 </script>
 
 <script>
+	import { onMount } from 'svelte';
 	import { goto } from '$app/navigation';
 	import { gotoManager } from '$lib/utils/helper';
 	import { getTeamFromTeamManagers } from '$lib/utils/helperFunctions/universalFunctions';
@@ -38,12 +39,30 @@
 
 	export let transaction, players, leagueTeamManagers;
 
+	let slotMap = null;
+	onMount(async () => {
+		slotMap = await getDraftSlots();
+	});
+
 	const findOriginRoster = (move) => {
 		for (let i = 0; i < move.length; i++) {
 			if (move[i] === 'origin') return transaction.rosters[i];
 		}
 		return null;
 	};
+
+	const enrichMove = (move, currentSlotMap) => {
+		const origin = findOriginRoster(move);
+		return move.map((cell) => {
+			if (!cell || cell === 'origin' || !cell.pick) return cell;
+			const year = parseInt(cell.pick.season, 10);
+			const owner = cell.pick.original_owner ?? origin;
+			const slot = currentSlotMap?.get(year)?.get(owner) ?? owner;
+			return { ...cell, pick: { ...cell.pick, slot } };
+		});
+	};
+
+	$: enrichedMoves = transaction.moves.map((move) => enrichMove(move, slotMap));
 
 	const buildTradeCalcUrl = (slotMap) => {
 		const sides = transaction.rosters.map(() => []);
@@ -219,7 +238,7 @@
             </tr>
         </thead>
         <tbody>
-            {#each transaction.moves as move}
+            {#each enrichedMoves as move}
                 <TransactionMove {players} {move} type={transaction.type} {leagueTeamManagers} season={transaction.season} />
             {/each}
         </tbody>

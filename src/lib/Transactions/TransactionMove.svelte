@@ -206,6 +206,18 @@
         font-weight: 500;
     }
 
+    .pickInfoSlot {
+        padding: 0;
+        font-size: 1em;
+        transform: translate(-50%, -50%);
+        position: absolute;
+        left: 50%;
+        top: 50%;
+        color: var(--g444);
+        font-weight: 600;
+        font-variant-numeric: tabular-nums;
+    }
+
     .pick {
         border-color: var(--PICKSfade);
     }
@@ -263,10 +275,15 @@
                     <div class="playerSlot">
                         <div class="avatarHolder">
                             <div class="tradeSlot pick">
-                                <span class="round">Round</span>
-                                <span class="pickInfo">
-                                    {cell.pick.round}<span class="numEnd">{getNumEnd(cell.pick.round)}</span>
-                                </span>
+                                {#if cell.pick.slot}
+                                    <span class="round">Pick</span>
+                                    <span class="pickInfoSlot">{cell.pick.round}.{String(cell.pick.slot).padStart(2, '0')}</span>
+                                {:else}
+                                    <span class="round">Round</span>
+                                    <span class="pickInfo">
+                                        {cell.pick.round}<span class="numEnd">{getNumEnd(cell.pick.round)}</span>
+                                    </span>
+                                {/if}
                                 <i class="indicator material-icons" aria-hidden="true">add_circle</i>
                             </div>
                         </div>
