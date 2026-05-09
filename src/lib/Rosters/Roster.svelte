@@ -4,7 +4,13 @@
 	import { Icon } from '@smui/icon-button';
 	import RosterRow from "./RosterRow.svelte"
 	
-	export let roster, leagueTeamManagers, startersAndReserve, players, rosterPositions, division, expanded;
+	export let roster, leagueTeamManagers, startersAndReserve, players, rosterPositions, division, expanded, rosterValue = null;
+
+	const fmtVal = (n) => {
+		if (n === null || n === undefined) return null;
+		if (n >= 10000) return `${(n / 1000).toFixed(1)}k`;
+		return n.toLocaleString();
+	};
 
 	$: team = leagueTeamManagers.teamManagersMap[leagueTeamManagers.currentSeason][roster.roster_id].team;
 
@@ -256,6 +262,24 @@
 	:global(.bench) {
 		background-color: var(--ir);
 	}
+
+	.valueBadge {
+		display: inline-flex;
+		align-items: center;
+		gap: 4px;
+		margin-top: 6px;
+		padding: 3px 10px;
+		border-radius: 12px;
+		background: linear-gradient(135deg, #e3f2fd 0%, #cfe5fb 100%);
+		color: #00316b;
+		font-size: 0.78em;
+		font-weight: 600;
+		font-variant-numeric: tabular-nums;
+	}
+	.valueBadge .label {
+		opacity: 0.7;
+		font-weight: 500;
+	}
 </style>
 
 <div class="team">
@@ -273,6 +297,10 @@
 							<img alt="match result" class="result" src="/{result}.png" />
 						{/each}
 					</div>
+
+					{#if rosterValue}
+						<div class="valueBadge"><span class="label">Total value</span> {fmtVal(rosterValue.total)}</div>
+					{/if}
 				</Cell>
 			</Row>
 		</Head>

@@ -1,8 +1,10 @@
 <script>
     import Button, { Label } from '@smui/button';
 	import Roster from './Roster.svelte';
-	
-	export let rosters, leagueTeamManagers, startersAndReserve, leagueData, players;
+	import PowerRankings from './PowerRankings.svelte';
+	import { computeRosterValues } from './rosterValues';
+
+	export let rosters, leagueTeamManagers, startersAndReserve, leagueData, players, valueData, tradedPicks;
 
 	const rosterPositions = leagueData.roster_positions;
 
@@ -18,11 +20,21 @@
 		})
 	}
 
+	const rosterArray = [];
 	for(const rosterID in rosters) {
         const roster = rosters[rosterID];
         const division = !roster.settings.division || roster.settings.division > numDivisions ? 0 : roster.settings.division - 1;
 		divisions[division].rosters.push(roster);
+		rosterArray.push(roster);
 	}
+
+	const rankings = computeRosterValues({
+		rosters: rosterArray,
+		valueData,
+		tradedPicks,
+		leagueData,
+	});
+	const valueByRoster = Object.fromEntries(rankings.map((r) => [r.rosterId, r]));
 
 	let expanded = false;
 </script>
@@ -120,6 +132,8 @@
 	}
 </style>
 
+<PowerRankings {rankings} {leagueTeamManagers} />
+
 <div class="expandButton">
 	<Button onclick={() => {expanded = !expanded}} variant="outlined">
 		<Label>{expanded ? "Minimize" : "Expand"} All Benches</Label>
@@ -134,7 +148,7 @@
 	{/if}
 	<div class="division">
 		{#each division.rosters as roster}
-			<Roster division={ix + 1} {expanded} {rosterPositions} {roster} {leagueTeamManagers} {players} {startersAndReserve} />
+			<Roster division={ix + 1} {expanded} {rosterPositions} {roster} {leagueTeamManagers} {players} {startersAndReserve} rosterValue={valueByRoster[roster.roster_id]} />
 		{/each}
 	</div>
 {/each}
