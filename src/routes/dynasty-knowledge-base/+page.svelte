@@ -82,6 +82,10 @@
     h1 {
         font-size: 2em;
         margin: 0 0 0.2em;
+        background: linear-gradient(90deg, #1976d2 0%, #00316b 100%);
+        -webkit-background-clip: text;
+        background-clip: text;
+        -webkit-text-fill-color: transparent;
     }
     .subtitle {
         color: #888;
@@ -98,9 +102,15 @@
         padding: 10px 14px;
         font-size: 1em;
         border: 1px solid var(--ccc);
-        border-radius: 6px;
+        border-radius: 8px;
         background: var(--fff);
         color: inherit;
+        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
+    }
+    .search input:focus {
+        outline: none;
+        border-color: #1976d2;
+        box-shadow: 0 0 0 3px rgba(25, 118, 210, 0.15);
     }
     .search-meta {
         color: #888;
@@ -131,16 +141,18 @@
         align-self: start;
         max-height: calc(100vh - 100px);
         overflow-y: auto;
-        background: var(--f3f3f3);
-        border-radius: 8px;
-        padding: 12px;
+        background: linear-gradient(160deg, #1f2a44 0%, #131a2c 100%);
+        color: #e8eaf3;
+        border-radius: 12px;
+        padding: 14px 12px;
+        box-shadow: 0 6px 18px rgba(0, 0, 0, 0.18);
     }
     .sidebar h3 {
         margin: 14px 8px 6px;
-        font-size: 0.85em;
+        font-size: 0.78em;
         text-transform: uppercase;
-        color: #666;
-        letter-spacing: 0.04em;
+        color: #ffd166;
+        letter-spacing: 0.08em;
     }
     .sidebar h3:first-child { margin-top: 6px; }
     .sidebar ul {
@@ -153,36 +165,41 @@
         text-align: left;
         background: none;
         border: 0;
+        border-left: 3px solid transparent;
         padding: 6px 10px;
-        border-radius: 4px;
+        border-radius: 6px;
         cursor: pointer;
         font-size: 0.9em;
-        color: inherit;
+        color: #c8cee0;
         line-height: 1.3em;
         display: flex;
         justify-content: space-between;
         gap: 6px;
         align-items: center;
+        margin: 1px 0;
+        transition: background 0.12s, color 0.12s, border-color 0.12s;
     }
     .sidebar li button:hover {
-        background: var(--fff);
+        background: rgba(255, 255, 255, 0.06);
+        color: #fff;
     }
     .sidebar li button.active {
-        background: var(--fff);
+        background: rgba(255, 209, 102, 0.14);
+        color: #fff;
+        border-left-color: #ffd166;
         font-weight: 600;
-        color: #00316b;
     }
     .matchCount {
-        background: #fff3cd;
-        color: #856404;
+        background: rgba(255, 209, 102, 0.22);
+        color: #ffd166;
         border-radius: 10px;
         padding: 1px 7px;
         font-size: 0.75em;
-        font-weight: 500;
+        font-weight: 600;
         flex-shrink: 0;
     }
     .empty {
-        color: #888;
+        color: #c8cee0;
         font-size: 0.9em;
         padding: 8px 10px;
     }
@@ -190,9 +207,10 @@
     .content {
         background: #fff;
         color: #333;
-        border-radius: 8px;
+        border-radius: 12px;
         padding: 24px 28px;
         min-width: 0;
+        box-shadow: 0 6px 18px rgba(0, 0, 0, 0.06);
     }
     .article-meta {
         display: flex;
@@ -208,7 +226,7 @@
         margin: 0 0 0.6em;
         font-size: 1.4em;
         line-height: 1.25em;
-        color: #1a1a1a;
+        color: #00316b;
     }
     .article-content {
         font-size: 0.95em;
@@ -224,7 +242,8 @@
         font-size: 1.3em;
         margin: 1.6em 0 0.4em;
         padding-bottom: 0.3em;
-        border-bottom: 1px solid #eee;
+        border-bottom: 2px solid #e0e7f3;
+        color: #00316b;
         line-height: 1.25em;
     }
     .article-content :global(h3) {
@@ -297,13 +316,17 @@
     }
     .article-content :global(th),
     .article-content :global(td) {
-        border: 1px solid #ddd;
-        padding: 6px 10px;
+        border: 1px solid #e5e5e5;
+        padding: 8px 12px;
         text-align: left;
     }
     .article-content :global(th) {
-        background: #f8f8f8;
+        background: linear-gradient(180deg, #f5f9ff 0%, #e8f0fb 100%);
+        color: #00316b;
         font-weight: 600;
+    }
+    .article-content :global(tbody tr:hover) {
+        background: #fafbfd;
     }
     .article-content :global(hr) {
         border: 0;
@@ -328,12 +351,14 @@
         .mobile-toggle {
             display: inline-block;
             padding: 8px 14px;
-            border: 1px solid var(--ccc);
-            background: var(--fff);
-            border-radius: 6px;
+            border: 0;
+            background: linear-gradient(160deg, #1f2a44 0%, #131a2c 100%);
+            border-radius: 8px;
             cursor: pointer;
-            color: inherit;
+            color: #ffd166;
             margin-bottom: 12px;
+            font-size: 0.9em;
+            font-weight: 600;
         }
         .sidebar {
             position: static;
@@ -349,7 +374,7 @@
 <div class="wrap">
     <div class="header">
         <h1>Dynasty Knowledge Base</h1>
-        <p class="subtitle">{data.articles.length} articles · search and browse the full training corpus</p>
+        <p class="subtitle">{data.articles.length} articles · search and browse the full knowledge base</p>
         <div class="search">
             <input
                 type="search"
