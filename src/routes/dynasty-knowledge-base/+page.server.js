@@ -48,7 +48,8 @@ function deriveTitle(filename, content) {
         .replace(/^#+\s*/, '')
         .replace(/^DYNASTY\s+FANTASY\s+FOOTBALL\s*[-—]?\s*/i, '')
         .replace(/^DYNASTY\s+/i, '')
-        .replace(/\s*-\s*/g, ' — ');
+        .replace(/\s*-\s*/g, ' — ')
+        .replace(/^[^A-Za-z0-9]+/, '');
     t = t.toLowerCase().replace(/\b\w/g, (c) => c.toUpperCase());
     t = t.replace(ACRONYMS, (m) => m.toUpperCase());
     return t;
