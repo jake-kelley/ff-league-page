@@ -1,5 +1,5 @@
 <div align="center">
-  <img alt="MFFGA Dynasty League logo" src="./static/mffga-logo.png" width="220px" />
+  <img alt="MFFGA Dynasty League logo" src="./static/mffga-logo.png?v=2" width="220px" />
 
 **MFFGA — Dynasty League Page**
 
