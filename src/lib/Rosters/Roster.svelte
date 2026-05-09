@@ -120,7 +120,7 @@
 	let innerWidth;
 
 	const calcHeight = () => {
-		const isMobile = typeof window !== 'undefined' && window.innerWidth <= 600;
+		const isMobile = typeof window !== 'undefined' && window.innerWidth <= 768;
 		const multiplier = isMobile ? 38 : 52;
 		const headerH = isMobile ? 38 : 53;
 		const benchLength = finalBench.length * multiplier + headerH;
@@ -212,7 +212,7 @@
 		text-align: center;
 	}
 
-	@media (max-width: 600px) {
+	@media (max-width: 768px) {
 		.team {
 			font-size: 0.9em;
 			margin: 4px auto 4px;
@@ -282,7 +282,7 @@
 		font-weight: 500;
 	}
 
-	@media (max-width: 600px) {
+	@media (max-width: 768px) {
 		.valueBadge {
 			margin-top: 2px;
 			padding: 2px 8px;

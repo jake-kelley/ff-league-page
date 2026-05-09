@@ -131,7 +131,7 @@
     	text-align: center;
 	}
 
-	@media (max-width: 600px) {
+	@media (max-width: 768px) {
 		.division {
 			margin: 4px auto 8px;
 		}
