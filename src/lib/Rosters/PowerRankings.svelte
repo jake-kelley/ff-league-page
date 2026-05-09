@@ -12,7 +12,7 @@
         { key: 'OTHER', label: 'Other', color: '#9e9e9e' },
     ];
 
-    let includePicks = true;
+    let includePicks = false;
 
     const effectiveTotal = (r, withPicks) =>
         withPicks ? r.total : r.total - (r.breakdown.PICKS || 0);
