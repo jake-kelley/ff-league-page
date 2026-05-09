@@ -566,7 +566,7 @@
                         {/if}
                     </div>
                     <ul class="selected">
-                        {#each sideA as p (p.id)}
+                        {#each sideA as p, i (`${p.id}-${i}`)}
                             <li>
                                 <span class="name">
                                     {#if isPick(p.position)}
@@ -620,7 +620,7 @@
                         {/if}
                     </div>
                     <ul class="selected">
-                        {#each sideB as p (p.id)}
+                        {#each sideB as p, i (`${p.id}-${i}`)}
                             <li>
                                 <span class="name">
                                     {#if isPick(p.position)}

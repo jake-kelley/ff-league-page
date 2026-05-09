@@ -58,7 +58,10 @@
 					const year = parseInt(cell.pick.season, 10);
 					const round = cell.pick.round;
 					const owner = cell.pick.original_owner ?? origin;
-					const slot = slotMap?.get(year)?.get(owner);
+					// Prefer real slot from a scheduled draft; otherwise fall back to the
+					// original-owner roster_id as a slot hint (works in leagues where the
+					// rookie draft order = roster_id order, which is the common default).
+					const slot = slotMap?.get(year)?.get(owner) ?? owner;
 					sides[i].push(slot ? `pick:${year}-${round}-${slot}` : `pick:${year}-${round}`);
 				}
 			}
