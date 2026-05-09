@@ -12,10 +12,18 @@
         { key: 'OTHER', label: 'Other', color: '#9e9e9e' },
     ];
 
-    $: ranked = [...rankings].sort((a, b) => b.total - a.total);
-    $: maxTotal = ranked[0]?.total ?? 1;
+    let includePicks = true;
+
+    const effectiveTotal = (r, withPicks) =>
+        withPicks ? r.total : r.total - (r.breakdown.PICKS || 0);
+
+    $: ranked = [...rankings]
+        .map((r) => ({ ...r, effective: effectiveTotal(r, includePicks) }))
+        .sort((a, b) => b.effective - a.effective);
+    $: visibleMeta = includePicks ? POS_META : POS_META.filter((p) => p.key !== 'PICKS');
+    $: maxTotal = ranked[0]?.effective ?? 1;
     $: leagueAvg = ranked.length
-        ? Math.round(ranked.reduce((s, r) => s + r.total, 0) / ranked.length)
+        ? Math.round(ranked.reduce((s, r) => s + r.effective, 0) / ranked.length)
         : 0;
     $: avgPct = maxTotal > 0 ? (leagueAvg / maxTotal) * 100 : 0;
 
@@ -228,6 +236,29 @@
         background: #c62828;
     }
 
+    .picks-toggle {
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+        margin: 0 0 0.8em;
+        padding: 6px 12px;
+        background: #f3f3f3;
+        border-radius: 999px;
+        cursor: pointer;
+        font-size: 0.85em;
+        color: #333;
+        user-select: none;
+        transition: background 0.12s;
+    }
+    .picks-toggle:hover {
+        background: #e8eef7;
+    }
+    .picks-toggle input {
+        accent-color: #1976d2;
+        cursor: pointer;
+        margin: 0;
+    }
+
     @media (max-width: 768px) {
         .panel {
             padding: 0.8em 0.9em 1em;
@@ -250,6 +281,11 @@
             font-size: 0.7em;
             gap: 8px;
             margin-bottom: 0.5em;
+        }
+        .picks-toggle {
+            font-size: 0.78em;
+            padding: 4px 10px;
+            margin-bottom: 0.6em;
         }
         .row {
             grid-template-columns: 24px minmax(0, 1fr) auto;
@@ -298,14 +334,19 @@
 
 <section class="panel">
     <h2>📊 Value Rankings</h2>
-    <p class="sub">Total roster value (FantasyCalc — 1QB, 10-team, 1.0 PPR dynasty), including future rookie picks.</p>
+    <p class="sub">Total roster value (FantasyCalc — 1QB, 10-team, 1.0 PPR dynasty){includePicks ? ', including future rookie picks' : ', players only'}.</p>
+
+    <label class="picks-toggle">
+        <input type="checkbox" bind:checked={includePicks} />
+        <span>Include rookie picks in totals</span>
+    </label>
 
     <div class="stats">
         <span><span class="marker"></span><span class="label">League average:</span><span class="value">{fmt(leagueAvg)}</span></span>
     </div>
 
     <div class="legend">
-        {#each POS_META as p (p.key)}
+        {#each visibleMeta as p (p.key)}
             <span><span class="swatch" style="background: {p.color}"></span>{p.label}</span>
         {/each}
     </div>
@@ -320,7 +361,7 @@
             </div>
             <div class="bar-wrap">
                 <div class="bar" aria-hidden="true">
-                    {#each POS_META as p (p.key)}
+                    {#each visibleMeta as p (p.key)}
                         {#if r.breakdown[p.key] > 0}
                             <span style="background: {p.color}; width: {(r.breakdown[p.key] / maxTotal) * 100}%"></span>
                         {/if}
@@ -330,7 +371,7 @@
                     {/if}
                 </div>
                 <div class="breakdown-labels">
-                    {#each POS_META as p (p.key)}
+                    {#each visibleMeta as p (p.key)}
                         {#if r.breakdown[p.key] > 0}
                             <span><span class="swatch" style="background: {p.color}"></span>{p.label} {fmt(r.breakdown[p.key])}</span>
                         {/if}
@@ -338,9 +379,9 @@
                 </div>
             </div>
             <div class="total">
-                {fmt(r.total)}
+                {fmt(r.effective)}
                 {#if leagueAvg > 0}
-                    {@const d = deltaPct(r.total, leagueAvg)}
+                    {@const d = deltaPct(r.effective, leagueAvg)}
                     <span class="delta {d > 0 ? 'pos' : d < 0 ? 'neg' : 'zero'}">
                         {d > 0 ? '+' : ''}{d}% vs avg
                     </span>
