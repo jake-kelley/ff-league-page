@@ -1,5 +1,5 @@
 <div align="center">
-  <img alt="League Page logo" src="https://storage.googleapis.com/nfl-player-data/League%20Page.png" width="100px" />
+  <img alt="MFFGA Dynasty League logo" src="./static/mffga-logo.png" width="220px" />
 
 **MFFGA — Dynasty League Page**
 
