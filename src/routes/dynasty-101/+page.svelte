@@ -474,7 +474,7 @@
         </ul>
 
         <div class="callout">
-            <strong>⚖️ The 50% Delta Rule.</strong> Estimate your roster's total value vs the league average. If you're 50%+ below average, you're a rebuilder. If you're 30%+ above, you're a contender. Anything in between — you're a reloader, and the call is hardest.
+            <strong>⚖️ The 15% Delta Rule.</strong> Estimate your roster's total value vs the league average. If you're 15%+ below average, you're a rebuilder. If you're 15%+ above, you're a contender. Anything in between — you're a reloader, and the call is hardest.
         </div>
 
         <h3>⏱️ The 5-Week Assessment</h3>
