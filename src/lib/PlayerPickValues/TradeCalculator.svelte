@@ -12,7 +12,7 @@
     const pickMatchesYearRound = (name, year, round) => {
         const m1 = name.match(/(\d{4}).*?(\d)(?:st|nd|rd|th)/i);
         if (m1 && parseInt(m1[1], 10) === year && parseInt(m1[2], 10) === round) return true;
-        const m2 = name.match(/(\d{4})\s+(\d)\.\d+/);
+        const m2 = name.match(/(\d{4})\s+(?:Pick\s+)?(\d)\.\d+/i);
         if (m2 && parseInt(m2[1], 10) === year && parseInt(m2[2], 10) === round) return true;
         const m3 = name.match(/(\d)(?:st|nd|rd|th).*?(\d{4})/i);
         if (m3 && parseInt(m3[2], 10) === year && parseInt(m3[1], 10) === round) return true;
@@ -20,7 +20,7 @@
     };
 
     const pickSlot = (name) => {
-        const m = name.match(/(\d{4})\s+\d\.(\d+)/);
+        const m = name.match(/(\d{4})\s+(?:Pick\s+)?\d\.(\d+)/i);
         return m ? parseInt(m[2], 10) : null;
     };
 
