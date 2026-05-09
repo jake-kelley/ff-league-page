@@ -3,16 +3,18 @@
 	import LinearProgress from '@smui/linear-progress';
 	import MatchupWeeks from './MatchupWeeks.svelte';
 	import Brackets from './Brackets.svelte';
+	import HistoricalSeasonGrid from './HistoricalSeasonGrid.svelte';
     import Button, { Group, Label } from '@smui/button';
     import { goto } from '$app/navigation';
     import { onMount } from 'svelte';
     import { loadPlayers } from '$lib/utils/helper';
 
-	export let queryWeek, leagueTeamManagersData, matchupsData, bracketsData, playersData;
+	export let queryWeek, leagueTeamManagersData, matchupsData, bracketsData, playersData, leagueChainData;
 
-    let players, matchupWeeks, year, week, regularSeasonLength, brackets, leagueTeamManagers;
+    let players, matchupWeeks, year, week, regularSeasonLength, brackets, leagueTeamManagers, leagueChain = [];
 
     let loading = true;
+    let selectedSeason;
 
     onMount(async () => {
         brackets = await bracketsData;
@@ -24,6 +26,8 @@
         regularSeasonLength = matchupsInfo.regularSeasonLength;
         const playersInfo = await playersData;
         players = playersInfo.players;
+        leagueChain = (await leagueChainData) ?? [];
+        selectedSeason = parseInt(year, 10);
         loading = false;
 
         if(playersInfo.stale) {
@@ -31,6 +35,9 @@
             players = newPlayersInfo.players;
         }
     });
+
+    $: selectedEntry = leagueChain.find((e) => e.season === selectedSeason);
+    $: isCurrent = selectedSeason === parseInt(year, 10);
 
     const changeSelection = (s) => {
         if(s == 'regular') {
@@ -60,6 +67,29 @@
         align-items: center;
         margin: 3em 0;
     }
+    .seasonPicker {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        gap: 10px;
+        margin: 2em auto 0.5em;
+        flex-wrap: wrap;
+        font-size: 0.9em;
+    }
+    .seasonPicker label {
+        color: #888;
+        font-weight: 500;
+    }
+    .seasonPicker select {
+        padding: 6px 32px 6px 12px;
+        font-size: 0.95em;
+        border: 1px solid var(--ccc);
+        border-radius: 6px;
+        background: var(--fff);
+        color: inherit;
+        cursor: pointer;
+        font-weight: 600;
+    }
 </style>
 
 
@@ -71,7 +101,25 @@
         <LinearProgress indeterminate />
     </div>
 {:else}
-    {#if matchupWeeks.length}
+    {#if leagueChain.length > 1}
+        <div class="seasonPicker">
+            <label for="season-select">Season:</label>
+            <select id="season-select" bind:value={selectedSeason}>
+                {#each leagueChain as entry (entry.leagueId)}
+                    <option value={entry.season}>{entry.season}{entry.season === parseInt(year, 10) ? ' (current)' : ''}</option>
+                {/each}
+            </select>
+        </div>
+    {/if}
+
+    {#if !isCurrent && selectedEntry}
+        <HistoricalSeasonGrid
+            leagueId={selectedEntry.leagueId}
+            season={selectedEntry.season}
+            regularSeasonLength={selectedEntry.regularSeasonLength}
+            {leagueTeamManagers}
+        />
+    {:else if matchupWeeks.length}
         <div class="buttonHolder">
             <Group variant="outlined">
                 <!-- Regular Season -->
@@ -105,7 +153,7 @@
         </div>
     {/if}
     <!-- {promise has processed -->
-    {#if brackets.champs.bracket[0][0][0].points && (selection == 'champions' || selection == 'losers')}
+    {#if isCurrent && brackets.champs.bracket[0][0][0].points && (selection == 'champions' || selection == 'losers')}
         <Brackets {queryWeek} {leagueTeamManagers} {players} {brackets} bind:selection={selection} />
     {/if}
 {/if}
