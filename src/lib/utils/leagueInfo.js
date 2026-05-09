@@ -29,6 +29,8 @@ export const managers = [
       "bio": "Commissioner. Manages SLAB 49IRs in the Nerd Football Conference (NFC).",
       "photo": "https://sleepercdn.com/uploads/0d3803a5532f6efa7e856c6209d0789b.jpg",
       "favoriteTeam": "min",
+      "mode": "Win Now",
+      "preferredContact": "Sleeper",
     },
     {
       "roster": 2,
@@ -37,6 +39,8 @@ export const managers = [
       "bio": "Manages a team in Florida Men Incorporated (FMI).",
       "photo": "https://sleepercdn.com/avatars/f0edbf4278f53f9425db175073df6584",
       "favoriteTeam": "hou",
+      "mode": "Rebuild",
+      "preferredContact": "Sleeper",
     },
     {
       "roster": 3,
@@ -45,6 +49,8 @@ export const managers = [
       "bio": "Commissioner. Manages Naberhood Watch in Florida Men Incorporated (FMI).",
       "photo": "https://sleepercdn.com/uploads/5cb0d03209ceb3f74840f104651deee3.jpg",
       "favoriteTeam": "mia",
+      "mode": "Win Now",
+      "preferredContact": "Sleeper",
     },
     {
       "roster": 4,
@@ -53,6 +59,8 @@ export const managers = [
       "bio": "Manages enori in the Nerd Football Conference (NFC).",
       "photo": "https://sleepercdn.com/avatars/82aec8e811b839b8ec25d7b458afd57b",
       "favoriteTeam": "min",
+      "mode": "Win Now",
+      "preferredContact": "Sleeper",
     },
     {
       "roster": 5,
@@ -61,6 +69,8 @@ export const managers = [
       "bio": "Manages a team in the Nerd Football Conference (NFC).",
       "photo": "https://sleepercdn.com/avatars/f0edbf4278f53f9425db175073df6584",
       "favoriteTeam": "ne",
+      "mode": "Win Now",
+      "preferredContact": "Sleeper",
     },
     {
       "roster": 6,
@@ -69,6 +79,8 @@ export const managers = [
       "bio": "Manages 2Fast 2Felonious pt Deux in the Nerd Football Conference (NFC).",
       "photo": "https://sleepercdn.com/avatars/e7af4deab0289b4f5505646424895246",
       "favoriteTeam": "kc",
+      "mode": "Rebuild",
+      "preferredContact": "Sleeper",
     },
     {
       "roster": 7,
@@ -77,6 +89,8 @@ export const managers = [
       "bio": "Manages Burrowed time in the Nerd Football Conference (NFC).",
       "photo": "https://sleepercdn.com/avatars/b5b5681f00fd2d43c36488a8d561610a",
       "favoriteTeam": "ne",
+      "mode": "Win Now",
+      "preferredContact": "Sleeper",
     },
     {
       "roster": 8,
@@ -85,6 +99,8 @@ export const managers = [
       "bio": "Manages Number 90 in Florida Men Incorporated (FMI).",
       "photo": "https://sleepercdn.com/avatars/dcf7134f5943f1f2d7cb02500ef12a85",
       "favoriteTeam": "chi",
+      "mode": "Win Now",
+      "preferredContact": "Sleeper",
     },
     {
       "roster": 9,
@@ -93,6 +109,8 @@ export const managers = [
       "bio": "Commissioner. Manages GoBills in Florida Men Incorporated (FMI).",
       "photo": "https://sleepercdn.com/avatars/5b1e688214667d9705bf9a59415414d5",
       "favoriteTeam": "buf",
+      "mode": "Win Now",
+      "preferredContact": "Sleeper",
     },
     {
       "roster": 10,
@@ -101,6 +119,8 @@ export const managers = [
       "bio": "Manages Golden Charbonnet in Florida Men Incorporated (FMI).",
       "photo": "https://sleepercdn.com/uploads/e411a575c26e159e2ceceb093dd40d7a.jpg",
       "favoriteTeam": "mia",
+      "mode": "Rebuild",
+      "preferredContact": "Sleeper",
     },
   ]
   
