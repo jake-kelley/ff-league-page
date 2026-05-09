@@ -461,7 +461,7 @@
 
         <h3>🔧 Reload (Retool)</h3>
         <ul>
-            <li>You expect to compete in the next 24-30 months. Roster value top-5 but aging.</li>
+            <li>You expect to compete in the next 24-30 months. Roster value top-5 to 7 but aging.</li>
             <li>Signals: 1-2 elite young pieces + several 28+ vets. Realistic championship odds 10-20%.</li>
             <li><strong>Action:</strong> Identify 2-3 vets to flip for ascending youth, but don't do a full teardown. Maintain enough current production to be playoff competitive in year 2.</li>
         </ul>
