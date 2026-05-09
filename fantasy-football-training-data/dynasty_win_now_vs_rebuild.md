@@ -111,5 +111,5 @@ ACTION at re-pivot: trade FAR-FUTURE picks for veteran upgrade. Now is when you 
 ## REBUILD VS RELOAD HEURISTIC
 A reload is a rebuild that starts from a higher asset base. If you have 1-2 elite young anchors AND can win 4+ games this year, you're a reloader. If neither true, you're a rebuilder. Be honest.
 
-## THE 50% DELTA RULE
-A useful gut-check: estimate roster total value vs league average. If you're 50%+ below average, you're a rebuilder. If you're 30%+ above, you're a contender. Anything in between - you're a reloader and the call is hardest.
+## THE 15% DELTA RULE
+A useful gut-check: estimate roster total value vs league average. If you're 15%+ below average, you're a rebuilder. If you're 15%+ above, you're a contender. Anything in between - you're a reloader and the call is hardest. (Older write-ups quote 50%/30% bands; in practice real dynasty leaderboards rarely spread that wide, so 15% in either direction is the more useful threshold.)
