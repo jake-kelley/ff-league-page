@@ -1,0 +1,149 @@
+DYNASTY TANKING - ETHICS, STRATEGY, AND PREVENTION
+====================================================
+Sources synthesized: Footballguys Harstad "Making Tanking Obsolete," Pro Football Network tanking prevention, Dynasty Nerds tanking reduction, RotoWire dynasty rebuild & tanking strategies, Footballguys forum tanking threads, Dynasty League Football tanking discussions, League Tycoon tanking guide.
+
+WHAT IS TANKING
+---------------
+Intentionally setting your team up to lose games to secure higher rookie draft picks. Two forms:
+1. LINEUP TANKING: deliberately starting weaker players. Generally considered cheating.
+2. ASSET TANKING: trading current production for picks. Acceptable in dynasty.
+
+WHY TANKING IS A DYNASTY-SPECIFIC ISSUE
+---------------------------------------
+- Rookie picks are tied to standings.
+- The 1.01 is materially more valuable than the 1.10.
+- Eliminated teams have nothing to play for late-season except next year's pick.
+- Dynasty rewards multi-year planning, which makes tanking RATIONAL but it harms league health.
+
+THE LEGITIMATE "ASSET TANK" (REBUILD)
+-------------------------------------
+You can ethically structure your team for a future championship:
+- Trade aging vets for young assets / picks.
+- Don't add waiver-wire helps when you're out of contention.
+- Sit injured-or-questionable players (within reason) - "not pushing" them.
+- Activate younger bench guys for development reps.
+
+This is NOT tanking - it's rebuilding. The line is whether you're playing your BEST CURRENTLY-AVAILABLE LINEUP each week.
+
+THE ILLEGITIMATE LINEUP TANK
+----------------------------
+- Starting your bench WR over your starting WR.
+- Sitting healthy starters intentionally.
+- Auto-drafting / not setting lineup.
+- Refusing to claim a clearly better player off waivers.
+This violates good-faith competition and is often grounds for league action.
+
+WHY TANKING IS BAD FOR LEAGUES
+------------------------------
+- Removes meaningful Week 13-17 games.
+- Reduces engagement of 30-40% of league at season's end.
+- Creates blowout point margins that distort tiebreakers.
+- Damages competitive culture - "earn your team."
+
+ANTI-TANKING MECHANISMS (COMMISSIONER OPTIONS)
+
+1) POTENTIAL POINTS METHOD
+- Track total fantasy points scored by eliminated teams.
+- Highest-scoring eliminated team gets the 1.01.
+- INCENTIVIZES playing best lineups.
+
+2) CONSOLATION BRACKET FOR PICKS
+- Eliminated teams play in losers' bracket.
+- Winner of losers bracket gets 1.01, runner-up 1.02, etc.
+- Rewards effort and competitive participation throughout season.
+
+3) WEIGHTED LOTTERY (NBA-STYLE)
+- Bottom 4-6 teams enter a weighted lottery for top picks.
+- 1st-place draft odds decline as record improves.
+- Reduces "zero benefit" to losing the most.
+
+4) DRAFT PICK INVERSION
+- Worst record gets MIDDLE pick (not top); best non-playoff team gets top pick.
+- Rewards trying.
+
+5) COMMISSIONER LINEUP ENFORCEMENT
+- Commissioner authority to substitute "obvious" tank lineups with optimal.
+- Repeated violations = inactive owner status.
+
+6) FORMULA: "Total Points + Wins" tiebreaker for picks
+- Encourages BOTH winning and scoring.
+
+PRO/CON OF VARIOUS METHODS
+
+POTENTIAL POINTS:
++ Easy to implement, transparent.
++ Rewards engagement.
+- Can be gamed by stacking high-scoring matchups.
+- Doesn't reward "weak teams that overachieve."
+
+CONSOLATION BRACKET:
++ Maintains weekly H2H structure.
++ Ladder-style incentive.
+- Harder to manage on Sleeper (some platforms support natively).
+- Can still be gamed by intentional consolation losses.
+
+WEIGHTED LOTTERY:
++ NBA-tested model.
++ Reduces extreme "race to bottom."
+- Removes some value of winning early picks.
+- Some owners feel "luck" shouldn't decide picks.
+
+REBUILD MANAGER GUIDE - HOW TO DO IT WITHOUT TANKING
+
+1. Sell aged vets for picks via in-season trades. Don't carry dead weight.
+2. Add wavier-wire RBs/WRs who get role expansion - they have lottery value AND help current team.
+3. Promote rookies/young bench to starting lineup. Development reps + you might get lucky.
+4. Don't tank lineup. Play your best 9 each week. The marginal "loss" is 5% draft slot - not worth integrity.
+5. Communicate. Tell league chat: "I'm a seller. Make me offers." Sets expectations.
+
+LATE-SEASON TRADE STRATEGY (REBUILDER)
+--------------------------------------
+- Weeks 9-12 (peak trade window): contender desperation = your premium.
+- Sell every productive vet you can.
+- Don't accept current-year picks from contenders - get future.
+
+TANKER TELLS (SIGNALS YOU'RE BEING NAUGHTY)
+-------------------------------------------
+- Sitting clear top-12 RB for an unranked bench player.
+- Not setting lineup at all 2+ weeks in a row.
+- Refusing to claim a starter off waivers when teams are decimated.
+- Dropping a productive player for no replacement.
+
+HOW LEAGUEMATES SHOULD HANDLE TANKING
+-------------------------------------
+1. Document via screenshots.
+2. Bring to league chat respectfully.
+3. Vote on remediation per constitution.
+4. If commissioner doesn't act, consider league restructure for next season.
+
+THE LONG-TERM CASE AGAINST TANKING (FOR THE TANKER)
+---------------------------------------------------
+Even if you "get away with" tanking:
+- Reputation damage.
+- Other owners less likely to trade with you.
+- League health degrades, fewer competitive opportunities.
+- Karma: eventually you'll be on the contending side and someone will tank against you.
+
+PHILOSOPHY OF "COMPETITIVE REBUILDING"
+--------------------------------------
+The best dynasty managers REBUILD WITHOUT TANKING. They:
+- Trade vets aggressively in season.
+- Add WW pieces with future relevance.
+- Play full lineups for points-scored standing tiebreakers.
+- Use rebuild years to test bench players.
+- Never embarrass themselves in lineup decisions.
+
+This is the high-integrity path AND statistically still produces top picks because most rebuilds produce 4-6 win seasons regardless.
+
+CASES WHERE A LATE-SEASON SIT MIGHT BE LEGITIMATE
+-------------------------------------------------
+- Your starter is questionable on a short week.
+- Your starter is on a team mathematically eliminated and could rest.
+- Your starter has dropped on snap share for 3+ weeks.
+- Bye-week roster squeezes.
+
+If the SIT can be defended on football grounds (not draft-pick grounds), you're probably fine.
+
+COMMISSIONER PSYCHOLOGY TIP
+---------------------------
+Make tanking unprofitable RATHER than punitive. Anti-tanking systems should ALIGN incentives with effort, not just punish bad behavior.

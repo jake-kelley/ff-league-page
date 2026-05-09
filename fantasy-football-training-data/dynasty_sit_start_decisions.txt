@@ -1,0 +1,214 @@
+DYNASTY-SPECIFIC SIT/START DECISIONS
+=====================================
+Sources synthesized: Dynasty Nerds weekly start/sit columns, KeepTradeCut Start/Sit Tool, Footballguys weekly cheatsheets, Dynasty Daddy lineup tools, FantasyPros expert consensus rankings.
+
+WHAT MAKES DYNASTY SIT/START DIFFERENT
+--------------------------------------
+Most weekly sit/start advice is REDRAFT focused: maximize this week's points. Dynasty owners face additional layers:
+
+1. DEVELOPMENT REPS: starting your rookie even if he's not the highest-projected gives him reps that grow value.
+2. VALUE PRESERVATION: starting an aging vet you plan to sell can keep his perceived weekly value high.
+3. TANK CONSIDERATIONS: late-season eliminated teams may have different optimal lineups (carefully - within rules).
+4. INJURY PROTECTION: dynasty assets matter for years; risking them in meaningless games is bad EV.
+
+FRAMEWORK: THE FIVE QUESTIONS
+-----------------------------
+For each lineup decision, ask:
+1. WHO PROJECTS HIGHER THIS WEEK? (the redraft answer)
+2. WHO HAS THE BETTER MATCHUP DELTA? (vs season average)
+3. AM I IN PLAYOFF CONTENTION? (if not, dynamics shift)
+4. DO I PLAN TO SELL EITHER PLAYER? (perception management)
+5. IS THERE INJURY RISK FOR EITHER? (impact on dynasty value)
+
+DYNASTY-SPECIFIC LINEUP DECISIONS
+
+WHEN TO START THE LOWER-PROJECTED PLAYER
+
+A) DEVELOPMENT REPS FOR ROOKIES
+- Your rookie WR is a long-term asset.
+- Starting him in matchups where he might score 8 PTS vs your vet's 12 PTS is a small weekly cost for development reps.
+- Best when you're out of contention and the vet is plant-it scout-team material.
+
+B) PERCEPTION MANAGEMENT
+- You plan to sell vet WR this week or next.
+- Starting him locks in his "weekly starter" perception.
+- Even if your rookie projects similarly, START THE VET YOU'RE SELLING.
+
+C) BREAKOUT BUILDING
+- A young player (year 2-3) is showing breakout signs.
+- Starting him through a slow week consolidates the breakout narrative for your eventual sell-high or your roster confidence.
+
+WHEN TO SIT THE HIGHER-PROJECTED PLAYER
+
+A) INJURY RISK
+- Your top RB is questionable but expected to play.
+- Game is meaningless to your standings.
+- Sit him - protect the dynasty asset.
+
+B) HE'S BEING TRADED
+- You've already agreed to a trade pending lineup.
+- Sit him to avoid an injury that voids the deal.
+
+C) LATE-SEASON IRRELEVANCE (REBUILDER)
+- You're 3-9, no playoff path.
+- Top-12 RB is on the IR/Q list; not worth the risk.
+- Sit and play your healthy bench.
+
+POSITION-SPECIFIC LINEUP HEURISTICS
+
+QB:
+- Start your top QB always (no matchup-fading QB1s).
+- For QB2/streamer: matchup matters more (DvP, total).
+- In SF: start your healthiest 2 QBs unless one is on a clear bye.
+- Mobile QBs have safer floors against bad defenses.
+
+RB:
+- Workhorses (18+ touches) in good matchups: must-start.
+- Committee backs: matchup-dependent. Use snap share trends.
+- Pass-catching RBs: start in PPR if their team is trailing-projection.
+- Goal-line specific RBs: start in TD-rich matchups (red zone projections).
+
+WR:
+- Target share trumps matchup for top WRs.
+- Slot WRs: matchup-dependent against zone defenses.
+- Vertical threats: matchup-dependent against deep defenses.
+- Start WRs with high TPRR (targets per route run).
+
+TE:
+- Stud TEs: must start every week.
+- Mid-tier TEs: matchup-dependent (game total, opponent vs TE).
+- Streamers: start anyone facing a bad TE defense.
+
+K/DST:
+- Stream by matchup against weak offenses (DST) or domes (K).
+
+ADVANCED SIT/START METRICS TO USE
+
+TPRR (Targets Per Route Run)
+- WR/TE specific. >0.20 = startable.
+
+I-20% (Inside 20 Rushing Share)
+- RB-specific. >35% = TD upside.
+
+EXPECTED FANTASY POINTS / GAME (xFP/G)
+- Volume-based projection. >12 = startable.
+
+OPP DvP (Defense vs Position) WITH SCHEDULE ADJUSTMENT
+- Crucial. Use schedule-adjusted DvP, not raw.
+
+PRESSURE-SPLIT QB DATA
+- Mobile QBs vs blitz-heavy defenses = floor protection.
+- Pocket QBs vs blitz-heavy defenses = bust risk.
+
+GAME SCRIPT PROJECTIONS
+- Total + spread → project pass volume.
+- High total / close spread = pass volume = WR/TE upside.
+- Low total / blowout = QB/WR fade in losing scripts.
+
+BYE WEEK PLANNING (DYNASTY EXTRA LAYER)
+
+PROACTIVE STREAMING
+- Identify byes weeks early (October).
+- Pick up streamer QB/TE/D 2 weeks ahead, not reactively.
+
+DON'T OVERPAY FOR BYE-WEEK FILLERS
+- A bye-week starter is a 1-week investment.
+- Use waiver-wire claims, not trades.
+
+TRADING FOR BYE COVER (rare but real)
+- If your QB1's bye week aligns with a contender's QB1 bye AND he has 3 startable QBs, you might trade for a 1-week loaner.
+
+PLAYOFF MATCHUP PLANNING (WEEKS 14-17)
+
+SCHEDULE STUDY EARLY (October)
+- Identify who has soft Week 14-17 schedules.
+- Buy these players if available.
+- Sell players with hard playoff schedules.
+
+PEAK OUTPUT IN PLAYOFFS
+- Start your STUDS regardless of matchup.
+- Don't matchup-chase in playoffs - regression.
+
+DEFENSE MATCHUPS BECOME MORE PREDICTIVE LATE
+- By Week 14, defenses have established patterns.
+- DvP is most predictive at this point.
+
+INJURY MANAGEMENT (DYNASTY)
+
+SHORT-TERM INJURY (1-2 WEEKS)
+- IR if eligible to free up roster spot.
+- If not eligible: start replacement; hold the injured player.
+
+LONG-TERM INJURY (3+ WEEKS)
+- Definitely IR.
+- Consider trading for a replacement (depth helps long-term).
+
+SEASON-ENDING INJURY
+- IR for the duration.
+- Don't sell injured stars at fire-sale prices.
+- Their dynasty value is mostly intact for next season.
+
+WAIVER DECISIONS - DYNASTY CONTEXT
+
+CHASING POINTS (current week):
+- Streamer who'll start next week.
+- Use FAAB sparingly: $5-10 per stream.
+
+CHASING ROLE EXPANSION (multi-week):
+- Backup who just got promoted.
+- Use FAAB more aggressively: $15-30%.
+
+CHASING LONG-TERM VALUE (dynasty stash):
+- Rookie who flashed.
+- Use FAAB significantly: $20-40%.
+- Worth burning a roster spot for 4-6 weeks to evaluate.
+
+DYNASTY-SPECIFIC STREAMERS
+
+QB STREAMER
+- 1QB league: rotate by matchup using QB13-20 range.
+- SF: only stream if you have a clear QB3 with role; don't stream blind.
+
+TE STREAMER
+- Bottom-tier TEs vs bottom-tier TE defenses.
+- Goal: 8-10 PTS replacement.
+
+DST STREAMER
+- Always stream against bottom-5 offenses.
+- Drop after week of use.
+
+K STREAMER
+- Always stream domes / kicker-friendly weather.
+
+LATE-SEASON LINEUP DECISIONS (REBUILDER)
+
+WEEKS 12-17 IF ELIMINATED:
+- Sit injury-questionable starters.
+- Start younger bench players for development reps.
+- DON'T outright tank lineups (integrity / league rules).
+- Document your reasoning if challenged.
+
+LATE-SEASON LINEUP DECISIONS (CONTENDER)
+
+WEEKS 12-17:
+- Start your studs, period.
+- No matchup-chasing. Floor and ceiling matter.
+- Avoid streamers in playoffs - need known quantities.
+- Verify all questionable players' status BEFORE Sunday.
+
+COMMON SIT/START MISTAKES (DYNASTY)
+
+1) Treating dynasty like redraft EVERY WEEK.
+- Even contenders should think about long-term reps.
+
+2) Refusing to start rookies.
+- "I don't trust him yet" - they need reps to develop.
+
+3) Over-fading studs in tough matchups.
+- Top-5 RBs/WRs are top-5 regardless of matchup.
+
+4) Streaming poorly.
+- Use data, not gut feel, for streamers.
+
+5) Missing inactive lists.
+- Some leagues lock lineups Sunday morning. Set Friday/Saturday.

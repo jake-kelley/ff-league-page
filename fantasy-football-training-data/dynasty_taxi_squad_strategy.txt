@@ -1,0 +1,87 @@
+TAXI SQUAD STRATEGY IN DYNASTY
+==============================
+Sources synthesized: Sleeper support docs, Bleacher Nation, Pro Football Network taxi articles, Footballguys forum threads, NFL FFFaceOff dynasty taxi list.
+
+WHAT IS A TAXI SQUAD
+--------------------
+Extra roster slots that don't count against your active roster size, used to stash rookies and developmental players. Most leagues set 4-6 taxi spots, retain players for 2-3 years, and require players to be "rookies" or "rookies + sophomores" to be eligible.
+
+WHY TAXI MATTERS
+----------------
+- Lets you carry rookie 2nds, 3rds, and lottery young players without giving up active roster capacity.
+- Increases the value of late rookie picks: a 3.04 you'd cut is now a 3-year stash.
+- Encourages dynasty-style "draft and develop."
+
+TAXI ELIGIBILITY (BY LEAGUE)
+----------------------------
+- ROOKIES ONLY (most common): only current year's rookies.
+- ROOKIES + SOPHOMORES: also includes year-2 players.
+- ALL PLAYERS UNDER X SEASONS (rare): allows broader stashing.
+- NEVER ELIGIBLE if a player has accumulated more than X NFL games (some leagues).
+
+CRITICAL RULE (Sleeper)
+- A taxi player CANNOT be on the active roster first then moved to taxi - they must come in via DRAFT or WAIVER (after promotion through bench typically).
+- Once activated to bench/active roster, can't go back to taxi.
+
+OPTIMAL TAXI USAGE STRATEGIES
+
+1. ROOKIE 3rd-4th-5th ROUND PICKS - the prime candidates.
+- Players at 2.10+ or in 3rd/4th rounds are exactly the profile to stash.
+- They have lottery upside but no immediate role.
+- Stash for 2-3 years; promote ONLY if they earn it.
+
+2. ROOKIE QB STASH (SF leagues especially)
+- Backup QBs drafted late can sit on taxi for 2-3 years.
+- High-ceiling lottery: a backup QB on a team with an aging starter has eventual starter potential.
+
+3. INJURED ROOKIES
+- If a rookie tears an ACL pre-season, drop him to taxi if eligible. Don't waste an active roster spot.
+
+4. PROJECT WRs WITH WORKLOAD UNCERTAINTY
+- WRs in good NFL R2-R3 capital who have crowded depth charts (e.g., 4th WR on a stacked team).
+- They might emerge year 2-3 with role expansion.
+
+5. UFA / UDFA ROOKIES WITH LANDING-SPOT LUCK
+- Undrafted rookies who happen to land on teams with depth chart vacancies.
+- Cheap stash for 2 years, you don't lose a roster spot.
+
+PROMOTION TIMING
+----------------
+- Promote when: the player breaks out, becomes a starter, or has imminent playable role.
+- DO NOT promote: just because you "want to keep him." Let him develop on taxi.
+- Once promoted: he's locked out of taxi forever (per most league rules).
+
+TAXI MISTAKES TO AVOID
+----------------------
+- Hoarding taxi spots with bad picks. If you've stashed a 3rd-round rookie for 2 years and he's still doing nothing, cut him.
+- Forgetting taxi deadline. Most leagues set "by Week 1" or "by date X." Miss it and your taxi locks.
+- Treating taxi as bench. Don't promote players too early - the spot is the entire point.
+- Using taxi for veterans. Most leagues don't allow this; check rules.
+
+BEST TAXI HIT TYPES (BY POSITION)
+---------------------------------
+- WR: most rewarding. Year-2 breakouts are common.
+- RB: difficult to stash because RBs need volume Y1 to be relevant. Limited upside.
+- QB (in SF): high-payoff stash if QB lands well or starter ages out.
+- TE: long developmental window matches taxi perfectly.
+
+EXAMPLES OF "STASH WINNING" ARCHETYPES
+---------------------------------------
+- WR drafted NFL R2 to crowded depth chart > breakout in Year 2 with role change.
+- Late-round rookie RB > injury to RB1 > emerges in Year 2.
+- Rookie TE > developmental year 1 > breakout year 2-3.
+- Backup QB to aging starter > 2 years on taxi > becomes starter > years of value.
+
+TAXI vs IR
+----------
+- Taxi: developmental stash for rookies.
+- IR: NFL injury reserve only, for genuinely injured (often year-long) players.
+- Don't confuse them. Taxi is offensive (build for future); IR is defensive (preserve current asset).
+
+LEAGUE-RULE VARIATIONS TO WATCH FOR
+-----------------------------------
+- Some leagues let you waive a taxi player back to FA without exposing him.
+- Some require you to add/drop through bench first (annoying logistics).
+- Some allow temporary promotion for bye weeks (rare).
+- Some allow trading taxi-locked players (most allow this).
+- Some set deadline at "rookie draft completion + 2 weeks" (more flexible).

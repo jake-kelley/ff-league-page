@@ -1,0 +1,632 @@
+================================================================================
+DYNASTY FANTASY FOOTBALL: NOTABLE STRATEGY THREADS & CONCEPT SUMMARIES
+A summary of recurring high-quality strategy threads/concepts that surface on
+r/DynastyFF, r/fantasyfootball, the Dynasty League Football forum, the
+Footballguys forum, and similar dynasty communities. These are concept-level
+summaries; specific URLs are not the point. The recurring intellectual
+patterns are.
+================================================================================
+
+------------------------------------------------------------
+THREAD CONCEPT 1: "WHY YOUR DYNASTY ROSTER NEEDS AN AGE PYRAMID"
+------------------------------------------------------------
+
+Recurring effortpost format. The concept: a healthy dynasty roster looks like
+a pyramid by age, not a flat distribution. A typical recommended structure:
+
+  - 25-30% of starting lineup: ages 22-24 (ascending assets).
+  - 35-40% of starting lineup: ages 25-28 (peak production).
+  - 25-30% of starting lineup: ages 29+ (selective vets at WR/QB).
+
+Key insights repeatedly upvoted:
+  - Do not have ALL of your "young assets" be one-year-out from production.
+    You need a continuous escalator, not a queue.
+  - Avoid catastrophic age cliffs - i.e., don't build a roster where 4 of
+    your 5 starting RBs/WRs all turn 30 the same year.
+  - Replace one starter per year, on average. If you need to replace 3+,
+    you've waited too long.
+
+Counterpoints in the comments:
+  - The "perfect pyramid" is theoretical; in practice you take talent over
+    age structure when forced to choose.
+  - Some champion rosters look nothing like pyramids - they're "spike year"
+    builds that intentionally overload one window.
+
+------------------------------------------------------------
+THREAD CONCEPT 2: "THE TWO-YEAR RULE FOR PROBLEM RBs"
+------------------------------------------------------------
+
+A widely-cited heuristic: when you draft an RB in the rookie draft, you
+have two years to figure out if he's a real player. After two seasons:
+  - If he's a confirmed RB1/RB2, hold and ride.
+  - If he's a backup with no clear path, sell.
+  - If he's hurt or stuck behind a vet, you have one more year.
+
+The thread genre evaluates how often dynasty managers cling to year-3 RBs
+hoping for a leap. The data-driven version of this thread is consistently
+upvoted: "RB breakouts after year 2 are vanishingly rare without an
+opportunity change."
+
+------------------------------------------------------------
+THREAD CONCEPT 3: "THE SUPERFLEX QB INDEX"
+------------------------------------------------------------
+
+A recurring data thread that quantifies how steeply the value of QBs falls
+in superflex rankings vs. 1QB. The takeaway:
+
+  - The first 14-18 QBs in superflex are ALL more valuable than the
+    equivalent WR1s by KTC and FantasyCalc.
+  - The "QB cliff" in superflex is around QB22 - everyone above is
+    rosterable; below is bench-streamer.
+  - Holding 4 QBs is +EV in 12-team superflex.
+
+This thread always sparks a debate over whether superflex devalues skill at
+non-QB positions or just changes the optimization. The community reaches
+consensus that "QB hoarding" is rational because of NFL injury rates and
+the structural shortage of NFL starters.
+
+------------------------------------------------------------
+THREAD CONCEPT 4: "WHY YOU SHOULD ALWAYS TRADE BACK IN A ROOKIE DRAFT"
+------------------------------------------------------------
+
+A canonical effortpost. Walks through hit rates by pick number in rookie
+drafts. The structural argument:
+  - 1.01 hits at 70-80%, 1.04 at ~50%, 1.08 at ~35%, 2.04 at ~22%.
+  - Two 1.07s historically outperform one 1.03 over 5-year horizons.
+  - The market over-rates the difference between adjacent picks at the top
+    by ~15-25%.
+  - Therefore, accumulating MORE picks in the 1.06-2.04 range is +EV vs.
+    consolidating to a single high pick.
+
+Counter-thread that recurs: "The exception is when there's a generational
+rookie." Then trading up makes sense, but only into the top 2-3 picks.
+
+------------------------------------------------------------
+THREAD CONCEPT 5: "WR LONGEVITY IS THE MOST UNDERRATED EDGE IN DYNASTY"
+------------------------------------------------------------
+
+A widely-shared analytical post. The concept:
+  - Top-12 WRs typically have 5-7 prime seasons.
+  - Top-12 RBs typically have 2-4 prime seasons.
+  - The same KTC value for an elite WR vs. an elite RB therefore vastly
+    favors the WR over a multi-year horizon.
+  - Therefore, when KTC says they're equal, take the WR.
+
+The thread argues the dynasty market is structurally biased toward RBs
+because RBs score more weeks of high-floor fantasy points, but the
+"asset depreciation" curve massively favors WRs. Comments on the thread
+debate whether this is changing in modern offenses.
+
+------------------------------------------------------------
+THREAD CONCEPT 6: "STOP CHASING POINTS, START CHASING VALUE"
+------------------------------------------------------------
+
+A core philosophical post. The concept:
+  - Players score points; assets accumulate value.
+  - A player who scores 200 points and was bought for $100 of trade value
+    is worse than a player who scored 150 points and was bought for $50.
+  - You don't get points-per-dollar trophies; you get championships.
+  - Therefore optimize for asset acquisition cost, not point production.
+
+This shows up annually with slightly different framings. Often paired with
+real numbers from the previous season showing managers who "won" point
+totals but finished mid-pack because they overpaid for production.
+
+------------------------------------------------------------
+THREAD CONCEPT 7: "THE 'PROCESS NOT RESULTS' DEFENSE"
+------------------------------------------------------------
+
+A perennial thread genre where someone defends a trade that looks bad in
+hindsight. The defense:
+  - Trades are bets at given prices.
+  - If the price was right at the time of the trade, the trade was good
+    REGARDLESS of how it played out.
+  - Injuries, freak plays, and coaching changes are noise.
+  - Beating yourself up over a "bad outcome" trade where the process was
+    correct will hurt your future trade decisions.
+
+The community broadly endorses this and uses it as a counterweight to the
+"every trade is graded by what happened next" instinct. Common follow-up:
+do honest post-mortems but don't confuse luck with skill.
+
+------------------------------------------------------------
+THREAD CONCEPT 8: "THE ECONOMICS OF FUTURE ROOKIE PICKS"
+------------------------------------------------------------
+
+A widely upvoted financial-style analysis post. Uses time value of money
+language. Distilled:
+  - Future picks are options. They have intrinsic value (the player) and
+    time value (uncertainty about where it lands).
+  - A future 1st has higher variance than a current 1st - it could be
+    anything from 1.01 to 1.12.
+  - Therefore future 1sts are worth slightly less than today's 1sts at
+    median.
+  - But future 1sts can be acquired at a discount by contenders who don't
+    care about them.
+  - Therefore the +EV move is for rebuilders to buy future 1sts from
+    contenders who undervalue them.
+
+Often paired with discount-rate language: "I discount future picks at
+about 15-20% per year out."
+
+------------------------------------------------------------
+THREAD CONCEPT 9: "THE STARTUP DRAFT IS WHERE LEAGUES ARE WON OVER 10 YEARS"
+------------------------------------------------------------
+
+An evergreen post that returns every spring. Argues:
+  - Most champions of established leagues drafted exceptionally well in
+    the startup.
+  - In-season trading is high-leverage but bounded; the startup gives you
+    the foundation.
+  - Spending 20+ hours preparing for your startup is justified.
+  - Mock drafting is the highest-EV preparation activity; live mocks are
+    more useful than reading rankings.
+  - The most common startup mistake is reaching - paying first-round capital
+    for a player who will be available in the second.
+
+Counter-threads argue that the startup matters less than people claim
+because you can rebuild any roster in 2-3 years if you're active.
+
+------------------------------------------------------------
+THREAD CONCEPT 10: "WHAT IS YOUR LEAGUE'S TRUE WIN-NOW PRICE?"
+------------------------------------------------------------
+
+A concept thread about market mispricing. Argues:
+  - Every league has a "true" market price for win-now production that
+    differs from KTC.
+  - Active contenders bid up vet RB prices to 110-130% of KTC value.
+  - Active rebuilders bid up rookie pick prices to 110-130% of KTC value.
+  - The arbitrage opportunity is buying win-now from rebuilders early in
+    the season (when they haven't fully committed) and selling rookie
+    picks to other rebuilders later (when they have).
+
+Spawns a recurring sub-thread: "How do I figure out my league's true
+prices?" Answer: do 10 trade negotiations, see who pays what.
+
+------------------------------------------------------------
+THREAD CONCEPT 11: "STOP TRADING WITH THE SAME PERSON"
+------------------------------------------------------------
+
+A behavioral pattern call-out thread. The concept:
+  - If 60%+ of your trades are with one league mate, you're not getting
+    the best deals available.
+  - Trade frequency with each league mate should be roughly even.
+  - The exception: rebuilders + contenders forming a pipeline is fine and
+    expected.
+
+Spawns predictable comments about collusion concerns vs. natural trade
+chemistry. The line, per the community: "It's fine if a contender keeps
+buying from a rebuilder. It's collusion if the deals are consistently
+lopsided in one direction without market-rate consideration."
+
+------------------------------------------------------------
+THREAD CONCEPT 12: "THE BENCH HOARDER PROBLEM"
+------------------------------------------------------------
+
+Recurring genre where someone posts a roster with 30 players and 12 of them
+are "stash candidates." The community responds with variations of:
+  - You can only realistically follow 18-22 players closely.
+  - Stash candidates are only useful if you're willing to actually
+    promote them.
+  - Trading 4 stash candidates for 2 known starters is the right move.
+  - Fear of dropping prospects is the most common dynasty pathology.
+
+The repeated heuristic: drop a player if you wouldn't acquire them today
+for free.
+
+------------------------------------------------------------
+THREAD CONCEPT 13: "EARLY-SEASON TRADE WINDOWS"
+------------------------------------------------------------
+
+The argument: there are three distinct trade windows during a dynasty
+season, each with different dynamics:
+  - Window 1 (Weeks 1-4): "Reactionary" market. People panic-sell after
+    bad starts. Best buy-low window.
+  - Window 2 (Weeks 5-9): "Stabilization." Production is real; prices
+    recalibrate.
+  - Window 3 (Weeks 10-deadline): "Desperation." Contenders pay premiums.
+    Best sell-high window.
+
+The thread genre argues to identify which window you're in and trade
+accordingly. Buy in window 1; reposition in window 2; sell in window 3.
+
+------------------------------------------------------------
+THREAD CONCEPT 14: "TRADE OFFER ARCHAEOLOGY"
+------------------------------------------------------------
+
+A post genre where someone analyzes dozens of historical trade offers in
+their league to find patterns:
+  - Which managers always lowball.
+  - Which managers always offer something close to fair.
+  - Which managers won't trade picks vs. won't trade players.
+
+The conclusion is usually that knowing your league mates' patterns is
+worth more than knowing player rankings. The community recommends keeping
+informal notes on each manager's preferences and quirks.
+
+------------------------------------------------------------
+THREAD CONCEPT 15: "THE 'TWO RIGHT, ONE WRONG' RULE"
+------------------------------------------------------------
+
+A simple heuristic for trade evaluation:
+  - If you can identify two clear ways the trade benefits you and only one
+    clear way it could hurt you, take the deal.
+  - If you can identify two clear ways it could hurt you and only one
+    way it benefits you, decline.
+  - If it's 1-1 or 2-2, think harder.
+
+Beloved by the community for being actionable. Critics say it oversimplifies
+multi-dimensional trades.
+
+------------------------------------------------------------
+THREAD CONCEPT 16: "STARTUP DRAFT REGRETS - A RETROSPECTIVE GENRE"
+------------------------------------------------------------
+
+A widely-loved thread genre where someone shares a startup draft from 3-5
+years ago and grades each pick with current knowledge. The recurring
+findings across hundreds of these threads:
+  - Reaches on rookies almost always look bad in retrospect.
+  - "Boring" mid-round veteran picks were almost always great value.
+  - QBs taken in the late rounds in 1QB rarely matter.
+  - QBs taken in the early rounds in superflex usually look correct.
+  - Tight ends taken before round 5 in non-TE-premium rarely look correct.
+  - WRs in rounds 1-4 are by far the highest-EV picks at any position.
+  - RBs taken outside the top 5 in the draft rarely produce a championship
+    contributor.
+
+------------------------------------------------------------
+THREAD CONCEPT 17: "THE COMMISSIONER'S DILEMMA"
+------------------------------------------------------------
+
+A genre where commissioners post about the conflict between:
+  - Being a competitor in the league.
+  - Being the neutral arbiter of disputes.
+
+The community consensus:
+  - Recuse yourself from rulings involving your team.
+  - Designate a deputy or rotating arbiter.
+  - Document everything publicly.
+  - Don't make rulings during your own playoff runs.
+
+Recurring conclusion: leagues that share commissioner duties between two
+people are more stable than single-commissioner leagues.
+
+------------------------------------------------------------
+THREAD CONCEPT 18: "ON RUNNING BACK 'DEAD ZONES'"
+------------------------------------------------------------
+
+A perennial thread that examines the value gap between RBs:
+  - Top-tier RBs (RB1-8) are scarce and command premiums.
+  - Mid-tier RBs (RB12-25) are a "dead zone" - similar production, similar
+    value, hard to differentiate.
+  - Late-tier RBs (RB26+) are a different "dead zone" - lottery tickets.
+
+The argument: don't pay for the middle. Either buy the elite RB or stream
+the late RBs. The middle is a value trap.
+
+------------------------------------------------------------
+THREAD CONCEPT 19: "THE CASE FOR RUNNING BACK SPECULATION"
+------------------------------------------------------------
+
+A counter-thread to "don't pay for RBs." Argues:
+  - Because the market is so down on RBs, RB lottery tickets are
+    underpriced.
+  - The rookie RB hit rate (top 5 NFL draft picks) on producing an RB1
+    season at some point is high.
+  - Therefore, hoarding rookie RBs as lottery tickets is +EV.
+
+The community is split. The synthesis: speculate on rookie RBs with high
+NFL draft capital; don't speculate on UDFA rookies or mid-round RBs.
+
+------------------------------------------------------------
+THREAD CONCEPT 20: "THE DYNASTY TIME HORIZON FALLACY"
+------------------------------------------------------------
+
+A philosophical thread. The concept:
+  - Dynasty players say "I'm thinking long-term" but actually trade
+    based on this season's performance.
+  - True long-term thinking would mean ignoring 90% of in-season volatility.
+  - Most "dynasty" decisions are really 1-2 season decisions in disguise.
+  - The actual long horizon is 5+ years; very few rosters are built that
+    way.
+
+The thread asks readers to honestly self-assess: are you thinking like a
+3-year window or a 7-year window? The answer changes optimal decisions.
+
+------------------------------------------------------------
+THREAD CONCEPT 21: "THE 'HALF-OFF' OFFSEASON BUY"
+------------------------------------------------------------
+
+The seasonal advice that recurs every February-March:
+  - Veterans coming off down years are at their lowest values in
+    February.
+  - Many of these "down years" are noise.
+  - Buying at the post-season nadir and holding through training camp
+    (when narrative shifts) is one of the highest-EV moves available.
+
+Lists of "half-off" candidates usually include vets coming off injury,
+players whose teams just hired new offensive coordinators, and aging
+QBs whose performance hasn't actually declined.
+
+------------------------------------------------------------
+THREAD CONCEPT 22: "SHOULD I HOLD OR FOLD?"
+------------------------------------------------------------
+
+A self-help-style thread that returns mid-November every year. Decision
+framework:
+  - Are you within one game of the playoffs? Hold.
+  - Are you mathematically alive but unlikely? Fold partially - sell
+    your aging vets, keep your young core.
+  - Are you mathematically eliminated? Fold fully - everything 28+ is
+    on the block.
+
+Common mistake the thread calls out: "trying to make a run" when you're
+3-7. The math doesn't support it; the rebuild does.
+
+------------------------------------------------------------
+THREAD CONCEPT 23: "IDENTIFYING YOUR LEAGUE'S DYING TEAM"
+------------------------------------------------------------
+
+A practical thread genre. The concept: every league has 1-2 teams that
+are quietly drifting toward inactivity. Recognize them early and:
+  - Buy their best assets before they stop responding.
+  - Don't accept lopsided deals (they'll be reversed by a replacement
+    manager later).
+  - Flag them to the commissioner.
+
+Signs of a dying team:
+  - Slow trade response times.
+  - Lineup mistakes (bye week starters, injured starters).
+  - Low chat engagement.
+  - No FAAB activity.
+
+------------------------------------------------------------
+THREAD CONCEPT 24: "THE OFFSEASON ISN'T REALLY THE OFFSEASON"
+------------------------------------------------------------
+
+An argument-style thread. Claims:
+  - More dynasty value changes hands in the offseason than during the
+    season.
+  - The "real season" for dynasty is March-July, not September-December.
+  - Managers who go silent in the offseason cede 60% of available trade
+    opportunities.
+
+Encourages year-round engagement. The community broadly agrees, with the
+caveat that life makes offseason engagement hard for many.
+
+------------------------------------------------------------
+THREAD CONCEPT 25: "ROSTER REDUNDANCY IS A FORM OF VALUE LOSS"
+------------------------------------------------------------
+
+A common analytical post. The concept:
+  - You can only start a fixed number of WRs/RBs/TEs.
+  - Each "extra" starter at a position you're already deep at provides
+    minimal lineup value.
+  - Therefore consolidating multiple WR2/3 into a single WR1 + a second
+    starter at a different position is +EV.
+  - The market's tendency to charge a premium for the WR1 reflects this -
+    but the math still works.
+
+------------------------------------------------------------
+THREAD CONCEPT 26: "THE 'COULDN'T TRADE HIM' BIAS"
+------------------------------------------------------------
+
+A self-aware thread genre. The pattern:
+  - Manager has held a player for years past peak.
+  - Reviews trade offers from 2-3 years ago that they declined.
+  - Realizes they could have gotten 2-3x current value.
+  - Concludes that "I'll wait for a better offer" is usually a losing
+    move on declining assets.
+
+The repeated takeaway: when an aging player's value has plateaued, take
+the next reasonable offer. There won't be a better one.
+
+------------------------------------------------------------
+THREAD CONCEPT 27: "WHAT YOUR LEAGUE'S TRADE VOLUME SAYS ABOUT IT"
+------------------------------------------------------------
+
+A diagnostic thread. The concept:
+  - Healthy dynasty leagues see 30-60+ trades per year.
+  - Below 20 trades per year suggests trade-averse league mates.
+  - Above 100 trades may suggest collusion or boredom.
+
+Solutions for low-trade leagues:
+  - Have the commissioner host a "trade week."
+  - Highlight trades publicly to celebrate them.
+  - Create a trade-of-the-week vote/award.
+
+------------------------------------------------------------
+THREAD CONCEPT 28: "THE THREE SEASONS OF DYNASTY"
+------------------------------------------------------------
+
+A framework post. Argues there are three seasons:
+  - The Roster Season (offseason - through May): roster construction,
+    rookie drafts, trades.
+  - The Information Season (June-August): training camp news, injury
+    reports, depth chart shifts.
+  - The Lineup Season (September-December): start the right people, win
+    your matchups.
+
+Most managers focus on Season 3; the championship managers spend most
+of their time on Seasons 1 and 2.
+
+------------------------------------------------------------
+THREAD CONCEPT 29: "BURNED-OUT LEAGUE SYNDROME"
+------------------------------------------------------------
+
+A late-season annual thread. Symptoms:
+  - Multiple managers stop responding in chat.
+  - Trade activity drops to zero.
+  - Lineups go un-set.
+  - The same 4 people are the only active ones.
+
+Solutions:
+  - Replacement of inactive managers each offseason.
+  - Increased buy-in to filter for committed players.
+  - Constitution rules requiring lineup activity.
+  - Periodic league chat "icebreakers."
+
+The genre often ends with someone announcing they're leaving the league;
+the community generally validates that decision.
+
+------------------------------------------------------------
+THREAD CONCEPT 30: "WHAT CHAMPIONSHIP TEAMS HAVE IN COMMON"
+------------------------------------------------------------
+
+A retrospective post genre that examines past league champions. Recurring
+findings:
+  - Almost all champions had at least 2 elite WRs or 1 elite WR + 1
+    elite QB (in superflex).
+  - Most champions were active in the trade market all year.
+  - Most champions did NOT have the highest-KTC roster - usually 3rd-6th.
+  - Most champions had a single "spike year" rather than 5 years of
+    contention.
+  - Championship rosters tend to have MORE old players than non-champ
+    rosters in their championship year - because they made win-now moves.
+
+------------------------------------------------------------
+THREAD CONCEPT 31: "THE ROOKIE PICK ARBITRAGE LADDER"
+------------------------------------------------------------
+
+A pricing thread. The argument:
+  - Pre-NFL Draft, rookie picks are cheaper because uncertainty is high.
+  - Pre-NFL Draft to post-NFL Draft (April-May), values jump 15-30%.
+  - From May to August, values drift down as rookies become familiar
+    quantities.
+  - In-season values depend entirely on the previous year's rookie class
+    breakouts.
+
+The arbitrage: buy picks pre-NFL Draft from contenders, sell post-NFL Draft
+to rebuilders.
+
+------------------------------------------------------------
+THREAD CONCEPT 32: "YOUR LEAGUE DOESN'T VALUE PLAYERS LIKE THE INTERNET DOES"
+------------------------------------------------------------
+
+The most-repeated correction thread. Argues:
+  - KTC values reflect a national average; your league has its own
+    micro-market.
+  - In your league, each manager has biases, holes, and preferences.
+  - Therefore "fair value" in your league is whatever the buyer will pay,
+    not what KTC says.
+  - Selling above KTC happens routinely when you find a buyer with a
+    specific need; buying below KTC happens routinely when you're the
+    only bidder.
+
+The thread ends with the point: stop using KTC as a "lock" - it's a
+starting point.
+
+------------------------------------------------------------
+META-OBSERVATIONS ABOUT THE GENRE
+------------------------------------------------------------
+
+After reading thousands of these threads, several patterns emerge:
+
+  - The community has remarkable convergence on most strategic principles.
+    Disagreement is mostly at the margins - WR vs RB at 1.01 in some
+    classes, the optimal taxi structure, how heavily to weight age curves.
+  - The most-upvoted posts are usually the ones that confirm consensus
+    while adding one new wrinkle, not the ones that contradict consensus.
+  - The "controversial" posts that get engagement are often deliberately
+    provocative - "actually, you SHOULD draft a 30-year-old RB at 1.05" -
+    and the comment thread becomes the actual content.
+  - The community is suspicious of confident-sounding analytics ("this
+    formula will tell you exactly what to trade for who") and trusts
+    softer heuristics more.
+  - Effortposts that include real numbers, hit-rate data, or league-history
+    data get massively more upvotes than vibes-based takes.
+  - The community has a healthy self-deprecating culture - "I'm an idiot
+    for accepting this trade, roast me" gets sympathetic responses, not
+    bullying.
+  - There is a clear status hierarchy: managers who admit losses publicly
+    and articulate their reasoning are respected more than those who
+    only post wins.
+
+------------------------------------------------------------
+RECURRING ADVANCED-CONCEPT TENSIONS
+------------------------------------------------------------
+
+Several tensions show up in advanced threads year after year:
+
+TENSION 1: Volume-driven vs. Talent-driven evaluation.
+  - Volume-driven: NFL opportunity (touches, targets) is the strongest
+    predictor of fantasy production.
+  - Talent-driven: the players who deserve volume eventually get it; bet
+    on ability, not opportunity.
+  - The synthesis: in dynasty (multi-year), bet on talent. In redraft
+    (single-year), bet on opportunity.
+
+TENSION 2: Calculator-driven vs. Gut-driven trading.
+  - Calculator camp: use KTC/FantasyCalc as ground truth and trade for
+    edges of 5-10% in your favor.
+  - Gut camp: calculators don't capture league context, manager
+    psychology, or roster fit.
+  - Synthesis: calculators set the floor, gut sets the ceiling. Use both.
+
+TENSION 3: Star concentration vs. balanced depth.
+  - Stars camp: 3 elite players + replacement-level depth wins
+    championships.
+  - Balance camp: depth survives the inevitable injuries that destroy
+    star-heavy rosters.
+  - Synthesis: stars win playoffs; depth gets you to playoffs. You need
+    both, but you need more of whichever one you currently have less of.
+
+TENSION 4: Patient vs. aggressive trading.
+  - Patient camp: wait for the right offer; never reach.
+  - Aggressive camp: every offseason without trades is a wasted offseason.
+  - Synthesis: be aggressive about INITIATING discussions, patient about
+    ACCEPTING terms.
+
+TENSION 5: Roster turnover vs. continuity.
+  - Turnover camp: refresh 30-40% of your roster every offseason.
+  - Continuity camp: build a core and let it ride.
+  - Synthesis: contenders should have low turnover; rebuilders should
+    have high turnover; teams in between should have selective turnover.
+
+------------------------------------------------------------
+THREAD ARCHETYPES SUMMARY
+------------------------------------------------------------
+
+The dynasty subreddit's threads cluster into a few archetypes:
+
+  - The Help Thread: "Here's my roster, what should I do?"
+  - The Trade Grade: "Did I win this trade?"
+  - The Heuristic Post: "Here's a rule I follow..."
+  - The Effortpost: long-form analysis with charts/data.
+  - The Rant: "I cannot believe my league mate just..."
+  - The Debate Bait: "Hot take: zero RB is dead."
+  - The Retrospective: "My team 3 years ago vs now."
+  - The Commissioner SOS: "How do I handle this league issue?"
+  - The Self-Roast: "Tell me how dumb this trade was."
+  - The Brag: "Won my league - here's how."
+
+Each archetype attracts predictable comment patterns. Help threads get
+prescriptive advice. Trade grades get split-vote responses. Effortposts
+get nitpick-the-methodology comments. Rants get "yeah, that guy sucks"
+solidarity. Brags get a mix of congrats and "you got lucky" gentle
+ribbing.
+
+------------------------------------------------------------
+WHAT THE COMMUNITY KEEPS LEARNING (AND RE-LEARNING)
+------------------------------------------------------------
+
+The same lessons cycle through r/DynastyFF every year:
+
+  - Don't fall in love with rookie hype.
+  - Don't fall out of love with proven veterans too early.
+  - The trade calculator is a tool, not a verdict.
+  - Your league's market is unique.
+  - Tanking is bad; rebuilding is good.
+  - Two starters > three benchwarmers.
+  - WRs > RBs over multi-year horizons.
+  - QBs in superflex are the most valuable assets in fantasy.
+  - Future picks are options; price them accordingly.
+  - You will be wrong; what matters is how you learn.
+
+These principles are restated in different words by different posters
+each season, but the lessons remain the same. The community's wisdom is
+durable; the players cycle in and out, but the meta-principles persist.
+
+================================================================================
+END OF SUMMARY DOCUMENT
+================================================================================

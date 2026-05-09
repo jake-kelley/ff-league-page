@@ -1,0 +1,74 @@
+DYNASTY AGE CURVES BY POSITION
+==============================
+Sources synthesized: Footballguys (Harstad mortality tables, Parsons "New Reality" series), Fantasy Footballers life-cycle articles for WR/TE/RB, ESPN peak/decline study, Apex Fantasy peak-age TE study, PFF tight end aging study, Fantasy Life age cliffs, RotoBaller age decline.
+
+GENERAL PRINCIPLE
+-----------------
+Age affects dynasty value MORE than current production for borderline players. A player with same projection but two years younger is meaningfully more valuable. Age is a one-way decay tax: every year, the asset depreciates unless production rises faster.
+
+QUARTERBACK
+-----------
+- Peak age: 28-32. Most ELITE QBs maintain through age 35.
+- Cliff: ~36-37 for arm-talent QBs; ~33-34 for run-first QBs (Cam Newton style).
+- Dynasty implication: a top-12 QB can be a startable asset for 8-12 years. QBs are the longest-shelf-life position by a wide margin.
+- SF leagues: even mid-30s QB1s carry meaningful value.
+- Dual-threat QBs (Allen, Jackson, Hurts, Hurts-types) age slightly worse than pocket passers due to rushing wear, but their peak ceiling is enormous.
+- Sell trigger: declining mobility (rushing yards/game drop), arm strength degradation. Often it shows in YPA decline at age 33-35 before counting stats break.
+
+RUNNING BACK (THE FAST-DECAYING ASSET)
+--------------------------------------
+- Established by age 23 or it's likely never happening. RBs need to be in workhorse roles by their second year for market faith.
+- Peak: 23-26. Production stays high through 27 for elite talents.
+- Cliff: ages 27-29 for most. The "Age 27 cliff" is a real well-documented phenomenon in dynasty.
+- Decline rate post-peak: ~15% YOY. Worst aging curve of any fantasy position.
+- Dynasty implication: a productive 25 yo RB has dramatically more value than a productive 28 yo RB. If you're trading for an RB, never pay full price for someone 27+.
+- Workload accumulation matters: a 25 yo with 800 career carries is closer to a 28 yo on the curve than a clean 25 yo.
+- Sell triggers: 27th birthday, contract approaching free agency, snap share dropping for younger backs in same backfield.
+
+WIDE RECEIVER (THE BENCHMARK ASSET)
+------------------------------------
+- Established window is wider: 22-25 typical breakout. Late breakouts (26+) DO exist but are rarer.
+- Peak: 25-28. The "WR3" range (third year in the league) is when most non-elite WRs hit their stride.
+- Decline: gradual; ~10% YOY post-peak. WRs hold value into ages 29-31.
+- Cliff: most WRs see their first WR1/WR2 finish probabilities crater after 30. Truly elite WRs (Hopkins-type, Jefferson trajectory) push the cliff to 31-32.
+- Dynasty implication: 24-and-under WRs are the single most appreciable asset class in fantasy. Veterans 30+ are sell-high candidates the moment they put up a top-15 finish.
+- 2nd year breakout heuristic: WRs drafted in NFL R1-R2 with 600+ rookie yards are statistically the best breakout bets.
+- 3rd year breakout heuristic: WRs with 60+ targets in year 2 break out more than 50% of the time in year 3, regardless of year-2 efficiency.
+
+TIGHT END (THE CONFUSING CURVE)
+-------------------------------
+- Late developing position. Most TEs don't peak until age 25-28.
+- Peak age: 26-28 average; 29-30 for elite (Kelce/Gronk types).
+- Decline: gradual but real. After age 30, 17% chance of a TE1 finish; cliff hits hard at age 32.
+- Dynasty implication: TE values lag WR/RB hype curves. Waiting on 2nd-year TEs to develop is profitable - many are buyable for cheap in their year-2/3 trough.
+- Sell window for typical TEs: 27-29 right before the cliff but while production is current.
+- Outlier elites (Kelce/Gonzalez) age abnormally well; do not assume that for typical TEs.
+
+KICKERS / DST
+-------------
+- Effectively no aging curve worth tracking. Stream by matchup.
+
+TWO RULES OF THUMB FOR AGE
+--------------------------
+- "TWO YEAR" rule: when projecting an asset's dynasty value, picture them at +2 years. RB at 25 = solid; +2 = 27, getting risky. WR at 25 = peaking; +2 = 27, still elite.
+- "+1 PICK PER AGE YEAR ABOVE PEAK" approximation: a 30 yo elite WR is roughly worth one rookie 1st less than the same talent at 26.
+
+POST-HYPE DEVELOPMENT WINDOWS
+-----------------------------
+- WR: years 2-4 are the breakout window. Years 5+ without a breakout = career profile, not "could still pop."
+- RB: year 1 carries are 70%+ of the signal. Year 2 = solidify or bust. Year 3+ = capped projection unless team change.
+- TE: years 3-4 are the typical breakout, year 2 is too early to write off.
+- QB: highly variable; 4 years to evaluate fully (esp drafted late or with injury history).
+
+AGE PER POSITION - CRITICAL DECISION POINTS
+-------------------------------------------
+| Pos | Buy-Low Sweet Spot | Sell-High Window | Last-Chance-Sell |
+| --- | ------------------ | ---------------- | ---------------- |
+| QB  | 22-24 ascending    | 27-30 prime      | 35-36            |
+| RB  | 22-23 (yr 1 bust)  | 24-26 producing  | 27-28            |
+| WR  | 22-24 yr-2 trough  | 25-28 producing  | 29-30            |
+| TE  | 23-25 cheap        | 27-29 producing  | 30-31            |
+
+THE "MORTALITY TABLE" CONCEPT (HARSTAD)
+---------------------------------------
+Treat aging not as "this player will decline at age X" but as a probability distribution. Every player has an annual probability of ceasing to be a startable fantasy asset (illness, role loss, decline, retirement). That probability rises with age. Dynasty managers should think in expected fantasy seasons remaining, not "will he play next year."

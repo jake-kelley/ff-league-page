@@ -91,6 +91,16 @@ export const tabs = [
                 dest: '/constitution',
             },
             {
+                icon: 'school',
+                label: 'Dynasty 101',
+                dest: '/dynasty-101',
+            },
+            {
+                icon: 'menu_book',
+                label: 'Dynasty Knowledge Base',
+                dest: '/dynasty-knowledge-base',
+            },
+            {
                 icon: 'sports_football',
                 label: 'Go to Sleeper',
                 dest: `https://sleeper.app/leagues/${leagueID}`,

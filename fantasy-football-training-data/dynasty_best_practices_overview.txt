@@ -1,0 +1,49 @@
+DYNASTY FANTASY FOOTBALL - BEST PRACTICES OVERVIEW
+===================================================
+Sources: FantasyPros, Dynasty Nerds, Dynasty League Football, RotoWire, FTN Fantasy, Fantasy Life, Footballguys, Reddit r/DynastyFF aggregated.
+
+CORE OPERATING PRINCIPLES
+-------------------------
+1. Dynasty is a multi-year asset management game, not a season-by-season game. Every move should be evaluated on a 2-3 year horizon, not "what helps me this week."
+2. The dynasty market is a stock market. The mantras "buy low, sell high" and "asset generation > asset hoarding" drive nearly every elite owner's behavior. Identifying the peak of a player's value and selling at that point can turn one stud into two or three.
+3. There are three valid postures: contend, retool/reload, rebuild. Pick one explicitly each offseason. The single worst place to be is the murky middle - "I'm pretty good but not great" - because you accumulate aging vets without ever cashing them in for picks.
+4. Studs win trades. In nearly every multi-for-one swap, the side getting the BEST single player wins long-term in dynasty, because elite players are hardest to find. The side accumulating quantity feels good in the moment and bleeds value over time.
+5. Veterans are systematically undervalued and youth is systematically overvalued in startup drafts and on most trade markets. Dynasty owners chase shiny new things; smart owners exploit this every year.
+6. Talent endures, situation evaporates. A player's underlying talent is far more durable than the offense, coordinator, or QB throwing him the ball. Bias toward elite talent in bad situations over mediocre talent in elite situations.
+7. Rookie picks are options on future production. Round 1 rookie picks have meaningfully higher hit rates than round 2 or 3. NFL Draft capital (round/pick) is the strongest single predictor of fantasy hit rate available pre-rookie season.
+8. Contender vs rebuilder pick valuation: a contender's late 1st is roughly worth a rebuilder's early 2nd. This asymmetry is the engine of most positive-EV dynasty trades.
+
+THE FOUR LAWS OF DYNASTY ROSTER MANAGEMENT
+------------------------------------------
+LAW 1 - You cannot win a championship with your bench. Allocate scarce roster spots to upside, not redundancy. Two RB4-types on the bench is worse than one RB4 + one lottery ticket young WR.
+LAW 2 - Every roster spot has an opportunity cost. Holding a 28-year-old RB you'll never start when you could hold a 22-year-old project WR is a slow value leak.
+LAW 3 - Aging assets must be cashed in BEFORE the cliff, not after. The market will not pay you for "he's only 28" - it will pay you for "he just put up RB1 production at age 27."
+LAW 4 - The waiver wire is a free asset generator. Active managers who churn the bottom of their roster gain 1-3 hits per year vs passive managers. Over a 5-year window, that compounds to dozens of extra valuable assets.
+
+WHAT BEGINNERS GET WRONG (RECURRING REDDIT/FORUM PATTERNS)
+----------------------------------------------------------
+- Treating dynasty like extended redraft. They overvalue current-year stats and undervalue trajectory.
+- Falling in love with their startup picks. They refuse to sell their first-round pick at 28 because "I drafted him."
+- Hoarding old RBs. Dynasty RBs lose value fast - the market gives you almost nothing once a back is 28+, so the time to sell is at peak production.
+- Ignoring rookie picks for "proven" vets - then complaining about their rebuild having no juice.
+- Drafting depth in startup before stars. You cannot trade your way back to elite talent; you can always trade your way to depth.
+- Sticking in the middle. The 5-7-9 owner who keeps gunning for the playoff with old vets and never gets a top pick.
+- Thinking they need a "complete" team. You don't. You need lineup-week winners and tradable extras.
+
+WHAT WINNERS DO (RECURRING PATTERNS IN REDDIT POSTERS WHO SHOW MULTI-YEAR TITLES)
+-----------------------------------------------------------------------------------
+- Identify their phase EARLY each offseason and act ruthlessly. Contenders sell picks. Rebuilders sell vets.
+- Trade frequently. High-volume traders make more mistakes BUT also generate more arbitrage opportunities. Net positive over time.
+- Always know their next 2-3 trade candidates on their roster (the ones they'd shop).
+- Talk to opponents. Asking is free; a refused trade is data, not a loss.
+- Treat the league chat as a marketing channel. Hyping a player you're shopping is legal and effective.
+- Read up on rookies year-round, not just March-April. The owner who can identify a Year-2 breakout in February buys him for a 3rd; the lazy owner pays a 1st in October.
+- Maintain a "type" of asset they prefer (e.g., young WRs in pass-heavy offenses, mobile QBs, rookie picks). Specialization beats generalism.
+
+THREE-YEAR HORIZON RULE
+-----------------------
+Before any trade or move, ask: "How will this asset look in 2 and 3 years?" If you can't answer that confidently for the player you're acquiring, you're gambling, not investing.
+
+THE "SO WHAT" QUESTION
+----------------------
+After every trade or roster move: "Does this make me materially better at my actual goal (championship or future championship)?" If the answer is "kinda" or "marginally," don't do it. Dynasty rewards big, decisive moves more than tiny optimizations.

@@ -1,0 +1,115 @@
+SLEEPER PLATFORM - DYNASTY-SPECIFIC FEATURES & BEST PRACTICES
+==============================================================
+Sources synthesized: Sleeper Support Center articles (taxi squads, continuous waivers, IR), Bleacher Nation taxi squad guide, RotoWire taxi explainer, Pro Football Network taxi pieces, CBS Sports startup setup guide, Footballguys forum threads on Sleeper settings.
+
+WHY SLEEPER DOMINATES DYNASTY (2025-2026)
+-----------------------------------------
+- Free, no fees on basic leagues.
+- Mobile-first. Most communication happens in-app via league chat.
+- Native taxi squad support, IR, draft pick trading.
+- Trade syntax very flexible (any combination of players + picks).
+- Push notifications for trades, lineup, scores.
+- Integration with KTC, FantasyCalc, Dynasty Daddy via league sync.
+
+KEY SETTINGS FOR DYNASTY (commissioner cheat sheet)
+
+ROSTER SETTINGS
+- Roster size: 25-30 standard. 22 is too tight. 35+ is "deep dynasty."
+- Starting lineup: 1 QB OR Superflex (highly recommended for modern dynasty).
+- 2-3 RB, 2-3 WR, 1 TE, 1-2 FLEX, 1 SF (if applicable), 1 K, 1 DST (or none).
+- Flex: WR/RB/TE typical. SF allows QB.
+
+SCORING SETTINGS (1.0 PPR baseline)
+- 1.0 reception bonus.
+- 0.04-0.1 per pass yard.
+- 4 per pass TD (some leagues do 6).
+- 0.1 per rush/rec yard.
+- 6 per rush/rec TD.
+- TE Premium (recommended): 1.5 PPR for TE position OR additional 0.5 bonus per TE reception.
+- First Down bonuses (optional): adds depth/skill rewards.
+
+TAXI SQUAD CONFIGURATION
+- Default: 4-6 spots, 2-3 year retention, rookies only.
+- Best practice: rookies of current year + previous year only.
+- Deadline: typically Week 1 (or Week of regular season start).
+- Common rule: a player on taxi can be promoted at any time but must clear waivers if FA-acquired.
+
+INJURED RESERVE (IR)
+- Only NFL designated IR/PUP/Out players eligible.
+- Default: 2-3 IR slots. Some leagues do 4 in deep dynasty.
+- Some commissioners enable "questionable as IR" - generally NOT recommended (gameable).
+
+DRAFT PICK TRADING
+- Enable trading of CURRENT and FUTURE rookie picks (1-3+ years out).
+- Most leagues: trade up to 3 years in advance (current + 2 future).
+- Pick visibility: ensure all picks are visible/tradable in commish settings.
+
+WAIVERS
+- FAAB ($100 or $1,000 budget). FAAB is the standard for modern dynasty.
+- Continuous waivers (instead of weekly cycles) - run automatically.
+- Waiver order: rolling reverse-standings is fairest for dynasty.
+
+TRADE DEADLINE
+- Common: Week 11 or Week 12 of NFL season.
+- Some dynasty leagues do NO trade deadline (advanced; risk of collusion late).
+
+FINANCES (paid leagues)
+- Buy-in: $25-$500+ depending on stakes.
+- Payouts: 60-30-10 to 1st-2nd-3rd typical.
+- Lifetime league bonuses (for owners staying X years): incentivizes loyalty.
+
+LEAGUE GROWTH FEATURES
+- League chat: use it. Active chat = active trading.
+- Polls: useful for rule votes.
+- "League of legends" hall of fame: drives loyalty.
+
+SLEEPER-SPECIFIC TIPS
+
+1. TAXI USAGE
+- Don't let taxi spots go empty. They are FREE roster slots if you stash rookie 3rds.
+- Promote a player only when you NEED them; once promoted, can't go back to taxi without clearing waivers.
+
+2. TRADE BLOCK
+- Sleeper has a "trade block" feature. Use it to signal interest publicly.
+- Be selective: every player on your block should ACTUALLY be available.
+
+3. FA BIDDING (FAAB)
+- With $100: 0-2 dollar bids for fliers. 5-10 for moderate adds. 30%+ for league-winners.
+- With $1,000: scale 10x for finer granularity.
+
+4. SCHEDULE
+- Most dynasty leagues: 14-week regular season + 3-week playoffs (weeks 15-17).
+- Avoid Week 18 playoffs (too many starters rest).
+
+5. KEEPER vs DYNASTY (Sleeper supports both)
+- Dynasty: full roster carries. No "keeper" limit.
+- Keeper: pre-set N players carry; the rest reset.
+- Make sure your league is set to "Dynasty" not "Keeper" if it's full-dynasty.
+
+INTEGRATIONS WITH SLEEPER LEAGUES
+---------------------------------
+- KeepTradeCut: paste league URL > KTC produces full team rankings.
+- Dynasty Daddy: similar; powerful trade calc with league context.
+- FantasyCalc: trade analyzer + power rankings sync.
+- Dynasty Process: Shiny app pulls from Sleeper API.
+- DynastyTrades.com: aggregates real Sleeper trades for "what did this player actually trade for last week."
+
+COMMON SLEEPER MISTAKES (LEAGUES SETTING UP)
+--------------------------------------------
+- 2 K, 2 DST roster slots in dynasty - completely wasteful.
+- Setting trade deadline at Week 16 - too late, allows collusion.
+- 22-player rosters with no taxi - stunts dynasty depth.
+- Using "all play" schedule (no head-to-head) - kills competitive feel.
+- Forgetting to enable IR and Taxi - removes dynasty flavor.
+- Default scoring - usually too redraft-friendly. Customize.
+
+RECOMMENDED MODERN DYNASTY SLEEPER SETUP (1QB or SF)
+----------------------------------------------------
+- 12 teams, 26-roster + 4 taxi + 2 IR.
+- SF + TE Premium (1.5 PPR for TE).
+- 1.0 PPR baseline, 0.1 PPY.
+- 6-pt pass TD optional (boosts QB scoring).
+- $100 FAAB, continuous waivers, no waiver tiebreaker = league-record reverse standings.
+- Trades: pick trading 3 years out, no veto unless 2/3 vote.
+- Trade deadline: Week 11.
+- Playoffs: weeks 15-17 (4 teams, top-2 byes optional).
