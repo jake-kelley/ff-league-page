@@ -48,14 +48,14 @@
 
     const renderedContent = $derived.by(() => {
         if (!selected) return '';
-        const text = selected.content;
+        const html = selected.contentHtml ?? '';
         const q = query.trim();
-        if (!q) return escapeHtml(text);
+        if (!q) return html;
         const re = new RegExp(`(${escapeRegex(q)})`, 'gi');
-        return text
-            .split(re)
-            .map((part, i) => (i % 2 === 1 ? `<mark>${escapeHtml(part)}</mark>` : escapeHtml(part)))
-            .join('');
+        return html.replace(/(<[^>]+>)|([^<]+)/g, (_match, tag, text) => {
+            if (tag) return tag;
+            return text.replace(re, '<mark>$1</mark>');
+        });
     });
 
     const selectArticle = (slug) => {
@@ -188,7 +188,8 @@
     }
 
     .content {
-        background: var(--fff);
+        background: #fff;
+        color: #333;
         border-radius: 8px;
         padding: 24px 28px;
         min-width: 0;
@@ -207,15 +208,107 @@
         margin: 0 0 0.6em;
         font-size: 1.4em;
         line-height: 1.25em;
+        color: #1a1a1a;
     }
     .article-content {
-        font-family: 'SFMono-Regular', Menlo, Monaco, Consolas, 'Liberation Mono', 'Courier New', monospace;
+        font-size: 0.95em;
+        line-height: 1.6em;
+        color: #333;
+    }
+    .article-content :global(h1) {
+        font-size: 1.6em;
+        margin: 1.5em 0 0.4em;
+        line-height: 1.25em;
+    }
+    .article-content :global(h2) {
+        font-size: 1.3em;
+        margin: 1.6em 0 0.4em;
+        padding-bottom: 0.3em;
+        border-bottom: 1px solid #eee;
+        line-height: 1.25em;
+    }
+    .article-content :global(h3) {
+        font-size: 1.1em;
+        margin: 1.4em 0 0.3em;
+        line-height: 1.3em;
+    }
+    .article-content :global(h4),
+    .article-content :global(h5),
+    .article-content :global(h6) {
+        font-size: 1em;
+        margin: 1.2em 0 0.3em;
+    }
+    .article-content :global(p) {
+        margin: 0.6em 0;
+    }
+    .article-content :global(ul),
+    .article-content :global(ol) {
+        padding-left: 1.6em;
+        margin: 0.6em 0;
+    }
+    .article-content :global(li) {
+        margin: 0.25em 0;
+    }
+    .article-content :global(li > p) {
+        margin: 0.2em 0;
+    }
+    .article-content :global(a) {
+        color: #00316b;
+        text-decoration: underline;
+    }
+    .article-content :global(strong) {
+        color: #1a1a1a;
+    }
+    .article-content :global(em) {
+        color: #555;
+    }
+    .article-content :global(blockquote) {
+        margin: 1em 0;
+        padding: 0.4em 1em;
+        border-left: 3px solid #ddd;
+        color: #666;
+        background: #fafafa;
+    }
+    .article-content :global(code) {
+        background: #f3f3f3;
+        padding: 0.1em 0.4em;
+        border-radius: 3px;
+        font-size: 0.9em;
+        font-family: 'SFMono-Regular', Menlo, Monaco, Consolas, monospace;
+    }
+    .article-content :global(pre) {
+        background: #f3f3f3;
+        padding: 0.8em 1em;
+        border-radius: 6px;
+        overflow-x: auto;
         font-size: 0.85em;
-        line-height: 1.55em;
-        white-space: pre-wrap;
-        word-wrap: break-word;
-        color: #444;
-        margin: 0;
+        line-height: 1.45em;
+        margin: 1em 0;
+    }
+    .article-content :global(pre code) {
+        background: transparent;
+        padding: 0;
+    }
+    .article-content :global(table) {
+        border-collapse: collapse;
+        margin: 1em 0;
+        width: 100%;
+        font-size: 0.92em;
+    }
+    .article-content :global(th),
+    .article-content :global(td) {
+        border: 1px solid #ddd;
+        padding: 6px 10px;
+        text-align: left;
+    }
+    .article-content :global(th) {
+        background: #f8f8f8;
+        font-weight: 600;
+    }
+    .article-content :global(hr) {
+        border: 0;
+        border-top: 1px solid #ddd;
+        margin: 1.5em 0;
     }
     .article-content :global(mark) {
         background: #ffe066;
@@ -307,7 +400,7 @@
                     <span>{selected.wordCount.toLocaleString()} words · ~{Math.max(1, Math.round(selected.wordCount / 250))} min read</span>
                 </div>
                 <h2>{selected.title}</h2>
-                <pre class="article-content">{@html renderedContent}</pre>
+                <div class="article-content">{@html renderedContent}</div>
             {:else}
                 <p>Select an article from the sidebar.</p>
             {/if}

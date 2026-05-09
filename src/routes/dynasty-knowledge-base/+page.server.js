@@ -1,5 +1,8 @@
 import { readFileSync, readdirSync } from 'node:fs';
 import { join } from 'node:path';
+import { marked } from 'marked';
+
+marked.setOptions({ gfm: true, breaks: false });
 
 export const prerender = true;
 
@@ -64,6 +67,7 @@ export async function load() {
             title: deriveTitle(f, content),
             category: categorize(f),
             content,
+            contentHtml: marked.parse(content),
             wordCount: content.trim().split(/\s+/).length,
         };
     });

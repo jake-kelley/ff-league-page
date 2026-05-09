@@ -97,7 +97,7 @@ export const tabs = [
             },
             {
                 icon: 'menu_book',
-                label: 'Dynasty Knowledge Base',
+                label: 'Dynasty KB',
                 dest: '/dynasty-knowledge-base',
             },
             {

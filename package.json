@@ -59,6 +59,7 @@
     "cookie": "^0.7.0",
     "fast-xml-parser": "^4.2.5",
     "fuzzyjs": "^5.0.1",
+    "marked": "^18.0.3",
     "sleeper-mcp": "^1.1.1"
   },
   "devDependencies": {
