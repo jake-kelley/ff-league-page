@@ -120,11 +120,13 @@
 	let innerWidth;
 
 	const calcHeight = () => {
-		const multiplier = 52;
-		const benchLength = finalBench.length * multiplier + 53;
+		const isMobile = typeof window !== 'undefined' && window.innerWidth <= 600;
+		const multiplier = isMobile ? 38 : 52;
+		const headerH = isMobile ? 38 : 53;
+		const benchLength = finalBench.length * multiplier + headerH;
 		let irLength = 0;
 		if(finalIR) {
-			irLength = finalIR.length * multiplier + 52;
+			irLength = finalIR.length * multiplier + headerH;
 		}
 		return benchLength + irLength;
 	}
@@ -210,38 +212,37 @@
 		text-align: center;
 	}
 
-	@media (max-width: 500px) {
+	@media (max-width: 600px) {
 		.team {
 			font-size: 0.9em;
+			margin: 4px auto 4px;
 		}
 		.result {
 			width: 9px;
 		}
-
 		h3 {
-			font-size: 1.3em;
-			margin: 3px 0;
-		}
-
-		h5 {
 			font-size: 1.1em;
+			margin: 4px 0 2px;
+		}
+		h5 {
+			font-size: 1em;
+		}
+		.teamAvatar {
+			height: 28px;
+			margin-right: 8px;
+		}
+		.record {
+			margin-bottom: 3px;
 		}
 	}
 
 	@media (max-width: 340px) {
 		h3 {
-			font-size: 1.1em;
-			margin: 6px 0;
-		}
-
-		h5 {
 			font-size: 1em;
+			margin: 4px 0;
 		}
-	}
-
-	@media (max-width: 400px) {
-		.team {
-			margin: 4px auto 10px;
+		h5 {
+			font-size: 0.9em;
 		}
 	}
 
@@ -279,6 +280,14 @@
 	.valueBadge .label {
 		opacity: 0.7;
 		font-weight: 500;
+	}
+
+	@media (max-width: 600px) {
+		.valueBadge {
+			margin-top: 2px;
+			padding: 2px 8px;
+			font-size: 0.7em;
+		}
 	}
 </style>
 

@@ -130,6 +130,15 @@
 		margin: 5em auto 2em;
     	text-align: center;
 	}
+
+	@media (max-width: 600px) {
+		.division {
+			margin: 4px auto 8px;
+		}
+		.expandButton {
+			margin: 1.5em auto 1em;
+		}
+	}
 </style>
 
 <PowerRankings {rankings} {leagueTeamManagers} />

@@ -182,6 +182,36 @@
 		color: var(--DB);
 	}
 
+	@media (max-width: 600px) {
+		:global(.playerCell) {
+			height: 36px !important;
+		}
+		:global(.avatar) {
+			width: 38px;
+		}
+		.playerAvatar {
+			height: 32px;
+			width: 32px;
+			background-size: auto 36px;
+		}
+		.teamLogo {
+			width: 16px;
+			right: -12px;
+		}
+		.pos {
+			width: 38px;
+			height: 24px;
+			font-size: 0.78em;
+			border-radius: 6px;
+		}
+		.additionalInfo {
+			font-size: 0.65em;
+		}
+		span.nickname {
+			font-size: 0.7em;
+		}
+	}
+
 	@media (max-width: 460px) {
 		:global(.nameCell) {
 			font-size: 0.9em;
@@ -197,13 +227,9 @@
             padding: 0px 16px 0px 2px !important;
         }
         .pos {
-            display: inline-flex;
-            align-items: center;
-            justify-content: center;
-            border-radius: 8px;
-            width: 42px;
-            height: 24px;
-            font-size: 0.8em;
+            width: 36px;
+            height: 22px;
+            font-size: 0.72em;
         }
 		:global(.nameCell) {
 			font-size: 0.85em;
