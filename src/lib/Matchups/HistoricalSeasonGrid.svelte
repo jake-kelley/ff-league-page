@@ -41,6 +41,7 @@
                 sa.weeks[w.week] = {
                     points: a.points,
                     opp: sb.name,
+                    oppAvatar: sb.avatar,
                     oppPoints: b.points,
                     oppRosterId: sb.rosterId,
                     result: tie ? 't' : aWin ? 'w' : 'l',
@@ -48,6 +49,7 @@
                 sb.weeks[w.week] = {
                     points: b.points,
                     opp: sa.name,
+                    oppAvatar: sa.avatar,
                     oppPoints: a.points,
                     oppRosterId: sa.rosterId,
                     result: tie ? 't' : aWin ? 'l' : 'w',
@@ -216,16 +218,24 @@
     .cell-opp {
         font-size: 0.72em;
         font-weight: 500;
-        opacity: 0.78;
-        max-width: 78px;
+        opacity: 0.85;
+        margin: 2px auto 0;
+        display: inline-flex;
+        align-items: center;
+        gap: 4px;
+        max-width: 110px;
+    }
+    .cell-opp img {
+        width: 14px;
+        height: 14px;
+        border-radius: 50%;
+        flex-shrink: 0;
+        box-shadow: 0 1px 1px rgba(0, 0, 0, 0.15);
+    }
+    .cell-opp .name {
         overflow: hidden;
         text-overflow: ellipsis;
         white-space: nowrap;
-        margin: 1px auto 0;
-    }
-    .cell-opp .arrow {
-        opacity: 0.55;
-        margin-right: 1px;
     }
     .summary {
         background: #fafbfd;
@@ -252,7 +262,8 @@
         .team-cell img { width: 18px; height: 18px; }
         .team-cell .name { max-width: 100px; font-size: 0.95em; }
         td.w, td.l, td.t { padding: 3px 5px; }
-        .cell-opp { max-width: 64px; font-size: 0.66em; }
+        .cell-opp { max-width: 92px; font-size: 0.66em; gap: 3px; }
+        .cell-opp img { width: 12px; height: 12px; }
     }
 </style>
 
@@ -311,7 +322,10 @@
                                 {#if cell}
                                     <td class={cell.result} title="vs {cell.opp} — {fmt(cell.points)} to {fmt(cell.oppPoints)}">
                                         <div class="cell-score">{fmt(cell.points)}</div>
-                                        <div class="cell-opp"><span class="arrow">vs</span> {cell.opp}</div>
+                                        <div class="cell-opp">
+                                            <img src={cell.oppAvatar} alt="" />
+                                            <span class="name">{cell.opp}</span>
+                                        </div>
                                     </td>
                                 {:else}
                                     <td>—</td>
