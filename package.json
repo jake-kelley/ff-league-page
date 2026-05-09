@@ -57,12 +57,14 @@
   },
   "type": "module",
   "dependencies": {
+    "@modelcontextprotocol/sdk": "^1.29.0",
     "@vercel/analytics": "^1.4.1",
     "contentful": "^10.6.7",
     "contentful-management": "^10.46.4",
     "cookie": "^0.7.0",
     "fast-xml-parser": "^4.2.5",
-    "fuzzyjs": "^5.0.1"
+    "fuzzyjs": "^5.0.1",
+    "sleeper-mcp": "^1.1.1"
   },
   "devDependencies": {
     "@smui/button": "^8.0.0-beta.3",

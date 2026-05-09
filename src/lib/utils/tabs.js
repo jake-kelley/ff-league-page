@@ -31,6 +31,13 @@ export const tabs = [
         dest: '/trade-calculator',
         key: 'trade_calculator',
     },
+    // Stashed — re-enable when the assistant is reliable.
+    // {
+    //     icon: 'forum',
+    //     label: 'Assistant',
+    //     dest: '/assistant',
+    //     key: 'assistant',
+    // },
     {
         icon: 'article',
         label: 'Blog',
