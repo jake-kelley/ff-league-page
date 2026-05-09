@@ -1,15 +1,15 @@
 {
   "name": "league-page",
   "version": "2.5.1",
-  "homepage": "https://github.com/nmelhado/league-page",
+  "homepage": "https://github.com/jake-kelley/ff-league-page",
   "repository": {
     "type": "git",
-    "url": "git://github.com/nmelhado/league-page.git"
+    "url": "git://github.com/jake-kelley/ff-league-page.git"
   },
   "author": {
-    "name": "Nicholas Melhado",
-    "email": "n.melhado@gmail.com",
-    "url": "http://www.nmelhado.com/"
+    "name": "Jake Kelley",
+    "email": "jkel229@wgu.edu",
+    "url": "https://github.com/jake-kelley"
   },
   "contributors": [
     {
@@ -29,13 +29,8 @@
       "url": "https://github.com/OldNewsBlues-2"
     }
   ],
-  "funding": {
-    "type": "buy_me_a_coffee",
-    "url": "https://www.buymeacoffee.com/nmelhado"
-  },
   "bugs": {
-    "url": "https://github.com/nmelhado/league-page/issues",
-    "email": "n.melhado@gmail.com"
+    "url": "https://github.com/jake-kelley/ff-league-page/issues"
   },
   "license": "MIT",
   "engines": {

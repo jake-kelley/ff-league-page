@@ -192,7 +192,7 @@
 
 <!--
     Some users if they've misconfigured their blog can crash their page
-    (bug https://github.com/nmelhado/league-page/issues/141)
+    (bug https://github.com/jake-kelley/ff-league-page/issues/141)
     This if check makes blog enablement more flexible
 -->
 

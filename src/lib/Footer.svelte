@@ -4,8 +4,6 @@
 	import { tabs } from '$lib/utils/tabs';
 	import { onMount } from 'svelte';
 
-	let outOfDate = false;
-
     let el, footerHeight;
 
     let innerWidth;
@@ -22,10 +20,7 @@
         }
     }
 
-	onMount(async () => {
-		const res = await fetch('/api/checkVersion', {compress: true})
-		const needUpdate = await res.json();
-		outOfDate = needUpdate;
+	onMount(() => {
         resize(el?.getBoundingClientRect(), true);
 	})
 
@@ -101,11 +96,8 @@
 
 <!-- footer with update notice -->
 <footer bind:this={el}>
-    {#if outOfDate}
-	    <p class="updateNotice">There is an update available for your League Page. <a href="https://github.com/nmelhado/league-page/blob/master/TRAINING_WHEELS.md#iv-updates">Follow the Update Instructions</a> to get all of the newest features!</p>
-    {/if}
     {#if managersOutOfDate}
-	    <p class="updateNotice">Your managers page needs an update, <a href="https://github.com/nmelhado/league-page/blob/master/TRAINING_WHEELS.md#2-add-managers">please follow the instructions</a> to get the most up-to-date experience.</p>
+	    <p class="updateNotice">Your managers page needs an update, <a href="https://github.com/jake-kelley/ff-league-page/blob/master/TRAINING_WHEELS.md#2-add-managers">please follow the instructions</a> to get the most up-to-date experience.</p>
     {/if}
 	<div id="navigation">
 		<ul>
@@ -127,12 +119,5 @@
 			{/each}
 		</ul>
 	</div>
-	<!-- PLEASE DO NOT REMOVE THE COPYRIGHT -->
-	<span class="copyright">&copy; 2021 - {year} <a href="https://github.com/nmelhado/league-page">League Page</a></span>
-	<br />
-	<!-- PLEASE DO NOT REMOVE THE BUILT BY -->
-	<span class="creator">Built by <a href="http://www.nmelhado.com/">Nicholas Melhado</a><br /></span>
-	<!-- You can remove the donation link (although any donations to help
-	 maintain and enhance League Page would be greatly appreciated!) -->
-	Love League Page? Please consider <a href="https://www.buymeacoffee.com/nmelhado">donating</a> to support enhancements or just to say thank you!
+	<span class="copyright">&copy; 2021 - {year} <a href="https://github.com/jake-kelley/ff-league-page">League Page</a></span>
 </footer>
