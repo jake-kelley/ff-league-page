@@ -1,3 +1,35 @@
+<script context="module">
+	import { leagueID } from '$lib/utils/leagueInfo';
+
+	let draftSlotsPromise = null;
+
+	export const getDraftSlots = () => {
+		if (draftSlotsPromise) return draftSlotsPromise;
+		draftSlotsPromise = (async () => {
+			const map = new Map();
+			try {
+				const draftsRes = await fetch(`https://api.sleeper.app/v1/league/${leagueID}/drafts`);
+				if (!draftsRes.ok) return map;
+				const drafts = await draftsRes.json();
+				for (const d of drafts) {
+					if (!d.slot_to_roster_id) continue;
+					const year = parseInt(d.season, 10);
+					const yMap = new Map();
+					for (const [slot, rosterId] of Object.entries(d.slot_to_roster_id)) {
+						if (rosterId === null || rosterId === undefined) continue;
+						yMap.set(parseInt(rosterId, 10), parseInt(slot, 10));
+					}
+					if (yMap.size) map.set(year, yMap);
+				}
+			} catch (err) {
+				console.error('Failed to load draft slots', err);
+			}
+			return map;
+		})();
+		return draftSlotsPromise;
+	};
+</script>
+
 <script>
 	import { goto } from '$app/navigation';
 	import { gotoManager } from '$lib/utils/helper';
@@ -6,14 +38,29 @@
 
 	export let transaction, players, leagueTeamManagers;
 
-	const buildTradeCalcUrl = () => {
+	const findOriginRoster = (move) => {
+		for (let i = 0; i < move.length; i++) {
+			if (move[i] === 'origin') return transaction.rosters[i];
+		}
+		return null;
+	};
+
+	const buildTradeCalcUrl = (slotMap) => {
 		const sides = transaction.rosters.map(() => []);
 		for (const move of transaction.moves) {
+			const origin = findOriginRoster(move);
 			for (let i = 0; i < move.length; i++) {
 				const cell = move[i];
 				if (!cell || cell === 'origin') continue;
-				if (cell.player) sides[i].push(`p:${cell.player}`);
-				else if (cell.pick) sides[i].push(`pick:${cell.pick.season}-${cell.pick.round}`);
+				if (cell.player) {
+					sides[i].push(`p:${cell.player}`);
+				} else if (cell.pick) {
+					const year = parseInt(cell.pick.season, 10);
+					const round = cell.pick.round;
+					const owner = cell.pick.original_owner ?? origin;
+					const slot = slotMap?.get(year)?.get(owner);
+					sides[i].push(slot ? `pick:${year}-${round}-${slot}` : `pick:${year}-${round}`);
+				}
 			}
 		}
 		if (sides.length < 2) return null;
@@ -24,8 +71,9 @@
 		return qs ? `/trade-calculator?${qs}` : null;
 	};
 
-	const openInCalc = (e) => {
-		const url = buildTradeCalcUrl();
+	const openInCalc = async () => {
+		const slotMap = await getDraftSlots();
+		const url = buildTradeCalcUrl(slotMap);
 		if (url) goto(url);
 	};
 

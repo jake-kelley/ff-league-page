@@ -9,6 +9,23 @@
     let sideA = $state([]);
     let sideB = $state([]);
 
+    const pickMatchesYearRound = (name, year, round) => {
+        const m1 = name.match(/(\d{4}).*?(\d)(?:st|nd|rd|th)/i);
+        if (m1 && parseInt(m1[1], 10) === year && parseInt(m1[2], 10) === round) return true;
+        const m2 = name.match(/(\d{4})\s+(\d)\.\d+/);
+        if (m2 && parseInt(m2[1], 10) === year && parseInt(m2[2], 10) === round) return true;
+        const m3 = name.match(/(\d)(?:st|nd|rd|th).*?(\d{4})/i);
+        if (m3 && parseInt(m3[2], 10) === year && parseInt(m3[1], 10) === round) return true;
+        return false;
+    };
+
+    const pickSlot = (name) => {
+        const m = name.match(/(\d{4})\s+\d\.(\d+)/);
+        return m ? parseInt(m[2], 10) : null;
+    };
+
+    const tierForSlot = (slot) => (slot <= 4 ? 'early' : slot <= 8 ? 'mid' : 'late');
+
     const decodeAssetCodes = (raw, pool) => {
         if (!raw) return [];
         const result = [];
@@ -21,19 +38,28 @@
                 const p = pool.find((pl) => String(pl.sleeperId) === val);
                 if (p) result.push(p);
             } else if (type === 'pick') {
-                const [yearStr, roundStr] = val.split('-');
-                const year = parseInt(yearStr, 10);
-                const round = parseInt(roundStr, 10);
-                const cands = pool.filter((pl) => {
-                    if (pl.position !== 'PICK' && pl.position !== 'RDP') return false;
-                    const m = pl.name.match(/(\d{4}).*?(\d)(?:st|nd|rd|th)/i);
-                    if (!m) return false;
-                    return parseInt(m[1], 10) === year && parseInt(m[2], 10) === round;
-                });
-                if (cands.length) {
-                    const vanilla = cands.find((p) => !/early|mid|late/i.test(p.name));
-                    result.push(vanilla ?? cands[0]);
+                const parts = val.split('-');
+                const year = parseInt(parts[0], 10);
+                const round = parseInt(parts[1], 10);
+                const slot = parts.length > 2 ? parseInt(parts[2], 10) : null;
+                const cands = pool.filter(
+                    (pl) =>
+                        (pl.position === 'PICK' || pl.position === 'RDP') &&
+                        pickMatchesYearRound(pl.name, year, round)
+                );
+                if (!cands.length) continue;
+                let chosen = null;
+                if (slot) {
+                    chosen = cands.find((p) => pickSlot(p.name) === slot);
+                    if (!chosen) {
+                        const tier = tierForSlot(slot);
+                        chosen = cands.find((p) => new RegExp(tier, 'i').test(p.name));
+                    }
                 }
+                if (!chosen) {
+                    chosen = cands.find((p) => !/early|mid|late|\d\.\d+/i.test(p.name)) ?? cands[0];
+                }
+                result.push(chosen);
             }
         }
         return result;
