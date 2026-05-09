@@ -1,0 +1,120 @@
+# DYNASTY ORPHAN TEAM TAKEOVER - STRATEGY
+Sources: FantasyPros 2018/2020/2022 orphan strategy series, PlayerProfiler FFPC orphan strategy, Dynasty Nerds orphan strategy, 4for4 orphan takeover, Footballguys forum orphan threads, FantasyAlarm orphan articles.
+
+## WHAT IS AN ORPHAN
+A team that has been abandoned by its previous manager and needs a new owner. You inherit the existing roster, draft picks, and trade history. NOT a fresh draft - a hand-me-down.
+
+### PRE-COMMITMENT DUE DILIGENCE (DO THIS BEFORE SAYING YES)
+
+### 1) LEAGUE HEALTH AUDIT
+- How many original owners remain? <50% = league at high mortality risk.
+- League chat activity: dead chat = struggling league.
+- Trade volume: <30 trades per year = low engagement.
+- Buy-in history: are dues current? Past owners disputed?
+- League rules document: does one exist? Updated?
+
+### 2) ROSTER VALUE AUDIT
+- Pull KTC or FantasyCalc team rankings for the orphan vs league.
+- Where does this roster rank? Bottom 3 = rebuild required. Top 5 = lucky inheritance.
+- Age profile: average starter age. >27 average = aging fast.
+- Pick capital: how many 2026, 2027, 2028 picks? Picks > rookie picks elsewhere = good rebuild base.
+
+### 3) DEPTH CHART AUDIT
+- 1-2 elite anchors (top-30 dynasty value)?
+- Productive starters at every weekly slot?
+- Bench: dead weight or lottery tickets?
+- TE situation: is there ONE startable TE?
+- QB situation: SF leagues check this hardest.
+
+### 4) HISTORY AUDIT
+- Who was the previous owner? What was their philosophy?
+- Were there any controversial trades on record?
+- What's the team's championship history?
+
+## DECISION FRAMEWORK
+TAKE THE ORPHAN IF:
+- League is healthy (active chat, ≥80% original owners).
+- Roster has 2+ trade-able assets you can flip immediately.
+- You have 2 years of patience for a rebuild OR roster is good enough to compete.
+- Buy-in is one you'd pay anyway.
+
+PASS IF:
+- League is dying (silent chat, multiple unfilled lineups).
+- Roster is bottom 3 AND has no picks AND has no liquid vets.
+- Previous owner left bad blood (other owners hostile).
+- You can't afford the buy-in or commit to multi-year tenure.
+
+### YEAR ONE PLAYBOOK (TAKING OVER)
+
+### WEEK 1 - ASSESSMENT
+- Build a personal value sheet for every player on roster.
+- Identify top 5 sell candidates (aging vets, bench surplus).
+- Identify top 3 keep-and-build assets.
+- Identify roster holes (especially in starting lineup).
+
+### WEEK 2 - NETWORKING
+- Introduce yourself in league chat. "Hi, I'm [name], excited to join!"
+- DM each manager individually. Ask "what are you trying to do this year?" - get the league phase map.
+- Be friendly. Don't lobby for trades yet.
+
+### WEEK 3-4 - INITIAL TRADES
+- Make 2-3 small trades to get comfortable.
+- Move easily-tradeable assets first to test market.
+- DON'T try to make blockbuster moves until you know the league.
+
+### MONTH 2-3 - STRATEGIC POSITIONING
+- Decide formal phase: rebuild or contend.
+- If rebuild: start dumping aged vets for picks.
+- If contend (rare for orphans): add 1-2 productive vets.
+
+YEAR ONE EXIT GOAL: roster value comparable to league middle. Be in trade-friendly position with picks accumulated.
+
+### YEAR TWO PLAYBOOK
+- This is your "build" year.
+- Maximize rookie draft hits (you've had 2 drafts now).
+- Continue to flip vets for youth.
+- Identify your year-3 contend window's anchor pieces.
+
+### YEAR THREE PLAYBOOK
+- Re-evaluate. Are you in contention? If yes, push.
+- If not, more patience. Continue accumulating.
+
+### ORPHAN SUCCESS PATTERNS
+
+### PATTERN 1 - "PHOENIX FROM ASHES"
+Take over a team with old vets + a few young pieces. Sell ALL vets for picks. Hit on rookies. Year 3 is breakout.
+
+### PATTERN 2 - "LUCKY TIMING"
+Take over a team with 2 elite young anchors but bad depth. Trade depth for picks. One offseason of patience puts you in contention.
+
+### PATTERN 3 - "QUICK FLIP"
+Take over an aging contender. Push for one last title in year 1, accepting that year 2 is full rebuild. Worth it if title odds are real.
+
+### ORPHAN MISTAKES TO AVOID
+
+1) IMPATIENT TRADING - making 5+ trades in week 1 before understanding the league.
+2) IDENTITY ATTACHMENT - thinking you have to keep the previous owner's "stars."
+3) IGNORING LEAGUE NORMS - if the league trades aggressively or conservatively, calibrate.
+4) LOWBALLING EARLY - poisons your reputation. Make fair offers early.
+5) NOT BUILDING RELATIONSHIPS - in dynasty, who you trade with matters more than what you trade.
+6) PUSHING TOO HARD FOR CONTEND - inheriting a bottom-2 team requires rebuild discipline.
+
+## ORPHAN-SPECIFIC NEGOTIATION ANGLES
+- "I just took over - help me unload these old vets, what are you offering?" - Some leaguemates will offer below market because they think you don't know.
+- "My picks are worth more to me than your starter is to you" - sometimes true, sometimes not. Test it.
+- New-owner sympathy: leaguemates may help by offering small favors. Don't abuse but accept fair help.
+
+## EVALUATING THE PREVIOUS OWNER'S MISTAKES
+Most orphans got abandoned for a reason. Common previous-owner mistakes you'll see:
+- Hoarded handcuffs without owning lead RBs.
+- Multiple aged 30+ WRs and no young WRs.
+- No QB (in SF this is fatal).
+- Multiple TEs, none productive.
+- No future picks (traded them all for "win now" that didn't work).
+
+You can't fix all of these year 1. Pick the top 1-2 and tackle them.
+
+## ORPHAN AS UPSIDE OPPORTUNITY
+Best-case orphan: a team where the previous owner over-rebuilt but didn't notice. You inherit 4 elite young pieces + 4 future picks. Push for contention immediately. This happens occasionally and is a license to print value.
+
+WORST-CASE ORPHAN: a team with old vets, no picks, and a hostile league. Pass. Don't take it just to "play dynasty." Wait for a better team or league.

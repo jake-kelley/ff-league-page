@@ -18,6 +18,10 @@
 
 	const selectTab = (tab) => {
 		open = false;
+		if (typeof tab.dest === 'string' && /^https?:\/\//.test(tab.dest)) {
+			window.open(tab.dest, '_blank', 'noopener,noreferrer');
+			return;
+		}
 		goto(tab.dest);
 	}
 </script>

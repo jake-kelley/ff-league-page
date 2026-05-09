@@ -1,0 +1,204 @@
+# DYNASTY ADVANCED METRICS DICTIONARY
+Sources: PlayerProfiler, PFF, Sharp Football, Sumer Sports, Football Outsiders archives, RBSDM, FantasyPros analyst columns.
+
+## WHY ADVANCED METRICS MATTER IN DYNASTY
+Counting stats (yards, TDs) lag reality. Advanced metrics reveal underlying ability, opportunity, and efficiency that PREDICT future production. Dynasty owners who understand these stats spot breakouts and busts before the market.
+
+### WIDE RECEIVER METRICS
+
+### TARGET SHARE
+- Definition: percentage of team passing targets.
+- Threshold: >25% = elite signal of WR1 trajectory.
+- Why dynasty: predictive of long-term role.
+
+### MARKET SHARE (combined target/yard share)
+- More holistic than target share alone.
+- Includes air yards plus targets.
+
+### YARDS PER ROUTE RUN (Y/RR)
+- Definition: receiving yards / routes participated in.
+- Why dynasty: efficiency-adjusted production. Reveals talent independent of volume.
+- Threshold: 2.0+ = good; 2.5+ = elite; 3.0+ = generational.
+
+### ADOT (AVERAGE DEPTH OF TARGET)
+- Definition: avg yards downfield of targets.
+- Higher aDOT = vertical role (more boom/bust).
+- Lower aDOT = possession role (steadier).
+- Use for projecting variance.
+
+### AIR YARDS / AIR YARDS SHARE
+- Total target depth / team total target depth.
+- High air yards = vertical threat profile.
+- Combine with target share for full picture.
+
+### ROUTES RUN PERCENTAGE
+- Routes run / team passing snaps.
+- Indicates how often WR is part of the offense.
+- 80%+ = full-time receiver.
+
+### YARDS PER TARGET (Y/T)
+- Receiving yards / targets.
+- Efficiency indicator.
+- 8.0+ in a high-volume role = elite efficiency.
+
+### TRUE TARGETS / EXPECTED FANTASY POINTS
+- Quality-adjusted target counts (controls for short slants, dump-offs).
+- Better predictor than raw targets alone.
+
+### FIRST READ TARGET %
+- % of plays where WR was QB's first read.
+- Indicates "designed" prominence in offense.
+
+### RUNNING BACK METRICS
+
+### OPPORTUNITY SHARE
+- (Carries + targets) / team plays.
+- Best single volume metric for RBs.
+
+### TOUCHES PER GAME / SNAPS PER GAME
+- Volume indicators.
+- Workhorse threshold: 18+ touches.
+
+YARDS PER CARRY (YPC) - context-dependent
+- Use VS expected (YPC vs schedule-adjusted average).
+- Raw YPC misleads; YPC over expected is the signal.
+
+### RUSH YARDS OVER EXPECTED (RYOE)
+- Schedule + situation-adjusted measure of RB ability.
+- Talent isolation metric.
+
+YARDS BEFORE CONTACT vs AFTER CONTACT
+- YBC = OL contribution.
+- YAC = RB ability.
+- High YAC = elite RB skill.
+
+### EVADED TACKLES / TACKLE-BREAKING
+- Independent of OL.
+- Top RBs evade 0.3+ tackles per touch.
+
+### TARGET SHARE (RB)
+- Crucial for PPR dynasty value.
+- Pass-down RBs more durable in fantasy.
+
+### GOAL LINE / RED ZONE TOUCHES
+- TD upside indicator.
+- 60%+ red zone share = TD-anchored.
+
+### QUARTERBACK METRICS
+
+### EPA PER PLAY (Expected Points Added)
+- Best single QB performance metric.
+- Schedule and game-state adjusted.
+- Top QBs: 0.20+ EPA/play.
+
+### CPOE (COMPLETION PERCENTAGE OVER EXPECTED)
+- Skill metric independent of WR drops/scheme.
+- Top QBs: +5% or higher.
+
+### YARDS PER ATTEMPT (YPA)
+- Simple but predictive.
+- Career YPA over 3+ years tracks ceiling.
+
+### RUSHING YARDS PER GAME
+- Floor stat for fantasy.
+- 30+ rushing yards/game = elite floor.
+- Variance protection.
+
+### TURNOVER WORTHY PLAY %
+- Decision-making indicator.
+- High = future turnover regression.
+
+### PRESSURE-ADJUSTED METRICS
+- QB performance under pressure.
+- Reveals OL impact and QB ability separately.
+
+### TIGHT END METRICS
+
+### TARGETS PER ROUTE RUN (TPRR)
+- TE-specific. Run as receiver, not blocker.
+- 0.20+ = above-average involvement; 0.30+ = elite.
+
+### YARDS PER ROUTE RUN (TE)
+- Tier with WR - 1.8+ = solid; 2.5+ = elite TE.
+
+### ROUTE PARTICIPATION (TE)
+- TEs who block frequently have lower routes.
+- Higher = more "WR-like" usage = more fantasy upside.
+
+### ATHLETIC METRICS (FOR ROOKIE EVAL)
+
+### 40-YARD DASH
+- WR: <4.55 = good; <4.40 = elite.
+- RB: <4.55 = good; <4.45 = elite.
+- TE: <4.65 = good.
+
+### VERTICAL JUMP / BROAD JUMP
+- Explosiveness markers.
+- Combine with size for "weight-adjusted" metrics.
+
+### THREE-CONE / SHUTTLE
+- Agility indicators.
+- Important for slot WRs and RBs.
+
+### RAS (RELATIVE ATHLETIC SCORE)
+- Composite athletic profile vs position.
+- 8+ = elite athlete; combine with production for full picture.
+
+### DOMINATOR RATING
+- College market share metric.
+- Yards + TDs share of team total.
+- Best for evaluating prospects.
+
+### BREAKOUT AGE
+- Age at which a player first hit 30%+ market share or "dominator."
+- Younger = better.
+- WR: 19-20 = elite; 21-22 = good; 23+ = warning.
+
+### METRICS USAGE IN DYNASTY DECISIONS
+
+### BUYING DECISIONS
+- Find players with strong UNDERLYING metrics but weak counting stats.
+- Examples: WR with 25% target share but bad QB; RB with 4.5+ YAC/touch but committee role.
+
+### SELLING DECISIONS
+- Find players with weak UNDERLYING metrics but inflated counting stats.
+- Examples: WR with 14% target share but lots of TDs (TD regression coming); RB with bad YPC over expected but lots of volume (efficiency regression).
+
+### PROSPECT EVALUATION
+- High RAS + strong dominator + early breakout age = elite prospect signal.
+- Production AGAINST top defenses matters most.
+
+### METRICS RESOURCES
+
+PUBLIC FREE:
+- PFF (limited free).
+- ESPN advanced stats.
+- nflfastR data sets.
+- RBSDM.
+
+SUBSCRIPTION:
+- PFF Premium (advanced player grades, snap shares).
+- PlayerProfiler (full advanced metrics suite).
+- Sumer Sports.
+- 4for4.
+
+## WARNING ABOUT METRICS
+- Single-game metrics are noise.
+- Rookie metrics need context (college level).
+- Schedule-adjustment matters - all metrics improve when adjusted for opponent.
+- Don't get lost in metrics. Use them to support, not replace, judgment.
+
+## THE "AS-OF" PROBLEM
+Metrics shift weekly. A WR's Y/RR through Week 6 ≠ his career Y/RR. Dynasty managers should look at:
+- Most-recent-season trajectory (latest data points).
+- Career baseline (3+ year sample).
+- Year-over-year change (is he improving or declining?).
+
+## THE BEST 5 METRICS TO TRACK (FOR FANTASY)
+1. WR/RB target share.
+2. Y/RR for WR/TE.
+3. RYOE for RBs.
+4. EPA/play for QBs.
+5. Snap share / route participation (volume floor).
+
+If you only know 5 metrics, these are the highest-EV.

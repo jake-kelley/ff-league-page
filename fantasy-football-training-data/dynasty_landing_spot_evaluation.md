@@ -1,0 +1,163 @@
+# DYNASTY LANDING SPOT EVALUATION - METHODOLOGY
+Sources synthesized: Dynasty Nerds 2026 rookie landing spots, FantasyPros rookie picks, FantasyLife "where to draft 2026 rookies," PFF "upgraded NFL offenses 2026 dynasty targets," Dynasty League Football post-draft fusion articles.
+
+## WHY LANDING SPOT MATTERS - BUT ISN'T EVERYTHING
+- Landing spot is a top-3 predictor of fantasy outcome alongside talent and draft capital.
+- HOWEVER, talent endures across landing spots. A great WR in a "bad" spot still produces.
+- Landing spot panic is the #1 source of buy-low opportunities.
+
+### LANDING SPOT EVALUATION FRAMEWORK
+
+For ANY rookie skill player, ask:
+
+### 1) DEPTH CHART CLARITY
+- Is the role clear (instant starter)?
+- Is there a vet blocking the role?
+- Will the role likely open up due to age/contract?
+
+### 2) OFFENSIVE QUALITY
+- Is the offense one of the top 10 in the NFL?
+- Does the team have a QB who can support fantasy production?
+- Is the OL strong (matters most for RBs)?
+- Is the scheme pass-friendly or run-friendly?
+
+### 3) HEAD COACH / OC FIT
+- Does the coordinator favor the position?
+- Is the coordinator stable (won't be fired Year 1)?
+- Are there scheme features that fit the player's strengths?
+
+### 4) TARGET SHARE / WORKLOAD PROJECTION
+- For WRs/TEs: projected target share Year 1.
+- For RBs: projected snap share Year 1.
+- For QBs: starter probability Year 1-2.
+
+### 5) CONTRACT / FUTURE STABILITY
+- Are there other rookies/young players competing in 2027+?
+- Is the team building around this player or just a temporary need?
+
+### POSITION-SPECIFIC LANDING SPOT EVALUATION
+
+### WIDE RECEIVERS
+
+GREAT LANDING SPOTS:
+- WR-thin rooms with established QB.
+- Vacated WR1 role from departing FA/retirement.
+- Pass-heavy offenses with proven OC.
+- Young QB with whom rookie can grow long-term.
+
+CONCERNING LANDING SPOTS:
+- Stacked WR room with established WR1 + WR2.
+- Run-heavy offense / low pass volume.
+- Aging or replacement-tier QB.
+- HC/OC turnover signal.
+
+### RUNNING BACKS
+
+GREAT LANDING SPOTS:
+- Vacated lead-back role.
+- Strong OL (top-10 NFL OL).
+- Run-heavy offense.
+- HC committed to a workhorse.
+
+CONCERNING LANDING SPOTS:
+- Established starter under contract through 2027+.
+- Bottom-third NFL OL.
+- Pass-heavy offense (limits volume).
+- Committee tendencies in coaching staff.
+
+### QUARTERBACKS
+
+GREAT LANDING SPOTS:
+- Top-10 NFL Draft pick (organizational commitment).
+- Pass-friendly OC and scheme.
+- Strong WR room.
+- Functional OL.
+
+CONCERNING LANDING SPOTS:
+- Late NFL Draft pick = backup probability.
+- Bad WR/TE corps.
+- Bad OL.
+- Aging vet ahead.
+
+### TIGHT ENDS
+
+GREAT LANDING SPOTS:
+- TE-favored offense (Andy Reid template).
+- Vacated TE1 role.
+- Aging QB who relies on safety blanket TE.
+
+CONCERNING LANDING SPOTS:
+- Stacked TE room with younger competition.
+- Run-heavy offense.
+- Young QB with strong WR room (TE de-prioritized).
+
+### LANDING SPOT TIER ASSESSMENT (POST-NFL DRAFT)
+
+S TIER (best possible):
+- Rookie steps into immediate WR1 role on top-15 offense.
+- Rookie inherits 200+ touch RB role on team with strong OL.
+- Top-3 NFL pick QB to rebuilding team with WR investment.
+
+A TIER (very good):
+- WR2 role with target share growth path.
+- RB2/RB1 split with role expansion likely.
+- QB rookie with year-2 starter path.
+
+B TIER (neutral):
+- Crowded depth chart but talent will rise.
+- Year-1 development role with year-2 promotion expected.
+
+C TIER (concerning):
+- Buried in depth chart for foreseeable future.
+- Bad scheme fit.
+- Aging team with no future commitment.
+
+D TIER (bad):
+- Drafted as pure project / camp body.
+- Multiple competitors entrenched.
+- Bad coaching/scheme.
+
+## LANDING SPOT REPRICE EXAMPLE
+Pre-NFL Draft: A top WR prospect grades as 1.04.
+Post-NFL Draft Scenario A: drafted to S-tier landing -> moves to 1.01.
+Post-NFL Draft Scenario B: drafted to C-tier landing -> drops to 1.10.
+
+The MARKET'S landing spot reaction is often LARGER than reality. Use this:
+- BUY: A-tier prospect dropped to "C tier landing." Often the role opens later.
+- SELL: B-tier prospect lifted to "S tier landing." Hype peaks before reality.
+
+### MARKET INEFFICIENCIES IN LANDING SPOT VALUATION
+
+OVER-CORRECTION TYPES:
+- "Drafted to a stacked WR room" -> the WR usually rises Year 2-3 anyway.
+- "Drafted to bad QB" -> QBs change. Talent endures.
+- "Drafted to bad team" -> teams change. Talent endures.
+
+UNDER-CORRECTION TYPES:
+- "Drafted to perfect spot" -> often priced to perfection; sell if it's a fast riser.
+- "Drafted to known role" -> roles erode if rookie underwhelms.
+
+## TALENT-ENDURES PRINCIPLE
+Across 5+ year windows, the talent of the player MATTERS MORE than the landing spot. The WR who lands in a "C tier" spot at age 22 will often be in a different (better) spot at age 24-25.
+
+Don't drop your prospect tier based on draft slot ALONE. Look at:
+- Was the talent grade pre-NFL-Draft justified?
+- Will the role become available within 2-3 years?
+- Is the player's underlying ability still elite?
+
+If yes to all three, the landing spot panic is likely opportunity.
+
+### LANDING SPOT TIMING - WHEN TO RE-EVALUATE
+
+YEAR 1: don't overreact to rookie season production. Many great prospects bury Year 1.
+YEAR 2: real evaluation begins. If still buried after 2 years, reconsider.
+YEAR 3: most prospects have crystallized. If not productive, the landing spot has indeed limited him AND the talent grade was likely wrong.
+
+## CASE STUDIES (HISTORICAL TEMPLATES)
+- WR drafted to "elite WR room" -> often emerges Year 2-3 as primary target.
+- WR drafted to "bad QB" -> QB upgrade lifts production 50%+ later.
+- RB drafted behind vet on 1-year deal -> takes over Year 2 routinely.
+- Top NFL R1 QB to rebuilding team -> 2-3 year ramp before fantasy relevance.
+
+## THE "SMOKE TEST"
+Ask yourself: "If this player had been drafted to the best landing spot in the class, what would his dynasty value be?" The answer is your TALENT grade. Then discount based on actual landing spot. The discount usually exists; the talent grade doesn't change.

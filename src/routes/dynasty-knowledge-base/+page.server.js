@@ -6,8 +6,8 @@ export const prerender = true;
 const KB_DIR = join(process.cwd(), 'fantasy-football-training-data');
 
 const SKIP = new Set([
-    'COMBINED_dynasty_fantasy_football_training_corpus.txt',
-    'DATASET_README.txt',
+    'COMBINED_dynasty_fantasy_football_training_corpus.md',
+    'DATASET_README.md',
 ]);
 
 const CATEGORIES = [
@@ -42,8 +42,9 @@ function deriveTitle(filename, content) {
         .find((l) => l && !/^[-=]+$/.test(l));
     let t = firstLine ?? filename;
     t = t
+        .replace(/^#+\s*/, '')
         .replace(/^DYNASTY\s+FANTASY\s+FOOTBALL\s*[-—]?\s*/i, '')
-        .replace(/^DYNASTY\s+/i, 'Dynasty: ')
+        .replace(/^DYNASTY\s+/i, '')
         .replace(/\s*-\s*/g, ' — ');
     t = t.toLowerCase().replace(/\b\w/g, (c) => c.toUpperCase());
     t = t.replace(ACRONYMS, (m) => m.toUpperCase());
@@ -52,13 +53,13 @@ function deriveTitle(filename, content) {
 
 export async function load() {
     const files = readdirSync(KB_DIR)
-        .filter((f) => f.endsWith('.txt') && !SKIP.has(f))
+        .filter((f) => f.endsWith('.md') && !SKIP.has(f))
         .sort();
 
     const articles = files.map((f) => {
         const content = readFileSync(join(KB_DIR, f), 'utf-8');
         return {
-            slug: f.replace(/\.txt$/i, '').toLowerCase(),
+            slug: f.replace(/\.md$/i, '').toLowerCase(),
             filename: f,
             title: deriveTitle(f, content),
             category: categorize(f),

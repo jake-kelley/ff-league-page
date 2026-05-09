@@ -1,0 +1,139 @@
+# DYNASTY QUARTERBACK STRATEGY
+Sources synthesized: PlayerProfiler dynasty QB rankings, Sharp Football QB tiers, FantasyPros dynasty QB content, Mike Clay rankings, KeepTradeCut SF QB data, FFL podcasts on QB longevity.
+
+## THE TWO LEAGUE TYPES (DRIVES EVERYTHING)
+1QB: only 10-12 startable QBs. Position is undervalued. You can wait until rounds 6-10 in startup.
+SF: 22-26 startable QBs. Position is THE most valuable. Top-12 QBs are top-30 overall assets.
+
+### QB ARCHETYPES (DYNASTY VALUE)
+
+### A) DUAL-THREAT ELITE (Allen, Jackson, Hurts archetype)
+- Highest ceiling AND highest floor.
+- Rushing yards = elite weekly variance protection.
+- Trade value: highest in dynasty for a non-rookie player.
+- Aging: rushing decline starts mid-30s; passing degrades 36+.
+- Hold value 7-10 years if drafted at peak.
+
+### B) ELITE POCKET (Mahomes, Burrow archetype - elite arm + great offense)
+- Top-tier season ceilings; high consistency.
+- Floor depends on offense + OL + targets.
+- Aging: passing skills can persist into 40 (Brady).
+- Hold value 8-12 years.
+
+### C) FRANCHISE-STABLE (Stroud, Williams ascending QBs)
+- Year 2-4 of a likely long career.
+- Production rising; value cementing.
+- Buy in year 2 trough if year 1 was rocky.
+
+### D) MID-TIER STARTER (Tagovailoa, Goff archetype)
+- QB10-15 in 1QB; QB12-20 in SF.
+- Reliable but capped.
+- Trade value: stable but unspectacular.
+
+### E) AGING VETERAN STARTER (Stafford-types in mid-30s)
+- 1-3 year window.
+- Heavily discounted in dynasty markets.
+- BUY for SF contenders. OVERPRICED in 1QB.
+
+### F) MOBILE LOTTERY TICKETS (rookie dual-threats)
+- Rookies/2nd-year QBs with rushing upside.
+- Year 1 may underwhelm, year 2-3 breakout potential.
+
+### G) BACKUP QB (SF only)
+- Backups on teams with aging starters.
+- Cheap lottery tickets that can pay off massively (Mahomes/Hurts/Purdy precedent).
+
+## QB DECAY CURVE
+- Peak: 28-32 (some elite stretch to 35).
+- Cliff: ~36-37 for arm-talent; ~33-34 for run-first.
+- Yearly decline post-peak: ~5-8% expected fantasy points (slower than RB).
+- Mobile QB rushing decline starts ~32; passing held longer.
+
+## KEY DYNASTY QB METRICS
+- Career rushing yards/game: floor stat.
+- Career YPA over 3+ years: ceiling indicator.
+- Year-over-year improvement: ascending = buy.
+- Time to roster (TTRT) of receiving corps: better targets = QB friendly.
+- HC/OC stability: scheme continuity matters.
+- TD rate vs career average: above career = sell-high candidate.
+
+### QB DRAFT STRATEGIES (STARTUP)
+
+1QB LEAGUES:
+- Wait. QB12 is available in rounds 6-10.
+- Take 1 elite young dual-threat in mid-rounds if available.
+- Stack 1 mid-tier + 1 lottery young.
+
+SF LEAGUES:
+- 1 elite QB in rounds 1-3.
+- 2nd QB in rounds 4-7 (don't double-tap rounds 1-3 unless 2 elites are clear).
+- 3rd QB in rounds 8-12 (lottery young or veteran).
+
+### ROOKIE DRAFT STRATEGY (QB)
+
+1QB:
+- Rookie QBs are LOTTERY tickets. Round 1 picks rarely worth it for QBs alone.
+- 2nd-3rd round rookie picks are reasonable QB targets if NFL R1.
+
+SF:
+- Rookie QBs are PREMIUM assets in deep classes.
+- A clear top QB prospect goes 1.01 in SF, often regardless of position.
+- Even 2nd-tier rookie QBs in good landing spots are 1.05-1.08 picks.
+
+## QB BUYING WINDOWS
+- Year 2 of a young QB whose rookie year was rocky on bad team.
+- Mobile QB coming off injury (rushing returns at full strength faster than passing).
+- QB with new HC/OC upgrade (especially mobile QBs going to mobile-QB-friendly schemes).
+- QB on team that just signed elite WR or fixed OL.
+
+## QB SELLING WINDOWS
+- 35+ QB just had an elite season.
+- QB1 finish driven by unsustainable TD rate (career TD/att outlier).
+- QB whose team just drafted his replacement.
+- Mobile QB just had a rushing-yard career high.
+
+## SF-SPECIFIC TRADE EDGE
+- The QB12-20 range is systematically MISPRICED in many leagues.
+- Owners obsess over QB1-10 and ignore "good enough" QBs in the 12-20 range.
+- These QBs trade as a fraction of their actual SF value.
+- Buy them in offseason; flip them at deadline to QB-needy contenders for premium.
+
+## QB STREAMING (1QB AND SF)
+1QB:
+- QB1 + QB2 covers byes typically.
+- Stream QB2 on bye if matchup is favorable.
+
+SF:
+- Need 3 startable QBs minimum.
+- Stream QB3 by matchup if you have 3 with starting potential.
+- Don't stream into playoffs - need known floors.
+
+## LONG-TERM HOLDING vs FLIPPING
+HOLD a QB if:
+- Top-12 in 1QB or top-15 in SF.
+- Under 32 years old.
+- On stable franchise with stable HC.
+- You're a contender or near-contender.
+
+FLIP a QB if:
+- 33+ in 1QB; 35+ in SF (unless elite tier).
+- Aging out of mobility window.
+- His team drafted heir apparent.
+
+### QB-SPECIFIC MISTAKES TO AVOID
+
+1QB:
+- Drafting QB in round 1-2 (almost always suboptimal except for top 3 dual-threats).
+- Hoarding 4+ QBs.
+
+SF:
+- Late-drafting QBs ("I'll address it in trades") - in SF, QB market is so tight you may never recover.
+- Refusing to spend a 1st on a rookie QB in SF.
+- Not having QB depth (2 startable QBs is not enough in SF).
+
+### SUMMARY HEURISTICS
+- 1QB: QB is the easiest position to wait on. Don't pay round 1-2 unless top 3.
+- SF: QB is THE premium position. Everything else is secondary.
+- Mobile QBs > pocket QBs for fantasy floor.
+- Old QBs are systematically undervalued by markets that overweight age.
+- Backup QBs are real lottery tickets in SF leagues.

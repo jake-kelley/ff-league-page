@@ -1,0 +1,138 @@
+# DYNASTY TIGHT END STRATEGY
+Sources synthesized: PFF tight end aging study, Fantasy Footballers TE life-cycle, Apex peak-age TE study, Footballguys "When to Expect TE Decline," FantasyPros TE dynasty rankings, Comanagers TEP analysis.
+
+## THE TE PROBLEM
+TE is THE most positionally scarce skill spot in fantasy. The gap between TE1 and TE12 is enormous (often 60+ points/season). The gap between TE12 and TE24 is much smaller. This creates a "stud or stream" dichotomy.
+
+### TE LIFE CYCLE
+
+YEARS 1-2 (rookie/sophomore):
+- TEs develop slowly. ~70% of NFL R1 TEs disappoint Year 1.
+- Year 2 sees emergence for most. Year 3 is the consolidation year.
+
+YEARS 3-5 (the prime window for TYPICAL TEs):
+- Peak production for most.
+- Top-tier TEs become true difference-makers.
+
+YEARS 6+ (decline curve):
+- Gradual decline. ~5-7% YOY post-peak.
+- Cliff: ages 30+ for typical; 32+ for elite.
+
+ELITE OUTLIERS (Kelce, Gronk, Gonzalez, Witten templates):
+- Push prime to age 30-32.
+- Cliff often pushed to 33+.
+- These are GENERATIONAL TEs - don't assume your TE is one.
+
+### TE ARCHETYPES
+
+### A) GENERATIONAL ELITE (Kelce-tier)
+- 100+ catches, 1,000+ yards, 8+ TDs.
+- 5-8 year prime.
+- Trade value: top-30 dynasty asset.
+
+### B) STUD STARTER (Top-3 TE non-elite)
+- 80+ catches, 850+ yards.
+- 3-5 year window.
+- Top dynasty TE asset short of generational.
+
+### C) SOLID TE1 (TE5-12)
+- 60-80 catches, 600-800 yards.
+- Reliable but not differentiating.
+- Mid-tier dynasty asset.
+
+### D) ASCENDING YOUNG TE (24-26 with breakout signals)
+- Buy-low candidate.
+- Year 2-4 development window.
+- Lottery upside.
+
+### E) AGING VETERAN (28+)
+- 2-year window typical.
+- Sell-high candidate at any peak production.
+
+### F) ROOKIE LOTTERY (NFL R1-R3 capital)
+- Year 1 rarely productive.
+- Year 2-3 breakout window.
+- Best stashed on taxi.
+
+### DRAFT STRATEGIES (STARTUP)
+
+### A) PAY UP FOR ELITE (recommended in TEP)
+- Take elite TE in rounds 1-3.
+- Lock in weekly advantage for 5+ years.
+- Best in TE Premium leagues.
+
+### B) MID-ROUND TE (avoid)
+- TE5-15 in rounds 4-8.
+- TRAP. You pay round 4-5 capital and get a bench piece.
+- Most middle TEs underperform mid-round price.
+
+### C) PUNT TE
+- Skip TE until rounds 12+.
+- Stream weekly or grab 2 lottery young TEs.
+- Best in 1QB non-TEP leagues.
+
+### D) DOUBLE LOTTERY
+- 2 ascending young TEs in rounds 8-12.
+- Hope one breaks out. Acceptable in TEP leagues.
+
+## ROOKIE DRAFT (TE FOCUS)
+- 1QB non-TEP: rookie TEs are typically 2nd round picks at best.
+- 1QB TEP: elite rookie TEs jump to late 1st / early 2nd.
+- SF non-TEP: 2nd-3rd round.
+- SF TEP: late 1st possible for top TE prospect.
+- Look for: NFL R1 capital, athletic profile, receiving role in college.
+
+### TE EVALUATION METRICS
+- Targets per game.
+- Routes run percentage.
+- Red zone targets.
+- Yards after catch / receiving role.
+- College breakout age (later than WR; ~21 still good).
+- NFL Draft capital - top-50 = strong signal.
+
+## TE BUY-LOW SIGNALS
+- Young TE (24-26) coming off mediocre stat year but elite athletic profile.
+- TE who lost target competition due to teammate hot stretch (regression to baseline coming).
+- TE on team transitioning to pass-heavier scheme.
+- TE who just changed teams to a TE-friendly system (Kelce-Reid template).
+- TE2-3 on team with aging/injured TE1.
+
+## TE SELL-HIGH SIGNALS
+- 30+ elite TE coming off TE1 season.
+- TD-dependent TE coming off lots of TDs (TD rates regress more than other stats).
+- TE coming off a season inflated by injuries to other receivers.
+- TE on team that just drafted a rookie TE in NFL R2-R3.
+
+## TEP-SPECIFIC STRATEGY
+TE Premium dramatically inflates TE values:
+- Top-3 TEs: jump 5-15 dynasty positions.
+- Volume TEs (high reception, low TD) gain MORE than TD-dependent.
+- Mid-tier TEs become viable trade assets.
+- Acquiring elite young TE in TEP = league-tilting move.
+
+In TEP, you should:
+- Pay up for elite TE in startup.
+- Hold elite TE longer than in standard.
+- Trade for ascending young TE before TEP-aware market reprices them.
+
+## TE DEPTH PHILOSOPHY
+- Own 1 stud OR 2 mid-tier (with one being lottery young).
+- Don't own 3+ mid-tier TEs - they all underperform.
+- Avoid 30+ TEs unless contender with current need.
+
+## TE-SPECIFIC TRADE TACTICS
+- Sell elite TEs at their statistical peaks. Don't hold past age 30.
+- Buy ascending young TEs in their Year-2 trough.
+- Trade older TEs for picks before training camp.
+
+### TE-SPECIFIC MISTAKES TO AVOID
+- Drafting middle-tier TEs in rounds 4-8 (the "TE wasteland").
+- Holding aging TEs past 31.
+- Ignoring TEP scoring effects when evaluating trades.
+- Reaching on TEs in rookie drafts when better WRs/RBs available.
+
+### SUMMARY
+- TEP: pay up for elite young TE.
+- Standard 1QB: punt or grab lottery young TEs.
+- TE position has the LATEST breakout curve - patience is rewarded.
+- Aging TEs decline gradually then cliff hard at 32-33.

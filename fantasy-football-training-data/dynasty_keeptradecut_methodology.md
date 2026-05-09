@@ -1,0 +1,65 @@
+# KEEPTRADECUT (KTC) - METHODOLOGY AND HOW TO USE
+Sources: keeptradecut.com (FAQ, About, methodology pages), community discussions on r/DynastyFF, calculator-comparison reviews.
+
+## WHAT IT IS
+KeepTradeCut is a crowdsourced player valuation system. Users are presented with 3 random players and asked to rank them: KEEP (most valuable), TRADE (middle), CUT (least valuable). Each "KTC" produces 3 pairwise preferences. Aggregating millions of these produces a global ranking.
+
+## KEY CHARACTERISTICS
+- Updated daily based on incoming community votes.
+- Separate values for 1QB and SF formats (always check which view you're using).
+- Provides values for picks (rookie 1sts, 2nds, 3rds; future picks).
+- Trade calculator that sums values and gives a verdict.
+- Power rankings tool for entire leagues.
+- Trade database for searching real-trade history.
+
+## VALUE SCALE
+- Player values typically range 1,000 (least valuable rosterable) to 12,000+ (top-of-board generational talent).
+- Pick values: rookie 1.01 ~7,000-9,000 (1QB) or 9,000-11,000 (SF) depending on class strength.
+- Multi-pick discounts apply: a 1.06 + 2.02 isn't simply additive value - the calc accounts for some asymmetry.
+
+## ADVANTAGES
+- True crowdsourced - reflects what THE COMMUNITY values, not pure analytics.
+- Updates faster than expert ranks.
+- Free, no paywall on basic features.
+- Best for STARTUP draft consensus.
+
+## LIMITATIONS
+- Crowd biases: hype waves can inflate young players unsustainably.
+- Aging vets often UNDER-valued by KTC because crowd sentiment skews young.
+- Doesn't account for league-specific context (your roster, scoring, depth).
+- Trades that are "even" on KTC are often won by the side getting the MORE LIQUID asset.
+
+## HOW WINNERS USE KTC
+- As an INPUT, never the final word. Compare to FantasyCalc and your own evaluation.
+- The MARKET PRICE: the number an opponent will MOST LIKELY accept in a trade. Use it to set initial offers.
+- For sell-high candidates: when KTC value > your personal valuation by 10%+, that player is "trade ready."
+- For buy-low candidates: when your personal valuation > KTC value by 10%+, target them.
+
+## KTC vs FANTASYCALC vs DLF
+- KTC: pure crowdsourced. Best community price.
+- FantasyCalc: hybrid algorithm + community trade data. Best for daily-updating with redraft cross-reference.
+- DLF: expert/analyst driven. Best for strategy thinking but slower to update market reality.
+
+Use 2-3 of these to triangulate "true" market price.
+
+## SPECIFIC KTC FEATURES TO LEVERAGE
+1. POWER RANKINGS BY LEAGUE: link your Sleeper league. KTC ranks every team's roster. This single tool gives you a league-wide map of contenders/rebuilders.
+2. TRADE DATABASE: search recent real trades for a player. See actual numbers instead of theoretical calc.
+3. 30-DAY TREND: KTC tracks value movement. Use this for momentum/buy-sell decisions.
+4. TIER VIEW: shows where tier breaks are. Useful for trading "down within tier."
+
+## CRITICISM TO KEEP IN MIND
+- Some users argue KTC over-values rookies and young players because the crowd is excited about youth.
+- KTC for SF leagues is better-tuned than for super-deep formats (16+ teams, 30+ rosters).
+- Pick valuations on KTC for FUTURE picks tend to lag - they don't price emerging class strength fast enough.
+
+## PRACTICAL TRADE PROCESS USING KTC
+1. Identify a target on opponent's roster.
+2. Check KTC value (1QB or SF as appropriate).
+3. Find pieces on your roster equal to ~92-105% of that value.
+4. Send the offer with a brief note: "I think this is fair on KTC. Open to discuss."
+5. If rejected, ask "What do you need?" - lets the opponent counteroffer.
+6. Use the FantasyCalc 30-day trend to time the ask if uncertain.
+
+## WARNING ABOUT GAMING
+KTC is somewhat gameable in theory (vote enough times in a coordinated way to nudge values), but it's resilient because of vote volume. Don't trust extreme moves on niche players overnight - probably noise.

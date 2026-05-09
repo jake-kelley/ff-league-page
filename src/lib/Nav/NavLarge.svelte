@@ -36,6 +36,10 @@
 
 	const subGoto = (dest) => {
 		open(false);
+		if (typeof dest === 'string' && /^https?:\/\//.test(dest)) {
+			window.open(dest, '_blank', 'noopener,noreferrer');
+			return;
+		}
 		goto(dest);
 	}
 

@@ -1,0 +1,142 @@
+# DYNASTY 2-FOR-1 TRADE STRATEGY (CONSOLIDATION TRADES)
+Sources synthesized: Fantasy Life "2-for-1 Trade Strategy," Fantasy Footballers trade tips, Footballguys trade analyst Pat Fitzmaurice columns, Dynasty Nerds Tier-Downs Episode 672, KTC trade database analysis.
+
+## WHAT IS A 2-FOR-1
+You give up TWO players and receive ONE in return (or 1 player + N picks variant).
+
+## WHY 2-FOR-1S WIN LONG-TERM
+1. Studs win trades. Lineup-week winners > depth pieces.
+2. Roster-spot economy: consolidating gives you free roster spots for new lottery tickets.
+3. Aging-out hedge: two mid-tier vets often decline together; one stud holds value longer.
+4. Trade calculator math says it's "even" but qualitative win goes to the stud-receiver 75% of the time in dynasty.
+
+### THE 2-FOR-1 PROFILE FRAMEWORK
+
+Best 2-for-1 candidates (the ONE you're acquiring):
+- Top-12 dynasty asset at his position.
+- 25-and-under (still appreciating).
+- Liquid (could resell easily).
+- Locks in your starting lineup for years.
+
+What to give up (the TWO):
+- Mid-tier vets (28+ at WR, 26+ at RB).
+- Productive but unspectacular bench depth.
+- Two slightly-overpriced young players you don't believe in.
+- Pick + player combinations.
+
+### CALC SHELL EXAMPLE
+
+Say a top young WR is valued 8,500 calc. Two mid-tier vets total 4,500 + 4,200 = 8,700.
+On calc: trade is +200 to opposing side ("you're losing").
+In reality: 1 stud > 2 vets in dynasty almost every time. THIS TRADE WINS.
+
+## OWNER PSYCHOLOGY OF 2-FOR-1S
+Most owners receive 2-for-1 offers as "you're trying to fleece me." They reject reflexively even when math is favorable.
+
+Counter-tactics:
+1. Don't call it a 2-for-1. Frame as "I'd like to consolidate roster spots."
+2. Show calc evidence with slight tilt their way ("you get the math win, I get the lineup help").
+3. Highlight roster-fit benefits to them ("you've been thin at WR; both these help").
+4. Offer multiple permutations: "would you do A+B for X, or A+C for X?"
+
+### WHEN 2-FOR-1S FAIL
+
+The trap: owners give up TWO depth pieces for ONE depth piece.
+- 2 RB3s for 1 RB2 = often a wash. RB2s aren't lineup advantages.
+- 2 WR4s for 1 WR3 = often a wash. WR3s aren't startable difference makers.
+
+The 2-for-1 should ALWAYS be acquiring a TIER UPGRADE. Not just consolidation for consolidation's sake.
+
+### 3-FOR-1 AND BIGGER
+
+### 3-FOR-1 PRINCIPLE
+- Same logic, even more aggressive consolidation.
+- Best when targeting elite asset (top-5 dynasty player).
+- The owner of the elite asset is rebuilding and wants quantity.
+
+EXAMPLE: rebuilder owns top WR. You offer 3 mid-tier productive vets totaling 10,500 calc for the WR (12,000 calc).
+You're "overpaying" by 1,500 BUT:
+- Your roster is now 1 elite WR + open spots.
+- His roster is 3 productive vets that age fast.
+- 3 years from now, your asset still has 80% value; his are worth 30% combined.
+
+### WHEN 2-FOR-1 IS WRONG (counter-cases)
+
+YOU SHOULD STAY MULTI-PIECE IF:
+- You're a contender NEEDing weekly starters at multiple positions.
+- The "stud" you'd acquire is a single point of failure (injury risk).
+- The "two pieces" you'd send have HIGHER long-term EV than the stud.
+
+Example: 2 ascending young WRs (Year 1-2 NFL R1 picks) for 1 productive 28-year-old WR. The 2 youngsters likely both rise; the vet declines. KEEP THE YOUNGSTERS.
+
+### POSITION-SPECIFIC 2-FOR-1 PATTERNS
+
+### WR 2-FOR-1
+- Most common and highest-EV trade type.
+- 2 mid-tier WRs for 1 elite young WR is the "classic dynasty win."
+
+### RB 2-FOR-1
+- Riskier. Aging RBs decline so fast that even consolidating to a stud RB has a 2-3 year window.
+- Best to consolidate INTO a 24-and-under stud RB. Avoid consolidating into 27+ RBs.
+
+### QB 2-FOR-1 (SF)
+- Trade your QB3 + WR2 for a top-12 QB. Strong move for SF rosters with QB depth.
+- Improves your starting lineup AND consolidates.
+
+### TE 2-FOR-1
+- Limited applicability. TE markets are thin.
+- If consolidating, target a top-5 TE; don't waste the trade on a mid-tier consolidation.
+
+## PICK INCLUSION VARIANT
+The MOST FLEXIBLE form of 2-for-1: vet + pick for stud.
+
+Example: aging vet WR2 (4,800 calc) + 2026 1.05 (3,800 calc) = 8,600 for 1 elite young WR (8,500 calc).
+- You give the depreciating vet AND the depreciating pick.
+- You receive the appreciating young WR.
+- Math: roughly even. Long-term: huge win.
+
+### TIMING 2-FOR-1S
+
+PEAK SUCCESS WINDOWS:
+- LATE OCTOBER / EARLY NOVEMBER (deadline pressure):
+  Contenders have surplus depth they want consolidated.
+- POST-NFL DRAFT (May):
+  Owners overreact to landing spots; some willing to trade studs at discount.
+- POST-STARTUP DRAFT (1-2 weeks):
+  Owners realize they have surplus. Most willing to consolidate.
+
+LOW SUCCESS WINDOWS:
+- TRAINING CAMP (August):
+  Hype peaks; owners less willing to part with stars.
+- EARLY SEASON (Weeks 1-3):
+  Sample-size paranoia.
+
+## EXECUTION STEPS
+1. Identify a target stud on opposing roster (must be liquid).
+2. Identify your 2-3 surplus pieces (must be tradable in calc).
+3. Run calc on multiple permutations.
+4. Send offer with calc justification + roster context.
+5. If rejected, send variant within 24-48 hours.
+6. Walk away if rejected twice; revisit in 4-6 weeks.
+
+## FOLLOW-UP MOVE
+After consolidating to one stud, you have open roster spots. USE THEM:
+- Target rookie picks via separate trade.
+- Add lottery WR/RB to bench.
+- Stash via taxi.
+
+This compounds the 2-for-1 win - you've created roster real estate that you fill with upside.
+
+## MISTAKES IN 2-FOR-1 EXECUTION
+1. Trading away pieces THE SAME OWNER SHOULDN'T WANT. Make sure your offer fills HIS need.
+2. Going below-tier on the consolidation. Don't trade 2 WR3s for a WR2; trade 2 WR3s for an elite WR.
+3. Giving up TWO ASCENDING young pieces for one stud. Keep youth; consolidate vets.
+4. Forgetting roster spot economy. After the trade, your bench has 2 OPEN SPOTS - fill them well.
+5. Misjudging asymmetry. The other owner must value YOUR pieces individually more than you do.
+
+## THE "HALF-TRADE" PSYCHOLOGY
+Some owners can't visualize a 2-for-1. They get paralyzed. To handle:
+- Pre-frame the trade as "I'm trying to clean up my bench."
+- Keep tone collaborative, not transactional.
+- Don't lowball.
+- Be willing to throw in a pick to sweeten if they're 90% there.

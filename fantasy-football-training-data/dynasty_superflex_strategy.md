@@ -1,0 +1,72 @@
+# DYNASTY SUPERFLEX / 2QB STRATEGY
+Sources synthesized: FantasyPros 2QB/SF dynasty strategy, Pro Football Network SF primer, RotoBaller SF rankings articles, Draft Sharks SF dynasty rankings, Footballguys SF vs standard discussion threads.
+
+## WHY SUPERFLEX REWRITES DYNASTY
+A standard 1QB league has 10-12 startable QBs. SF has 22-26. Position scarcity flips: QB becomes the scarcest startable role on rosters, vaulting QBs to top-of-board status.
+
+### QB VALUATION SHIFTS (vs 1QB PPR)
+- Top-3 dual-threat QBs: ~1.7-2.2x the 1QB value. Often top-3 overall picks.
+- QB4-12: ~1.5x value. Reliable startable QBs are tradable for elite WRs.
+- QB13-24: ~1.4x value. Even backup-quality starters move for real assets.
+- Backup/streamers: meaningful weekly value during bye weeks; can be flipped for picks.
+
+## DRAFT STRATEGY (STARTUPS)
+HISTORIC APPROACH (Pre-2023): "Double tap" - lock 2 QBs in rounds 1-3.
+MODERN APPROACH (2024-2026): Take ONE elite QB rounds 1-2; second QB rounds 4-7; third QB rounds 8-12.
+
+Why the shift?
+- The QB middle class is deeper than ever (mobile QBs, rookie QBs in good landing spots filling QB12-24).
+- Forcing 2 early QBs cost you elite WRs/RBs you can't replace later.
+
+PREFERRED STARTUP TEMPLATE (SF, 1.0 PPR, 12-team, 25 roster):
+- Rd 1-2: Elite QB OR elite young WR. (Both viable. If a QB1-tier dual-threat is on the board, take him.)
+- Rd 2-3: The other (QB or WR). Anchor your lineup.
+- Rd 4-5: 2nd QB. Target ascending young QB or productive vet.
+- Rd 5-7: WRs. Best-available young.
+- Rd 8-10: 3rd QB + RB1. RB anchor late is intentional - SF de-emphasizes RB.
+- Rd 11-15: Lottery WRs/RBs, ascending TE, picks.
+- Rd 16+: Rookie picks, taxi candidates, lottery QBs.
+
+## THREE-QB STRATEGY (always have 3 startable QBs)
+- QB starters work on a 17-week + playoff window. Bye weeks force you to start 2 of your 3.
+- Injuries are inevitable - having only 2 viable QBs in SF is the single most common reason teams collapse.
+- Even a "QB3" who can stream for 6-8 weekly points has roster justification.
+
+## TARGET ARCHETYPES IN SF
+1. Elite dual-threats - safest floor + ceiling combo. Allen, Jackson, Hurts tier holds value 5+ years.
+2. Young pocket QBs in great offenses - high efficiency boosts even modest rushing.
+3. Backup QBs on teams with old/injury-prone starters - lottery tickets that can pay off massively (Brock Purdy emergence pattern).
+4. Mobile QBs with positional flexibility - rushing floor protects vs bad games.
+
+## VALUATION ARBITRAGE OPPORTUNITIES
+- The QB13-20 range often trades CHEAP relative to actual SF value. Owners get fixated on top-12 and ignore the QB14 who is a startable 95% of weeks.
+- Aging QB starters (Stafford-tier vets) trade undervalued because owners overweight age. In SF, their 2-3 year window is exactly what a contending SF team needs.
+- Rookie QBs going to bad teams in NFL Draft tank in price; this is when to buy if the prospect is good.
+
+## ROOKIE DRAFT (SF)
+- 1.01 priority order: top-tier QB > top-tier RB/WR > anything else.
+- A clear-cut top QB prospect almost always goes 1.01 in SF, even if you'd prefer the WR/RB in a vacuum.
+- Rookie picks are MORE valuable in SF because each draft can produce a long-term QB asset (10+ years of value if it hits).
+
+## TRADING IN SF
+- The QB scarcity creates trade leverage. A team with 2 QB1s + a stash QB has surplus and should sell.
+- A team with 1 stud QB + sketchy backups is in danger - they should target a 2nd starter, even at premium.
+- "QB tax" - acquiring a starter QB always costs more than you'd think it should. Plan trade portfolios with this premium baked in.
+
+## COMMON SF MISTAKES
+- Drafting RBs early in startup like a 1QB league. RB scarcity is LOWER in SF than 1QB - you should wait longer.
+- Refusing to spend a 1st round rookie pick on a QB. In SF, the QB is often the best long-term asset in the rookie class.
+- Treating SF QB depth as "extra" - it's CORE. Two QB starters means you NEED 3 viable QBs every season.
+- Sleeping on backup QBs. The Mahomes/Purdy/Stroud-emergence playbook keeps repeating. A backup QB on a team with an aging starter is a real asset.
+
+## QB STREAMING IN SF
+Yes, even SF leagues stream. Best practices:
+- Rotate QB3 by matchup if you have 3 startable QBs.
+- Don't stream during playoffs - need known floors.
+- Bye-week alignment matters: ensure your top-2 QBs don't share the same bye.
+
+## SF DYNASTY VS 1QB DYNASTY - PHILOSOPHICAL DIFFERENCES
+- 1QB rewards WR depth and elite RB.
+- SF rewards QB depth FIRST, then WR depth, then everything else.
+- 1QB: trade your QB2 for a WR. SF: trade your WR3 for a QB2.
+- 1QB: rookie QBs are lottery tickets. SF: rookie QBs are the highest-ceiling assets in the draft.

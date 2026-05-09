@@ -1,0 +1,188 @@
+# DYNASTY HANDCUFFS, LOTTERY TICKETS, AND BENCH STRATEGY
+Sources synthesized: FantraxHQ ultimate stash list, Pro Football Network top dynasty stashes, Draft Sharks dynasty waiver wire, Dynasty League Football 2025 stashes, Dynasty Nerds waiver wire content, FantasyPros stash columns.
+
+## DEFINITIONS
+HANDCUFF: a backup RB whose value is tied to injury or replacement of the lead RB. Examples: a primary RB's direct backup.
+
+LOTTERY TICKET: a low-value young player with breakout potential, held cheap.
+
+STASH: a player held for future role/value rather than immediate production.
+
+## WHY BENCH SPOTS MATTER
+- Bench/taxi spots are CHEAP option value.
+- A 2-year stash that pays off can return 10-30x what you paid.
+- Active waivers and bench churn separate elite from average dynasty managers.
+
+### HANDCUFF STRATEGY
+
+### PURE HANDCUFFS (own only the lead RB)
+- Direct insurance for your starter.
+- Best for: contenders with one stud RB.
+- Example: roster Bijan Robinson + his direct backup.
+
+### SPECULATIVE HANDCUFFS (don't own lead)
+- Lottery on injury to opponents' RB1.
+- Best for: rebuilders looking for cheap upside.
+- Don't pay more than rookie 4th value typically.
+
+### DOUBLE HANDCUFFS
+- Own two backups behind a 30+ RB.
+- Insurance for inevitable transition.
+- Use cautiously - roster spots are expensive.
+
+### WHEN TO HANDCUFF
+- Starter is injury-prone (history).
+- Starter is on the wrong side of 27.
+- Backup has clear path to lead role on injury.
+- Backup is showing flashes (snap share rising).
+
+### WHEN NOT TO HANDCUFF
+- Starter is durable and young (25 or under).
+- Backup is older than starter.
+- Backup is buried 3rd/4th on depth chart.
+- Backup has no receiving upside (limited PPR floor).
+
+### LOTTERY TICKET PROFILES
+
+### A) YEAR-2 / YEAR-3 WR ON CROWDED DEPTH CHART
+- NFL R1-R3 capital, sub-tier rookie production.
+- Hope: role expansion via injury / departure.
+- Hit rate: ~ 25-35%.
+
+### B) ROOKIE RB IN COMMITTEE
+- NFL R3-R5 with workhorse profile but currently 2nd-3rd.
+- Hope: starter aging out / FA.
+- Hit rate: ~ 15-25%.
+
+### C) BACKUP QB (SF) ON AGING STARTER TEAM
+- 2nd-3rd year QB on team with 32+ starter.
+- Hope: starter retires or gets injured.
+- Hit rate: 10-20% but pays massively when hits.
+
+### D) AGING TE WITH ELITE ATHLETIC PROFILE
+- 25-26 yo TE who hasn't broken out.
+- Hope: late-developer Y3-4 breakout.
+- Hit rate: ~ 15%.
+
+### E) UDFA / NFL R6-R7 WITH SHOCK PRODUCTION FLASHES
+- Cheap fliers based on flash games.
+- Hit rate: <5%.
+
+### F) PRODUCTIVE COLLEGE STUD WHO DROPPED IN NFL DRAFT
+- "Why did he fall?" might be answerable.
+- Worth a stash if no obvious red flag (medical, character).
+
+### WAIVER WIRE PRIORITIES
+
+### A) IMMEDIATE STARTERS (highest priority - use 30%+ FAAB)
+- Backup RB who got promoted due to injury.
+- Hot WR with sudden role expansion.
+
+### B) ROLE-INCREASING (mid priority - use 10-20% FAAB)
+- Snap share trending up.
+- New OC/HC commitment to player.
+
+### C) LONG-TERM STASHES (low priority - use 0-5% FAAB)
+- Rookies who flashed.
+- Athletic UDFAs.
+
+### D) DESPERATION STREAMS (use $0-3 FAAB)
+- One-week QB/TE/D fillers.
+
+### THE TAXI / BENCH MIX
+
+OPTIMAL DEEP DYNASTY:
+- 4-6 taxi: rookie 2nds, 3rds, 4ths (developmental).
+- 6-8 bench: mix of immediate-need + lottery tickets.
+- 1-2 IR: actually injured stars.
+
+CONTENDER BENCH:
+- Less lottery, more "ready to start" depth.
+- Handcuffs to your top RBs.
+- Bye-week fillers.
+
+REBUILDER BENCH:
+- Fewer immediate vets.
+- More lottery tickets.
+- Multiple young WRs / RBs in dev.
+
+### HOW TO IDENTIFY GOOD STASHES
+
+### 1. SNAP SHARE TRAJECTORY
+- Player's % snaps trending up 3+ weeks.
+- Especially after injury opening.
+
+### 2. NFL DRAFT CAPITAL
+- NFL R1-R2 is where most stashes hit.
+- NFL R3-R7 is lottery.
+
+### 3. AGE
+- Younger = more breakout window.
+- Stash 22-25 yos primarily.
+
+### 4. CHANGE-IN-SITUATION
+- New OC/HC.
+- Departing FA at the position.
+- Trade rumors involving the lead.
+
+### 5. ATHLETIC PROFILE
+- Combine metrics: speed, size, agility.
+- Strong combine = stash candidate.
+
+### LOTTERY TICKET BUYS (TYPICAL VALUES)
+
+ROOKIE 3rd-4th PICKS:
+- Cost: a 4th rookie pick or a low-tier vet.
+- Hit rate: 20-30%.
+
+POST-HYPE YEAR-3 WR:
+- Cost: a 3rd rookie pick or pick swap.
+- Hit rate: 15-25%.
+
+BACKUP RB ON AGING STARTER TEAM:
+- Cost: a 4th rookie pick or roster cut + add.
+- Hit rate: 25-35% on the immediate elevation, then variable.
+
+### WHEN TO DROP A LOTTERY TICKET
+
+- 2 years on roster with no expanded role.
+- Player past Year 4 still buried.
+- Better lottery available on waivers.
+- Active roster needs immediate help.
+
+## PSYCHOLOGY OF STASHES
+- Most stashes don't hit. Accept losses early.
+- The 1-2 stashes that DO hit per year compensate for all the misses combined.
+- Don't fall in love with any individual stash.
+
+## REAL-WORLD HISTORY
+Famous stash hits:
+- Cooper Kupp (post-3rd-round NFL pick).
+- Brock Purdy (Mr. Irrelevant emergence).
+- James Conner (waiver-wire rise).
+- Christian McCaffrey (Year 2 breakout).
+- Tyreek Hill (post-injury talent).
+- Stefon Diggs (Year 2-3 development).
+
+These are HEROES of dynasty stash narratives. Most stashes don't become these. But the upside is why we stash.
+
+### FAAB BUDGET ALLOCATION (typical $100 budget)
+
+REGULAR SEASON (12 weeks of waivers):
+- Weeks 1-3: $30 reserved for early-season strikes.
+- Weeks 4-8: $40 for breakouts.
+- Weeks 9-13: $20 for late-season role changes.
+- Weeks 14-17: $10 for streamers.
+
+ADJUSTMENTS:
+- Sit on $40-50 for any single league-changing add (rare but real).
+- Don't deplete budget early - chasing one player.
+- Save 10-15% for emergency replacements due to injury.
+
+### BENCH STRATEGY MISTAKES
+
+1) HOARDING HANDCUFFS WITHOUT LEAD RBS.
+2) STASHING TOO MANY RBs (RB market is volatile - hard to predict).
+3) DROPPING A STASH TOO EARLY (some hit Year 2-3).
+4) NEVER CHURNING - some bench holders need replacing.
+5) FAILING TO USE TAXI - rookies with development potential should be there.

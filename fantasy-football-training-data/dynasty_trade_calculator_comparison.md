@@ -1,0 +1,218 @@
+# DYNASTY TRADE CALCULATORS - DETAILED COMPARISON
+Sources: KeepTradeCut, FantasyCalc, DLF Trade Analyzer, DynastyProcess.com calc, Dynatyze, ProFootballNetwork analyzer, RotoTrade, Dynasty Daddy, RotoWire, DraftSharks, IDynastyP, DynastyTradeCalculator.com.
+
+### THE CORE CALCULATORS
+
+1. KEEPTRADECUT (KTC) - keeptradecut.com
+- Crowdsourced via "Keep/Trade/Cut" rankings.
+- 1QB and SF separate.
+- Picks valued.
+- League sync (Sleeper, MFL, etc.).
+- Power rankings, trade database, recent trades.
+- BEST FOR: market consensus prices.
+- WEAKNESSES: lags expert opinion; biased to youth.
+
+2. FANTASYCALC - fantasycalc.com
+- Algorithmic + actual trade data.
+- 1QB, SF, Half-PPR, PPR, custom.
+- Updates daily.
+- Provides BOTH dynasty and redraft values.
+- API access for raw data.
+- BEST FOR: data-driven baseline + redraft cross-reference.
+- WEAKNESSES: may overweight recent trades; less established than KTC.
+
+3. DLF TRADE ANALYZER - dynastyleaguefootball.com/trade-analyzer/
+- Expert/analyst-driven.
+- Updated by DLF staff, not crowd.
+- Subscription model.
+- BEST FOR: expert opinion; reasoned analysis.
+- WEAKNESSES: slower to update market reality; niche subscription.
+
+4. DYNASTYPROCESS.COM - calc.dynastyprocess.com
+- Built on FantasyPros Dynasty Ranks.
+- Open-source / R-based.
+- Adjustable parameters.
+- BEST FOR: tinkerers; data-driven.
+- WEAKNESSES: depends on FP rankings update cadence.
+
+5. DYNATYZE - dynatyze.com
+- Free trade analyzer.
+- Grades trades A+ to F.
+- Expert consensus values.
+- BEST FOR: quick trade grading.
+
+6. ROTOTRADE - rototrade.com
+- Dynamic seasonal valuation.
+- Separate redraft and dynasty values.
+- Updated regularly for performance trends, injuries, role changes.
+
+### 7. PRO FOOTBALL NETWORK ANALYZER
+- Free trade analyzer.
+- Multiple format support.
+
+8. DYNASTY DADDY - dynasty-daddy.com
+- League-context aware (sync your league).
+- Power rankings + trade tools.
+
+9. ROTOWIRE DYNASTY TRADE CALC - rotowire.com/fantasy/football/dynasty-trade-calculator
+- Subscription model.
+- RotoWire ranking based.
+
+### 10. DRAFTSHARKS DYNASTY TRADE CALC
+- Proprietary "3D" valuations.
+- 3-year, 5-year, 10-year forecasts.
+
+11. IDYNASTYP - idynastyp.com
+- IDP-FOCUSED dynasty calc.
+- Best for IDP leagues.
+
+### 12. DYNASTYTRADECALCULATOR.COM
+- Independent calc.
+
+### 13. SLEEPER BUILT-IN TRADE EVALUATOR
+- Very loose. Easy to "win" trades on.
+- Don't rely on Sleeper's calc alone.
+
+### CALCULATOR ACCURACY COMPARISON
+
+ACCURACY DIMENSIONS:
+- Real-world trade success rate.
+- Lagging vs leading market.
+- Specific player accuracy.
+
+GENERAL CONSENSUS:
+- KTC and FantasyCalc are the two most accurate "market price" calculators.
+- They agree within 10-15% on most players.
+- Where they disagree, the truth is usually in between.
+
+BIAS PATTERNS:
+- KTC over-values rookies in offseason hype waves.
+- FantasyCalc weighted toward recent trade data (volatile).
+- DLF Analyzer biased toward expert "process" analysis.
+- DynastyProcess relatively neutral but lags.
+
+## TRIANGULATION METHOD (BEST PRACTICE)
+1. Run trade through KTC.
+2. Run same trade through FantasyCalc.
+3. If both agree within 10% - that's market price.
+4. If they diverge - take midpoint.
+5. Adjust for league context (your scoring, roster sizes, your phase).
+6. Compare to your "personal value" (the price you'd accept to actually do this).
+
+### WHEN CALCULATORS DISAGREE - WHO TO TRUST
+
+### PLAYER TYPE -> CALC TO TRUST
+
+YOUNG WR (24-and-under):
+- KTC tends to over-value.
+- Trust FantasyCalc midpoint.
+
+OLD VET (29+):
+- KTC tends to under-value.
+- Trust DLF or your judgment.
+
+RECENT BREAKOUT (under 6 months):
+- FantasyCalc reacts faster.
+- KTC catches up in 2-4 weeks.
+
+DEEP STASH (lottery tickets):
+- All calcs unreliable.
+- Use historical comp + your judgment.
+
+ROOKIE PICKS:
+- KTC and FantasyCalc generally aligned.
+- Both tend to under-value future picks.
+
+### POSITION-SPECIFIC ACCURACY
+
+QB (1QB): all calcs work; gaps small.
+QB (SF): KTC has separate SF view; trust it.
+RB: highest disagreement; trust your age + workload analysis over calcs.
+WR: most stable; calcs reliable.
+TE: variable; TE Premium leagues need TEP-specific calcs.
+
+## THE MARKET-vs-MODEL DEBATE
+KTC = market (what people DO).
+DLF = model (what experts THINK).
+FantasyCalc = hybrid (what data + people show).
+
+Market reflects reality but lags. Model anticipates but might be wrong. Use both.
+
+### FORMAT-SPECIFIC CALCULATOR FEATURES
+
+1QB STANDARD: every calc.
+SUPERFLEX: KTC, FantasyCalc, Dynasty Daddy, ProFootballNetwork.
+TE PREMIUM: KTC, DraftSharks (best); some others limited.
+IDP: IDynastyP (best); few others.
+SALARY CAP: League Tycoon, FantraxHQ tools - not standard calcs.
+DEVY: KeepTradeCut C2C if applicable.
+
+### LEAGUE-SYNC FEATURES (gold-standard tools)
+
+Tools that pull your specific league via Sleeper / MFL / Fleaflicker API:
+- KTC Power Rankings.
+- Dynasty Daddy (full league context calc).
+- DynastyProcess R Shiny App.
+- Sleeper-integrated 3rd-party tools.
+
+These are MUCH BETTER than generic calcs because they know:
+- Your league size and scoring.
+- Your roster.
+- Standings and pick projections.
+- Trade history.
+
+USE LEAGUE-SYNCED TOOLS WHEN POSSIBLE.
+
+### CALCULATOR USAGE WORKFLOW
+
+PRE-OFFER:
+1. Identify target on opponent's roster.
+2. Get values from KTC + FantasyCalc + your league-sync tool.
+3. Construct package within 95-105% of target's value.
+4. Adjust for your roster context (does this fill a hole?).
+5. Adjust for opponent's phase (do they need what you offer?).
+
+DURING NEGOTIATION:
+1. Reference the calc number openly.
+2. Acknowledge slight tilt toward you (trades get done with slight asymmetry).
+3. If they disagree, ask them which calc they're using.
+
+POST-TRADE:
+1. Re-run the trade in the calc to compare your assessment vs final deal.
+2. Note any divergence as learning.
+
+### WARNING: CALCULATOR LIMITATIONS
+
+CALCS DON'T KNOW:
+- Your league's scoring quirks.
+- Your roster context.
+- Your standings.
+- Real liquidity (can you actually trade this player?).
+- Trade-frequency (some players priced high but rarely actually move).
+
+USE CALCS AS A STARTING POINT, NEVER THE FINAL WORD.
+
+## THE TRADE GRADING TRAP
+Don't post your trade to a calc and report the grade like it's gospel. Calc grades are:
+- Snapshot in time.
+- Format-blind.
+- Context-blind.
+
+A "C+" trade can be a "win" if it fits your roster perfectly. A "B+" trade can be a loss if it gives you the wrong player for your phase.
+
+## REDDIT TRADE GRADING
+Reddit's "grade my trade" posts are often misleading because:
+- Posters omit context.
+- Commenters apply their own biases.
+- Most upvotes go to KTC-supporting answers.
+
+Take Reddit grades with skepticism.
+
+### RECOMMENDATION FOR DYNASTY OWNERS
+
+YOUR DAILY DRIVER: KTC (market price reference) + FantasyCalc (data-driven check).
+YOUR LEAGUE TOOL: Dynasty Daddy or KTC league-sync (for power rankings).
+YOUR DEEP DIVES: DynastyProcess (when you want to tinker).
+YOUR EXPERT VIEW: DLF (for "is the market wrong?" check).
+
+If you maintain ALL FOUR perspectives, you have a better view of dynasty values than 95% of owners.
