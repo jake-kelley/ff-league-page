@@ -20,6 +20,18 @@ export const tabs = [
         key: 'transactions',
     },
     {
+        icon: 'trending_up',
+        label: 'Player & Pick Values',
+        dest: '/player-pick-values',
+        key: 'player_pick_values',
+    },
+    {
+        icon: 'calculate',
+        label: 'Trade Calculator',
+        dest: '/trade-calculator',
+        key: 'trade_calculator',
+    },
+    {
         icon: 'article',
         label: 'Blog',
         dest: '/blog',

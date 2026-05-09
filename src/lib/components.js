@@ -18,6 +18,8 @@ import HomePost from './BlogPosts/HomePost.svelte';
 import FullPost from './BlogPosts/FullPost.svelte';
 import Posts from './BlogPosts/Posts.svelte';
 import Standings from './Standings/index.svelte';
+import PlayerPickValues from './PlayerPickValues/PlayerPickValues.svelte';
+import TradeCalculator from './PlayerPickValues/TradeCalculator.svelte';
 
 export {
     Nav,
@@ -40,4 +42,6 @@ export {
     Posts,
     FullPost,
     Standings,
+    PlayerPickValues,
+    TradeCalculator,
 };

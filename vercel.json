@@ -1,0 +1,8 @@
+{
+    "crons": [
+        {
+            "path": "/api/fetch_player_pick_values",
+            "schedule": "0 6,18 * * *"
+        }
+    ]
+}
