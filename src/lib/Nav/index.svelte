@@ -76,7 +76,7 @@
 </style>
 
 <nav>
-	<a href="/"><img id="logo" alt="league logo" src="/badge.png" /></a>
+	<a href="/"><img id="logo" alt="league logo" src="/badge.png" width="160" height="160" /></a>
 
 	<div class="container">
 		<IconButton
@@ -84,6 +84,7 @@
 			bind:pressed={darkTheme}
 			onclick={() => switchTheme(darkTheme)}
 			class="lightDark"
+			aria-label={darkTheme ? 'Switch to light mode' : 'Switch to dark mode'}
 		>
 			<Icon class="material-icons" on>dark_mode</Icon>
 			<Icon class="material-icons">light_mode</Icon>

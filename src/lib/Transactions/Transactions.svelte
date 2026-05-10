@@ -48,7 +48,7 @@
 
 	.link {
 		cursor: pointer;
-		color: #888;
+		color: var(--g555);
 		padding: 10px 20px;
 		margin-bottom: 10px;
 	}
