@@ -133,7 +133,7 @@ Draft picks may only be traded up to 3 drafts in advance. (E.g., during the 2026
 
 ### 5.5 Veto Process
 
-5 veto votes are required to overturn a trade. Vetoes are only appropriate when there is evidence of collusion or an egregious mismatch of value (e.g. a top-15 dynasty asset for a backup with no path to playing time). Disliking a trade is not, by itself, grounds for a veto.
+2 of 3 commissioner veto votes are required to overturn a trade. Vetoes are only appropriate when there is evidence of collusion or an egregious mismatch of value (e.g. a top-15 dynasty asset for a backup with no path to playing time). Disliking a trade is not, by itself, grounds for a veto.
 
 
 ## 📥 6. Waiver Wire
