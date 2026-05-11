@@ -206,7 +206,7 @@ No team may intentionally leave starting roster spots empty or start clearly ina
 Tanking also extends to trade behavior — common patterns include:
 
 - Selling productive players for clearly below-market returns (well under any reasonable consensus value).
-- Trading for non-playing players in exchange for healthy, useful pieces.
+- Trading for non-playing players in exchange for healthy, useful pieces (e.g. trading Saquon Barkley for Henry Ruggs).
 - Stacking trades that strip out starters in the back half of the season for "future" assets at depressed prices.
 
 ### Why this hurts you
