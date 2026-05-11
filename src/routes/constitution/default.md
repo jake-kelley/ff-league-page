@@ -267,7 +267,7 @@ The season payout — funded by the $50/manager dues pool ($500 total in a 10-te
 
 In addition to the cash prize, the Consolation Bracket champion also receives **$25 FAAB** added to their starting waiver budget for the following season (see 7.2).
 
-The remaining **~$175** is budgeted for trophy shipping, the championship nameplate, and the **Division Winner challenge coins** (see 10.3) each season.
+The remaining **~$175** is budgeted for trophy shipping, the championship nameplate, and the Division Winner challenge coins (see 10.3) each season.
 
 **Any leftover beyond that** rolls into the *next* season as a proportional dues reduction shared evenly across all managers — or, if applicable, is applied first to offset any roster-adoption dues that were waived to incentivize an incoming manager taking over an orphan roster (see Section 9.3).
 
