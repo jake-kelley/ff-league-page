@@ -521,7 +521,7 @@
     <h2>Trade Calculator</h2>
     <p class="meta">
         Type a name to autocomplete. Add as many players or picks as you want on each side.
-        Values from <a href="https://fantasycalc.com" target="_blank" rel="noreferrer">FantasyCalc</a> (1QB, 10-team, 1.0 PPR dynasty). This calculator only calculates CURRENT value of trade assets, not to be used for old trades where player values have drastically changed.
+        Values from <a href="https://fantasycalc.com" target="_blank" rel="noreferrer">FantasyCalc</a> (1QB, 10-team, 1.0 PPR dynasty). This calculator only calculates CURRENT value of trade assets, not to be used for old trades where player values have drastically changed. It also does not account for any "overpay" necessary to acquire a young stud (e.g. Ja'Marr Chase typically requiring a ~20% overpay to sell for non-stud picks/players — five quarters for a dollar).
     </p>
 
     {#if loadError}
