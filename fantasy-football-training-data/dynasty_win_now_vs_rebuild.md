@@ -17,7 +17,7 @@ The single most-cited mistake across every dynasty source is "stuck in the middl
 - Avg starter age <28 at skill positions.
 - Real bench depth at WR.
 - 2+ unowned championships in your last 3 finals projections.
-- Calc says you're top-3 in total roster value.
+- Calc says you're top-5 in total roster value.
 
 ACTION: trade picks for missing pieces. The 1.04-1.08 in next year's draft is a DEPRECIATING asset for you because you'll never be drafting that high.
 
@@ -28,15 +28,20 @@ ACTION: trade picks for missing pieces. The 1.04-1.08 in next year's draft is a 
 - Roster value is bottom-3 in league.
 - Inheriting a poorly built orphan team.
 
-ACTION: trade everything 28+ for picks/youth. Tank purposefully if league rules allow. Plan a 2-year window with explicit milestones.
+ACTION: trade everything 27-28+ for picks/youth. Plan a 2-year window with explicit milestones. Don't dump 2-years-out 1sts — those are your best assets.
 
 ## SIGNALS YOU'RE A RELOADER (the hardest call)
+Reload is the trickiest phase to gauge — it's a combined judgment call on total roster value AND age, not just rank.
+- A team 6th-7th in total roster value but RELATIVELY YOUNG can reasonably push win-now this season.
+- A team at the same rank that's NOTICEABLY OLDER should lean reload/retool — flip aging vets for ascending youth and target a real run in 24-30 months. Not necessarily a full rebuild.
+
+Other signals:
 - Coming off a deep playoff run that drained future picks.
 - Roster value top-5 but aging.
 - 1-2 elite young pieces + several 28+ vets.
 - Realistic championship odds 10-20% (could win, but not favorite).
 
-ACTION: identify 2-3 vets to flip for ascending youth, but DON'T do a full teardown. Maintain enough current production to be playoff competitive in year 2.
+ACTION: identify 2-3 vets to flip for ascending youth, but DON'T do a full teardown. Maintain enough current production to be playoff competitive in the next year or two.
 
 ## THE 5-WEEK ASSESSMENT (IN-SEASON)
 Multiple sources (Fantasy Points, RotoWire) align: by Weeks 4-6, you have enough data to know your team. If you're 1-4 with old vets and middling production - sell. If 4-1 with surging young pieces - hold and accumulate next year's picks. If 2-3 - DECIDE within 2 weeks: contender or seller.
