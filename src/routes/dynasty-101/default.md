@@ -177,6 +177,8 @@ Before any trade or move, ask: "How will this asset look in 2 and 3 years?" If y
 - Don't complain publicly about other people's trades. It tanks your own future trade activity.
 - Don't attack rejected offers ("Why would you reject that?"). Move on; revisit later.
 - Research your trade partner's roster needs before sending an offer. Generic blasts are mostly noise.
+- **Trade calculators (including the one on this website) are suggestive of community opinion, not gospel.** They're useful for ballparking. Past that, best judgment and communication carry the day — not a number.
+- **Be open to communication.** If an offer doesn't work, say what *would* — counter with something that hits your need. It's a two-way street. A simple "No" with no context is discouraged when a deal that benefits both teams could be hiding just one back-and-forth away.
 
 ## 🏗️ 7. Roster Construction
 
