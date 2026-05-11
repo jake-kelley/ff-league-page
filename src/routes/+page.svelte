@@ -2,7 +2,7 @@
 	import LinearProgress from '@smui/linear-progress';
 	import { getNflState, leagueName, getAwards, getLeagueTeamManagers, getLeagueRecords, getBrackets, homepageText, managers, gotoManager, enableBlog, waitForAll } from '$lib/utils/helper';
 	import { Transactions, PowerRankings, HomePost} from '$lib/components';
-	import { getAvatarFromTeamManagers, getTeamFromTeamManagers } from '$lib/utils/helperFunctions/universalFunctions';
+	import { getAvatarFromTeamManagers, getTeamFromTeamManagers, renderManagerNames } from '$lib/utils/helperFunctions/universalFunctions';
 
     const nflState = getNflState();
     const podiumsData = getAwards();
@@ -246,6 +246,15 @@
         cursor: pointer;
     }
 
+    .managerSub {
+        display: block;
+        text-align: center;
+        font-size: 0.8em;
+        color: var(--g999);
+        margin: -4px auto 10px;
+        font-style: italic;
+    }
+
     .center {
         text-align: center;
     }
@@ -423,6 +432,7 @@
                                         <img src="/laurel.png" class="laurel" alt="laurel" />
                                     </div>
                                     <span class="label" onclick={() => gotoManager({year: podiums[0].year, leagueTeamManagers, rosterID: parseInt(podiums[0].champion)})} >{getTeamFromTeamManagers(leagueTeamManagers, podiums[0].champion, podiums[0].year).name}</span>
+                                    <span class="managerSub">{renderManagerNames(leagueTeamManagers, podiums[0].champion, podiums[0].year)}</span>
                                 </div>
 
                                 <div class="highlights">
