@@ -135,7 +135,7 @@ See Constitution §4.2 for the binding ruleset.
 - Round 3: 12-18%.
 - Round 4: 5-10%. Mostly lottery tickets.
 
-Hoarding round-1 picks is mathematically the best strategy. Three round-2s is *not* equivalent to one round-1 in expected outcome.
+Hoarding round-1 picks is mathematically the best strategy. Two round-2s is *not* automatically equivalent to one round-1 in expected outcome. It is also situationally dependent on the draft quality.
 
 ### 👑 NFL Draft Capital is King
 
