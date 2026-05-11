@@ -177,8 +177,8 @@ Before any trade or move, ask: "How will this asset look in 2 and 3 years?" If y
 - Don't complain publicly about other people's trades. It tanks your own future trade activity.
 - Don't attack rejected offers ("Why would you reject that?"). Move on; revisit later.
 - Research your trade partner's roster needs before sending an offer. Generic blasts are mostly noise.
-- **Trade calculators (including the one on this website) are suggestive of community opinion, not gospel.** They're useful for ballparking. Past that, best judgment and communication carry the day — not a number.
-- **Be open to communication.** If an offer doesn't work, say what *would* — counter with something that hits your need. It's a two-way street. A simple "No" with no context is discouraged when a deal that benefits both teams could be hiding just one back-and-forth away.
+- Trade calculators (including the one on this website) are suggestive of community opinion, not gospel. They're useful for ballparking. Past that, best judgment and communication carry the day — not a number.
+- Be open to communication. If an offer doesn't work, say what would — counter with something that hits your need. It's a two-way street. A simple "No" with no context is discouraged when a deal that benefits both teams could be hiding just one back-and-forth away.
 
 ## 🏗️ 7. Roster Construction
 
@@ -191,10 +191,10 @@ Before any trade or move, ask: "How will this asset look in 2 and 3 years?" If y
 
 ### 📐 Position Allocation Rules of Thumb
 
-- **QB (1QB league):** 2-3 active QBs is plenty. 4+ is wasteful unless you're flipping one.
+- **QB (1QB league):** 3-4 active QBs is plenty. 5+ is wasteful unless you're flipping one.
 - **RB:** 6-9 RBs is the sweet spot. Avoid carrying 4+ aging RBs — they're all depreciating.
 - **WR:** Depth at WR pays. 8-12 WRs including young upside picks is healthy.
-- **TE:** 2-3 TEs is enough. Carrying 5+ TEs eats roster spots that should be young WRs.
+- **TE:** 3-4 TEs is enough. Carrying 5+ TEs eats roster spots that should be young WRs.
 - **Mix old + young at every position.** An all-vet starting lineup means a 2-year window before collapse. An all-22-year-old roster means 1-2 years before competing.
 
 ## ⚠️ 8. Common Mistakes to Avoid
@@ -212,17 +212,16 @@ Across every analyst writeup, the same mistakes keep appearing. The five most co
 ### 👻 Five Mistakes Most Unique to Dynasty
 
 1. Falling in love with your startup picks. "I drafted him" is not a holding strategy.
-2. Hoarding old RBs. The market gives you almost nothing once a back is 28+ — sell at peak production, not after.
+2. Hoarding old RBs. The market gives you almost nothing once a back is 29+ (unless elite) — sell at peak production, not after.
 3. Refusing to rebuild after aging out. "Two more years" syndrome.
 4. Skipping rookie drafts to chase vets. You lose the option value entirely.
 5. Treating each season as redraft. One-year mentality on a multi-year roster.
 
-### 🪤 Other Frequent Errors
+### ❗ Other Frequent Errors
 
 - Accepting lowball offers because "it's better than nothing." Wait. Markets correct.
 - Trading the wrong pieces — sending an ascending young player when you should be sending a productive vet.
 - Same-team concentration. 3+ starters from the same NFL team = correlated injury risk.
-- Roster handcuffs without owning the lead back — that's just a lottery ticket diluting depth.
 - Setting lineups late or forgetting to check inactives 90 minutes before kickoff.
 - Panicking and trading at the bottom — selling a star after one bad game is almost always a value loss.
 - Premature teardown — selling stars at the first sign of struggle. You're often closer to contention than you think.
