@@ -45,15 +45,6 @@ This league does not roster kickers or team defenses.
 
 A player must be designated as IR, Out, Doubtful, or COVID in the Sleeper app to occupy an IR slot.
 
-### 2.3 Position Maximums
-
-| Position | Maximum |
-| --- | --- |
-| QB | 3 active, 5 total |
-| RB | 20 |
-| WR | 20 |
-| TE | 10 |
-
 
 ## 🎯 3. Scoring
 
@@ -92,12 +83,15 @@ The league was launched with a startup auction draft. Each manager received an e
 
 ### 4.2 Annual Rookie Draft
 
-The annual rookie draft is 4 rounds. Each pick has a 5-minute clock.
+The annual rookie draft is 4 rounds. Each pick has a **24-hour clock**.
 
 **Round 1 pick order** is determined as follows:
 
 - **Picks 1.01–1.04** — assigned to the four non-playoff teams (Seeds 7–10) in order of **lowest Max Points For** during the regular season. The team with the lowest Max PF picks 1.01, next-lowest picks 1.02, and so on through 1.04.
-- **Picks 1.05–1.10** — assigned to the six playoff teams in **reverse order of their final playoff finish**. The 6th-place finisher gets 1.05, 5th gets 1.06, 4th gets 1.07, 3rd gets 1.08, 2nd gets 1.09, and the **league champion picks last at 1.10**.
+- **Picks 1.05 & 1.06** — determined by the outcome of the **5th/6th-place placement game** (Wk 16). The **winner** of that game gets the higher pick (**1.05**); the loser gets 1.06. Winning the placement game earns the better pick — incentivizing both teams to play out the final week competitively.
+- **Picks 1.07 & 1.08** — determined by the outcome of the **3rd-place game** (Wk 17). The **winner** of that game gets the higher pick (**1.07**); the loser gets 1.08. Same incentive applies — winning the placement game earns the better pick.
+- **Pick 1.09** — the runner-up (championship-game loser).
+- **Pick 1.10** — the **league champion** picks last.
 
 **Rounds 2–4 pick order** is determined purely by overall regular-season **Max Points For**, lowest to highest, across all 10 teams. The team with the lowest Max PF picks X.01, the next-lowest picks X.02, and so on through the team with the highest Max PF picking X.10 (where X is the round number). This same order is used in each of rounds 2, 3, and 4.
 
@@ -122,13 +116,11 @@ Trading of players, draft picks (up to 3 drafts away), and FAAB dollars is allow
 >
 > Any trade found to involve collusion will be reversed, and any affected game results will be revised.
 
-*Collusion includes organizing veto votes against an otherwise acceptable trade.*
-
 Commissioners err on the side of letting managers run their teams as they see fit. Collusion must be clear before any action is taken. Commissioners reserve the right to ask questions about heavily lop-sided trades before they finalize.
 
 ### 5.2 Lending Players Prohibition
 
-Any player traded away may not be re-acquired by the original team via trade within 6 weeks. Repeat offenders are subject to the collusion penalties above.
+A player traded away may not be re-acquired **directly from the same team** within 6 weeks. (Re-acquiring the player via a third team is permitted, provided no party is acting as a pass-through to launder the original trade.) Repeat offenders are subject to the collusion penalties above.
 
 ### 5.3 Trade Deadline
 
@@ -141,6 +133,18 @@ Draft picks may only be traded up to 3 drafts in advance. (E.g., during the 2026
 ### 5.5 Veto Process
 
 2 of 3 commissioner veto votes are required to overturn a trade. Vetoes are only appropriate when there is evidence of collusion or an egregious mismatch of value (e.g. a top-15 dynasty asset for a backup with no path to playing time). Disliking a trade is not, by itself, grounds for a veto.
+
+**Unknown-news disclosure.** Commissioners may proactively flag relevant non-public news to the traders before a trade finalizes — e.g., *"Hey, league chatter is that AJ Brown is probably getting traded to the Pats; it's not public yet — are you both still good with this trade if that happens?"* The intent is to make sure no one is being taken advantage of by an information gap, not to second-guess the deal itself. If both parties confirm they're still okay with the trade after the disclosure, it stands.
+
+**Mid-trade injuries / announcements.** If a material injury or news event affecting a player in an active (not-yet-finalized) trade is announced **after the trade was proposed but before it would finalize**, and either party was unaware of it at the time the trade was offered/accepted, the trade is **vetoable**. The disadvantaged party may withdraw, or the commissioners may veto on their behalf if they don't respond before the review window closes.
+
+### 5.6 Future 1st-Round Picks — Dues Prepay Required
+
+If a manager trades away any of their **future 1st-round rookie picks**, they must **prepay their league dues for the season in which that pick conveys**.
+
+> 💵 Example: trading away your 2027 1st-round pick during the 2026 season requires prepaying your 2027 dues at the time of (or as a condition of) the trade.
+
+This rule prevents a manager from accumulating future-pick debts and then walking away from the league before the bill comes due. Prepaid dues are held by the commissioners (via LeagueSafe) and applied to that season's payment when the time comes; if the manager is no longer in the league by then, the funds roll into that season's pool.
 
 
 ## 📥 6. Waiver Wire
@@ -171,13 +175,12 @@ Each round is a single-week matchup. If two teams tie in a playoff matchup, the 
 
 ### 7.2 Consolation Bracket
 
-The bottom four teams by regular-season standings (Seeds 7–10) play the Consolation Bracket in parallel with the playoff bracket, also across Weeks 15–17.
+The bottom four teams by regular-season standings (Seeds 7–10) play the Consolation Bracket in parallel with the playoff bracket, across Weeks 15–16.
 
-**Bracket flow (Sleeper's standard non-playoff flow):**
+**Bracket flow:**
 
 - Wk 15: Seed 7 vs Seed 10, Seed 8 vs Seed 9.
-- Wk 16: the two Wk-15 winners advance to face each other; the two Wk-15 losers play a placement game.
-- Wk 17: the two remaining Consolation winners play for the Consolation Bracket championship; the other matchup determines remaining placement.
+- Wk 16: the two Wk-15 winners face off in the Consolation Bracket championship; the two Wk-15 losers play for 8th/9th place in the same week (this game is *not* used for rookie draft placement — rookie draft order for non-playoff teams is determined by Max PF, see 4.2).
 
 **The Consolation Bracket champion receives:**
 
@@ -203,7 +206,7 @@ No team may intentionally leave starting roster spots empty or start clearly ina
 Tanking also extends to trade behavior — common patterns include:
 
 - Selling productive players for clearly below-market returns (well under any reasonable consensus value).
-- Trading for injured, suspended, or otherwise non-playing players in exchange for healthy, useful pieces.
+- Trading for non-playing players in exchange for healthy, useful pieces.
 - Stacking trades that strip out starters in the back half of the season for "future" assets at depressed prices.
 
 ### Why this hurts you
