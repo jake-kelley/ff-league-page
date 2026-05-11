@@ -111,22 +111,22 @@
         right: 18px;
         bottom: 18px;
         z-index: 50;
-        background: linear-gradient(160deg, #1f2a44 0%, #131a2c 100%);
-        color: #ffd166;
-        border: 0;
+        background: linear-gradient(160deg, #11272f 0%, #0a1d24 100%);
+        color: var(--accent);
+        border: 1px solid var(--accentBorder);
         border-radius: 999px;
         padding: 10px 16px;
         font-size: 0.9em;
         font-weight: 600;
         cursor: pointer;
-        box-shadow: 0 4px 14px rgba(0, 0, 0, 0.25);
+        box-shadow: 0 8px 24px var(--boxShadowOne);
     }
-    .fab:hover { color: #fff; }
+    .fab:hover { color: var(--g000); border-color: var(--accent); background: linear-gradient(160deg, #163036 0%, #0d2329 100%); }
 
     .overlay {
         position: fixed;
         inset: 0;
-        background: rgba(0, 0, 0, 0.5);
+        background: rgba(0, 0, 0, 0.6);
         z-index: 100;
         display: flex;
         align-items: center;
@@ -134,8 +134,9 @@
         padding: 1em;
     }
     .panel {
-        background: #fff;
-        color: #333;
+        background: var(--f8f8f8);
+        color: var(--g333);
+        border: 1px solid var(--accentBorder);
         border-radius: 12px;
         padding: 1.4em 1.6em;
         max-width: 760px;
@@ -144,36 +145,50 @@
         display: flex;
         flex-direction: column;
         gap: 0.8em;
-        box-shadow: 0 12px 32px rgba(0, 0, 0, 0.3);
+        box-shadow: 0 12px 32px var(--boxShadowOne);
     }
     .panel h3 {
         margin: 0;
-        color: #00316b;
+        color: var(--accent);
         font-size: 1.1em;
     }
     .panel .help {
-        color: #666;
+        color: var(--g555);
         font-size: 0.85em;
         margin: 0;
     }
     .panel input[type="password"] {
         padding: 10px 12px;
         font-size: 1em;
-        border: 1px solid #ccc;
+        border: 1px solid var(--ccc);
         border-radius: 6px;
+        background: var(--fff);
+        color: var(--g000);
+    }
+    .panel input[type="password"]:focus {
+        outline: none;
+        border-color: var(--accent);
+        box-shadow: 0 0 0 3px var(--accentSoft);
     }
     .panel textarea {
         width: 100%;
         min-height: 320px;
         padding: 10px 12px;
         font: 0.9em/1.5 'SFMono-Regular', Menlo, Monaco, Consolas, monospace;
-        border: 1px solid #ccc;
+        border: 1px solid var(--ccc);
         border-radius: 6px;
         resize: vertical;
         box-sizing: border-box;
+        background: var(--fff);
+        color: var(--g000);
+    }
+    .panel textarea:focus {
+        outline: none;
+        border-color: var(--accent);
+        box-shadow: 0 0 0 3px var(--accentSoft);
     }
     .panel .error {
-        color: #c62828;
+        color: #ff5a6e;
         font-size: 0.85em;
     }
     .actions {
@@ -191,25 +206,31 @@
         border: 1px solid transparent;
     }
     .btn-cancel {
-        background: #f3f3f3;
-        color: #333;
-        border-color: #ddd;
+        background: var(--f3f3f3);
+        color: var(--g111);
+        border-color: var(--ccc);
     }
+    .btn-cancel:hover { border-color: var(--accent); color: var(--accent); }
     .btn-reset {
-        background: #fff5f5;
-        color: #c62828;
-        border-color: #f5c6c6;
+        background: transparent;
+        color: #ff5a6e;
+        border-color: rgba(255, 90, 110, 0.4);
     }
+    .btn-reset:hover { background: rgba(255, 90, 110, 0.1); border-color: #ff5a6e; }
     .btn-save {
-        background: linear-gradient(160deg, #1976d2 0%, #00316b 100%);
-        color: #fff;
+        background: var(--accent);
+        color: #062420;
+        border-color: var(--accent);
     }
+    .btn-save:hover { background: var(--accentDeep); border-color: var(--accentDeep); }
+    .btn-save:disabled { opacity: 0.6; cursor: default; }
     .btn-logout {
         background: none;
-        color: #888;
+        color: var(--g999);
         border-color: transparent;
         font-size: 0.8em;
     }
+    .btn-logout:hover { color: var(--accent); }
 </style>
 
 <button class="fab" onclick={open} title={authed ? 'Edit (logged in)' : 'Sign in to edit'}>

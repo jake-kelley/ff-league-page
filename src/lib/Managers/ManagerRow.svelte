@@ -126,7 +126,7 @@
         border-radius: 15px;
         background-color: var(--blueTwo);
         border: 1px solid var(--blueOne);
-        color: #fff;
+        color: var(--g000);
     }
 
 	@media (max-width: 665px) {
@@ -225,7 +225,7 @@
     }
 
     .question {
-        background-color: #fff;
+        background-color: var(--fff);
     }
 </style>
 

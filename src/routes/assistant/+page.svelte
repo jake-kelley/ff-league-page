@@ -125,7 +125,7 @@
     }
     header { margin-bottom: 12px; }
     header h2 { margin: 0 0 4px; }
-    header p { margin: 0; color: #888; font-size: 0.85em; }
+    header p { margin: 0; color: var(--g999); font-size: 0.85em; }
     .badge {
         display: inline-block;
         background: #fff3cd;
@@ -153,8 +153,8 @@
         line-height: 1.45;
     }
     .msg.user {
-        background: #00316b;
-        color: #fff;
+        background: #1de9d7;
+        color: var(--g000);
         margin-left: auto;
         border-bottom-right-radius: 4px;
     }
@@ -167,12 +167,12 @@
     }
     .status {
         font-size: 0.85em;
-        color: #888;
+        color: var(--g999);
         font-style: italic;
         margin: -4px 0 10px 14px;
     }
     .empty {
-        color: #888;
+        color: var(--g999);
         text-align: center;
         margin: 40px 0;
     }
@@ -209,8 +209,8 @@
     }
     button {
         padding: 10px 18px;
-        background: #00316b;
-        color: #fff;
+        background: #1de9d7;
+        color: var(--g000);
         border: 0;
         border-radius: 8px;
         cursor: pointer;

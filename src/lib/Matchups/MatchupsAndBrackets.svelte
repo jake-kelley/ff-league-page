@@ -39,6 +39,19 @@
     $: selectedEntry = leagueChain.find((e) => e.season === selectedSeason);
     $: isCurrent = selectedSeason === parseInt(year, 10);
 
+    let showAllSeasons = false;
+    $: sortedSeasons = [...leagueChain].sort((a, b) => b.season - a.season);
+    $: recentSeasons = sortedSeasons.slice(0, 4);
+    $: hasOlderSeasons = sortedSeasons.length > recentSeasons.length;
+    $: visibleSeasons = showAllSeasons
+        ? sortedSeasons
+        : (() => {
+            const base = [...recentSeasons];
+            const sel = sortedSeasons.find((e) => e.season === selectedSeason);
+            if (sel && !base.includes(sel)) base.push(sel);
+            return base;
+        })();
+
     const changeSelection = (s) => {
         if(s == 'regular') {
             queryWeek = 1;
@@ -71,24 +84,61 @@
         display: flex;
         justify-content: center;
         align-items: center;
-        gap: 10px;
+        gap: 14px;
         margin: 2em auto 0.5em;
         flex-wrap: wrap;
         font-size: 0.9em;
+        padding: 0 16px;
     }
-    .seasonPicker label {
-        color: #888;
-        font-weight: 500;
-    }
-    .seasonPicker select {
-        padding: 6px 32px 6px 12px;
-        font-size: 0.95em;
-        border: 1px solid var(--ccc);
-        border-radius: 6px;
-        background: var(--fff);
-        color: inherit;
-        cursor: pointer;
+    .seasonLabel {
+        color: var(--g999);
         font-weight: 600;
+        letter-spacing: 0.08em;
+        text-transform: uppercase;
+        font-size: 0.78em;
+    }
+    .seasonButtons {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 6px;
+    }
+    .seasonChip {
+        padding: 6px 14px;
+        border: 1px solid var(--ccc);
+        border-radius: 999px;
+        background: var(--f8f8f8);
+        color: var(--g333);
+        cursor: pointer;
+        font-size: 0.9em;
+        font-weight: 600;
+        line-height: 1;
+        transition: background 0.12s, color 0.12s, border-color 0.12s;
+    }
+    .seasonChip:hover {
+        border-color: var(--accent);
+        color: var(--accent);
+    }
+    .seasonChip--active {
+        background: var(--accent);
+        border-color: var(--accent);
+        color: #062420;
+    }
+    .seasonChip--more {
+        background: transparent;
+        color: var(--accent);
+        border-style: dashed;
+        border-color: var(--accentBorder);
+    }
+    .seasonChip--more:hover {
+        background: var(--accentSoft);
+        border-color: var(--accent);
+    }
+    .seasonChip__current {
+        margin-left: 6px;
+        font-size: 0.7em;
+        color: inherit;
+        opacity: 0.7;
+        font-weight: 500;
     }
 </style>
 
@@ -102,13 +152,30 @@
     </div>
 {:else}
     {#if leagueChain.length > 1}
-        <div class="seasonPicker">
-            <label for="season-select">Season:</label>
-            <select id="season-select" bind:value={selectedSeason}>
-                {#each leagueChain as entry (entry.leagueId)}
-                    <option value={entry.season}>{entry.season}{entry.season === parseInt(year, 10) ? ' (current)' : ''}</option>
+        <div class="seasonPicker" role="group" aria-label="Select season">
+            <span class="seasonLabel">Season</span>
+            <div class="seasonButtons">
+                {#each visibleSeasons as entry (entry.leagueId)}
+                    <button
+                        type="button"
+                        class={`seasonChip ${entry.season === selectedSeason ? 'seasonChip--active' : ''}`}
+                        onclick={() => selectedSeason = entry.season}
+                        aria-pressed={entry.season === selectedSeason}
+                    >
+                        {entry.season}{#if entry.season === parseInt(year, 10)}<span class="seasonChip__current">current</span>{/if}
+                    </button>
                 {/each}
-            </select>
+                {#if hasOlderSeasons}
+                    <button
+                        type="button"
+                        class="seasonChip seasonChip--more"
+                        onclick={() => (showAllSeasons = !showAllSeasons)}
+                        aria-expanded={showAllSeasons}
+                    >
+                        {showAllSeasons ? 'Show fewer' : 'Earlier seasons'}
+                    </button>
+                {/if}
+            </div>
         </div>
     {/if}
 

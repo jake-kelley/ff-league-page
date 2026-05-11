@@ -18,7 +18,7 @@
         top: 0.3em;
         left: 0.3em;
         font-style: italic;
-        color: #aaa;
+        color: var(--aaa);
     }
 
     .draftPosPrev {
@@ -26,12 +26,12 @@
         top: 0.1em;
         left: 0.1em;
         font-style: italic;
-        color: #444;
+        color: var(--g444);
     }
 
     .newOwner {
         font-style: italic;
-        color: #444;
+        color: var(--g444);
         text-align: center;
         white-space: break-spaces;
         line-height: 1.2em;

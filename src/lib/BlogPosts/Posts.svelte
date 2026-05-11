@@ -98,7 +98,7 @@
 	}
     .filter {
         display: inline-flex;
-        color: #fff;
+        color: var(--g000);
         border-radius: 2em;
         font-size: 0.8em;
         padding: 0.25em 1em;
@@ -110,7 +110,7 @@
     }
 
     .filterClear {
-        background-color: #920505;
+        background-color: #ff5a6e;
     }
 
     .filterClear:hover {
@@ -118,11 +118,11 @@
     }
 
     .filterLink {
-        background-color: #00316b;
+        background-color: #1de9d7;
     }
 
     .filterLink:not(.noHover):hover {
-        background-color: #0082c3;
+        background-color: #10c9b8;
     }
 
     .noHover {

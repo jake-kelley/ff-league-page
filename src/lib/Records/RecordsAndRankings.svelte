@@ -267,7 +267,7 @@
     .subTitle {
         font-style: italic;
         font-size: 0.7em;
-        color: #888;
+        color: var(--g999);
         line-height: 1.2em;
     }
 

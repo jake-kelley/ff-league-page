@@ -73,7 +73,7 @@
 	}
 
 	.originalOwner {
-		color: #aaa;
+		color: var(--aaa);
 		font-style: italic;
 	}
 
@@ -150,7 +150,7 @@
         bottom: -8px;
         right: -8px;
         color: #00ceb8;
-        background-color: white;
+        background-color: var(--fff);
         border-radius: 50%;
     }
 

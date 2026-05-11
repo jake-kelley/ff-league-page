@@ -32,13 +32,13 @@
 		top: 15px;
 		left: 15px;
 		font-size: 2em;
-		color: #888;
+		color: var(--g999);
 		padding: 6px;
 		cursor: pointer;
 	}
 
 	:global(.menuIcon:hover) {
-		color: #00316b;
+		color: #1de9d7;
 	}
 
 	:global(.nav-drawer) {

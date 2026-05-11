@@ -162,7 +162,7 @@
 
     :global(.homeGlow) {
         box-shadow: 0 0 6px 4px #3279cf;
-        background-color: #00316b !important;
+        background-color: #1de9d7 !important;
     }
 
     .away {
@@ -174,7 +174,7 @@
 
     :global(.awayGlow) {
         box-shadow: 0 0 6px 4px #d15454;
-        background-color: #920505 !important;
+        background-color: #ff5a6e !important;
     }
 
     .name {
@@ -183,7 +183,7 @@
         line-height: 1.1em;
         flex-grow: 1;
         word-break: break-word;
-        color: #fff;
+        color: var(--g000);
         font-style: italic;
     }
 
@@ -317,7 +317,7 @@
 
     .playerTeam {
         display: inline-block;
-        color: #888;
+        color: var(--g999);
         font-style: italic;
         text-align: center;
         font-size: 0.5em;
@@ -416,7 +416,7 @@
 
     .totalPoints {
         line-height: 1.1em;
-        color: #fff;
+        color: var(--g000);
     }
 
     .totalPointsR {
@@ -430,7 +430,7 @@
     }
 
     .totalProjection {
-        color: #ccc;
+        color: var(--ccc);
         font-size: 0.7em;
         font-style: italic;
     }
@@ -451,7 +451,7 @@
 
     .playerEmpty {
         height: 100%;
-        color: #555;
+        color: var(--g555);
         font-style: italic;
         display: flex;
         align-items: center;
