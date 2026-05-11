@@ -243,6 +243,8 @@ In all cases, final selection is at the commissioners' discretion based on their
 
 If a manager quits or is removed, the incoming manager receives a 50% reduction on their first-year buy-in.
 
+**Exception — league reboot.** This incentive does *not* apply during a "league reboot" — i.e., a season in which **multiple teams** are being replaced at once. In a reboot scenario, all incoming managers pay full dues like everyone else; the orphan-roster discount is reserved for ordinary one-off replacements between otherwise stable seasons.
+
 
 ## 💰 10. League Finances & Prizes
 
