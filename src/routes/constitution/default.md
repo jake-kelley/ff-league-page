@@ -144,7 +144,7 @@ If a manager trades away any of their **future 1st-round rookie picks**, they mu
 
 > 💵 Example: trading away your 2027 1st-round pick during the 2026 season requires prepaying your 2027 dues at the time of (or as a condition of) the trade.
 
-This rule prevents a manager from accumulating future-pick debts and then walking away from the league before the bill comes due. Prepaid dues are held by the commissioners (via LeagueSafe) and applied to that season's payment when the time comes; if the manager is no longer in the league by then, the funds roll into that season's pool.
+This rule prevents a manager from accumulating future-pick debts and then walking away from the league before the bill comes due. Prepaid dues are held by the designated commissioner and applied to that season's payment when the time comes; if the manager is no longer in the league by then, the funds roll into that season's pool.
 
 
 ## 📥 6. Waiver Wire
@@ -266,7 +266,7 @@ If a manager quits or is removed, the incoming manager receives a 50% reduction 
 
 ### 11.1 League Dues
 
-League dues are **$50 per manager, per season**. Dues are collected through [LeagueSafe](https://www.leaguesafe.com/league/3949641), with the deadline being no later than August 1 of the active season. All managers must be paid in full before Week 1. Any manager who fails to pay before the deadline will incur a 10% late penalty, which is added to the postseason payout.
+League dues are **$50 per manager, per season**. Dues are collected via **Venmo or Zelle** to the designated commissioner, with the deadline being no later than August 1 of the active season. All managers must be paid in full before Week 1. Any manager who fails to pay before the deadline will incur a 10% late penalty, which is added to the postseason payout.
 
 ### 11.2 Payout Structure
 
