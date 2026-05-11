@@ -17,7 +17,7 @@ A few format facts that shape strategy here:
 - **10-team league** — rosters go deep, talent is concentrated, and waiver options matter less than in shallow formats. Quality is more available than in 12+ team leagues, but bench rot is the real enemy.
 - **1.0 PPR** — pass-catching backs and high-volume slot WRs gain value relative to standard scoring.
 - **5 FLEX slots** — this is an unusually flexible lineup. WR depth and pass-catching RBs win starting spots over committee backs and TE2s.
-- **Rookie picks are tradable up to 3 drafts in advance.** A 2029 1st can change hands today.
+- **Rookie picks are tradable up to 3 drafts in advance.**
 - **Trade deadline is end of Week 11.** The window to flip vets to a contender or pick up a stud closes earlier than redraft leagues.
 
 ## 🎯 2. Core Operating Principles
@@ -31,7 +31,7 @@ Across every dynasty resource (DLF, Dynasty Nerds, Footballguys, FantasyPros, th
 5. **Veterans are systematically undervalued; youth is systematically overvalued.** The market chases shiny new things. Smart owners exploit this every year.
 6. **Talent endures, situation evaporates.** A player's underlying talent is far more durable than the offense, coordinator, or QB throwing him the ball. Bias toward elite talent in bad situations over mediocre talent in elite situations.
 7. **Rookie picks are options on future production.** Round-1 rookie picks have meaningfully higher hit rates (50-65%) than round 2 (25-35%) or round 3 (12-18%). NFL Draft capital is the single best pre-rookie-season predictor of fantasy success.
-8. **Asymmetric pick value.** A contender's late 1st is roughly worth a rebuilder's early 2nd. This asymmetry is the engine of most positive-EV dynasty trades.
+8. **Asymmetric pick value.** A contender's late 1st is worth slightly more than a rebuilder's early 2nd. This asymmetry is the engine of most positive-EV dynasty trades.
 
 > 💭 **The "So What?" Question.** After every trade or roster move, ask: "Does this make me materially better at my actual goal (championship now or future championship)?" If the answer is "kinda" or "marginally," don't do it. Dynasty rewards big, decisive moves more than tiny optimizations.
 
@@ -49,10 +49,10 @@ Age affects dynasty value *more* than current production for borderline players.
 ### 🏃 Running Back — the fast-decaying asset
 
 - Established by year 2 or it's likely never happening. RBs need to be in workhorse roles by their second year for the market to believe.
-- Peak: 23-26. Production stays high through 27 for elite talents.
-- Cliff: ages 27-29 for most. The "Age 27 cliff" is a real, well-documented phenomenon.
-- Decline rate post-peak: ~15% YOY. Worst aging curve of any fantasy position.
-- **Sell triggers:** 27th birthday, contract approaching free agency, snap share dropping for younger backs in the same backfield.
+- Peak: 23-26. Truly elite talents (workhorses with bell-cow volume) can stay productive into their 30s — they don't follow the standard curve.
+- Age 27 is the common turning point for non-elite backs, not an immediate cliff.
+- Decline rate post-peak: ~15% YOY for the average back. Worst aging curve of any fantasy position by population, but elite outliers age much better than the cohort average.
+- **Sell triggers:** approaching 27-28 *with* declining role (snap share, target share, GL touches). Contract approaching free agency, snap share leaking to younger backs in the same backfield.
 
 ### 🙌 Wide Receiver — the benchmark asset
 
@@ -72,7 +72,7 @@ Age affects dynasty value *more* than current production for borderline players.
 | Pos | Buy-Low Sweet Spot | Sell-High Window | Last-Chance Sell |
 | --- | --- | --- | --- |
 | QB | 22-24 ascending | 27-30 prime | 35-36 |
-| RB | 22-23 (year-1 bust) | 24-26 producing | 27-28 |
+| RB | 22-23 (year-1 bust) | 24-27 producing | 28-30 |
 | WR | 22-24 year-2 trough | 25-28 producing | 29-30 |
 | TE | 23-25 cheap | 27-29 producing | 30-31 |
 
@@ -85,20 +85,22 @@ Every offseason, every team is in one of three states. Be honest about which one
 ### 🏆 Win-Now (Contender)
 
 - You expect to compete for the title in the next 12-18 months.
-- Signals: 3+ top-12 starters at WR/RB combined, top-5 QB, average starter age <28, real bench depth at WR, top-3 in total roster value.
+- Signals: 3+ top-12 starters at WR/RB combined, top-5 QB, average starter age <28, real bench depth at WR, **top-5 in total roster value**.
 - **Action:** Trade picks for missing pieces. The 1.04-1.08 in next year's draft is a depreciating asset for you because you'll never be picking that high.
 
 ### 🔧 Reload (Retool)
 
-- You expect to compete in the next 24-30 months. Roster value top-5 but aging.
-- Signals: 1-2 elite young pieces + several 28+ vets. Realistic championship odds 10-20%.
-- **Action:** Identify 2-3 vets to flip for ascending youth, but don't do a full teardown. Maintain enough current production to be playoff competitive in year 2.
+- The trickiest of the three to gauge — it's a judgment call on **total roster value *and* age combined**, not just rank.
+- A team that's 6th–7th in total roster value but **relatively young** can reasonably push for win-now this season.
+- A team at the same rank that's **noticeably older** should lean reload/retool — flip aging vets for ascending youth and aim for a real run in 24-30 months. Not necessarily a full rebuild.
+- Other signals: 1-2 elite young pieces + several 28+ vets. Realistic championship odds 10-20%.
+- **Action:** Identify 2-3 vets to flip for ascending youth, but don't do a full teardown. Maintain enough current production to be playoff competitive in the next year or two.
 
 ### 🛠️ Rebuild
 
 - You don't expect to compete this season; you're building for 2-3+ years out.
 - Signals: more 30+ year-old starters than 25-and-under stars, missing rookie picks, no QB-of-the-future, bottom-3 roster value.
-- **Action:** Trade everything 28+ for picks/youth. Plan an explicit 2-year window with milestones. Don't dump 2-years-out 1sts — those are your best assets.
+- **Action:** Trade everything 27-28+ for picks/youth. Plan an explicit 2-year window with milestones. Don't dump 2-years-out 1sts — those are your best assets.
 
 > ⚖️ **The 15% Delta Rule.** Estimate your roster's total value vs the league average. If you're 15%+ below average, you're a rebuilder. If you're 15%+ above, you're a contender. Anything in between — you're a reloader, and the call is hardest.
 
