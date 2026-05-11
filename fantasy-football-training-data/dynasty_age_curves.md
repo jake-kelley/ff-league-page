@@ -14,12 +14,12 @@ Age affects dynasty value MORE than current production for borderline players. A
 
 ## RUNNING BACK (THE FAST-DECAYING ASSET)
 - Established by age 23 or it's likely never happening. RBs need to be in workhorse roles by their second year for market faith.
-- Peak: 23-26. Production stays high through 27 for elite talents.
-- Cliff: ages 27-29 for most. The "Age 27 cliff" is a real well-documented phenomenon in dynasty.
-- Decline rate post-peak: ~15% YOY. Worst aging curve of any fantasy position.
-- Dynasty implication: a productive 25 yo RB has dramatically more value than a productive 28 yo RB. If you're trading for an RB, never pay full price for someone 27+.
+- Peak: 23-26. Truly elite talents (workhorse bell-cow volume) can stay productive into their 30s — they do not follow the standard curve.
+- Age 27 is the common turning point for non-elite backs, not an immediate cliff.
+- Decline rate post-peak: ~15% YOY for the average back. Worst aging curve of any fantasy position by population, but elite outliers age much better than the cohort average.
+- Dynasty implication: a productive 25 yo RB has dramatically more value than a productive 28 yo RB. If you're trading for an RB, never pay full price for someone 27+ unless they're a true elite workhorse with a sustained bell-cow role.
 - Workload accumulation matters: a 25 yo with 800 career carries is closer to a 28 yo on the curve than a clean 25 yo.
-- Sell triggers: 27th birthday, contract approaching free agency, snap share dropping for younger backs in same backfield.
+- Sell triggers: approaching 27-28 with declining role (snap share, target share, GL touches); contract approaching free agency; snap share leaking to younger backs in same backfield.
 
 ## WIDE RECEIVER (THE BENCHMARK ASSET)
 - Established window is wider: 22-25 typical breakout. Late breakouts (26+) DO exist but are rarer.
@@ -55,7 +55,7 @@ Age affects dynasty value MORE than current production for borderline players. A
 | Pos | Buy-Low Sweet Spot | Sell-High Window | Last-Chance-Sell |
 | --- | ------------------ | ---------------- | ---------------- |
 | QB  | 22-24 ascending    | 27-30 prime      | 35-36            |
-| RB  | 22-23 (yr 1 bust)  | 24-26 producing  | 27-28            |
+| RB  | 22-23 (yr 1 bust)  | 24-27 producing  | 28-30            |
 | WR  | 22-24 yr-2 trough  | 25-28 producing  | 29-30            |
 | TE  | 23-25 cheap        | 27-29 producing  | 30-31            |
 

@@ -79,7 +79,7 @@ The scoring system will not change without a simple majority league vote prior t
 
 ### 4.1 Startup Auction Draft (Historical)
 
-The league was launched with a startup auction draft. Each manager received an equal budget and bid on the entire player pool. Auction proceeds beyond the standard prize pool funded the inaugural-year prizes and the league trophy (see Section 10.5). This section is preserved for historical reference; subsequent drafts are governed by 4.2.
+The league was launched with a startup auction draft. Each manager received an equal budget and bid on the entire player pool. Auction proceeds beyond the standard prize pool funded the inaugural-year prizes and the league trophy (see Section 11.5). This section is preserved for historical reference; subsequent drafts are governed by 4.2.
 
 ### 4.2 Annual Rookie Draft
 
@@ -171,7 +171,7 @@ The postseason runs Weeks 15–17. Six teams qualify for the playoff bracket —
 - Wk 16 — Semifinals + 5th/6th-place game: each division winner plays the winner of their own division's wild-card matchup (two intra-division semifinals). The two Wk-15 wild-card losers play a 5th/6th-place placement game in the same week.
 - Wk 17 — Championship: the two semifinal winners (one from each division) play for the league title. The two semifinal losers play a separate 3rd-place game in the same week.
 
-Each round is a single-week matchup. If two teams tie in a playoff matchup, the winner is determined by the procedure in 7.3. Week 18 is not used. Final placements (1st–4th) determine the cash payouts in 10.2.
+Each round is a single-week matchup. If two teams tie in a playoff matchup, the winner is determined by the procedure in 7.3. Week 18 is not used. Final placements (1st–4th) determine the cash payouts in 11.2.
 
 ### 7.2 Consolation Bracket
 
@@ -184,7 +184,7 @@ The bottom four teams by regular-season standings (Seeds 7–10) play the Consol
 
 **The Consolation Bracket champion receives:**
 
-- $25 cash prize (see 10.2).
+- $25 cash prize (see 11.2).
 - $25 FAAB bonus added to their starting waiver budget for the following season.
 
 ### 7.3 Seeding Tiebreakers
@@ -224,13 +224,29 @@ Beyond your own roster, intentional losing distorts the competitive landscape fo
 Commissioners will evaluate trade activity in this light. Trades that look like deliberate tanking — particularly clusters of clearly one-sided moves at the end of a losing season — are subject to review under the veto process (5.5) and the penalties described above.
 
 
-## 🔁 9. Replacing Managers
+## ⏱️ 9. Activity and Responsiveness
 
-### 9.1 Removing Managers
+### 9.1 Response Window
 
-Managers can be removed at the commissioners' majority discretion if complaints are received from other league members. The goal of this league is for it to be enjoyable and active, so persistent disengagement — repeatedly failing to set a valid lineup, ghosting league chat, ignoring trade offers, or otherwise dragging down the experience for everyone else — is grounds for removal. Confirmed collusion is, of course, also grounds for immediate removal.
+Managers should respond to league messages and trade offers within **72 hours**. This applies throughout the active season (preseason through the end of the postseason). Exceptions:
 
-### 9.2 Replacing Managers
+- League-designated offseason — between the end of the postseason and the start of the next preseason, response-time expectations are relaxed.
+- Notified away-time — if a manager has notified the league of upcoming unavailability (travel, life events, etc.), the 72-hour window pauses for the duration of the notified absence.
+
+Persistent failure to respond within this window — outside the exceptions above — is one of the activity/engagement failures that can lead to removal under §10.1.
+
+### 9.2 "Wes" Clause
+
+If you're traveling or otherwise unable to pay attention to the league for more than 72 hours, please notify the league chat ahead of time when possible. A quick "heads up — I'll be off-grid Thursday through Sunday" preserves goodwill and pauses the §9.1 response window for the notified period.
+
+
+## 🔁 10. Replacing Managers
+
+### 10.1 Removing Managers
+
+Managers can be removed at the commissioners' majority discretion if complaints are received from other league members. The goal of this league is for it to be enjoyable and active, so persistent disengagement — repeatedly failing to set a valid lineup, ghosting league chat, ignoring trade offers (see §9 for the response window), or otherwise dragging down the experience for everyone else — is grounds for removal. Confirmed collusion is, of course, also grounds for immediate removal.
+
+### 10.2 Replacing Managers
 
 When a manager needs to be replaced, the commissioners source a replacement in the following priority order:
 
@@ -239,20 +255,20 @@ When a manager needs to be replaced, the commissioners source a replacement in t
 
 In all cases, final selection is at the commissioners' discretion based on their judgment of the candidate's "fit" with the league — commitment to the dynasty format, willingness to engage in chat and trades, and general compatibility with the existing managers.
 
-### 9.3 Replacement Incentive
+### 10.3 Replacement Incentive
 
 If a manager quits or is removed, the incoming manager receives a 50% reduction on their first-year buy-in.
 
 **Exception — league reboot.** This incentive does *not* apply during a "league reboot" — i.e., a season in which **multiple teams** are being replaced at once. In a reboot scenario, all incoming managers pay full dues like everyone else; the orphan-roster discount is reserved for ordinary one-off replacements between otherwise stable seasons.
 
 
-## 💰 10. League Finances & Prizes
+## 💰 11. League Finances & Prizes
 
-### 10.1 League Dues
+### 11.1 League Dues
 
 League dues are **$50 per manager, per season**. Dues are collected through [LeagueSafe](https://www.leaguesafe.com/league/3949641), with the deadline being no later than August 1 of the active season. All managers must be paid in full before Week 1. Any manager who fails to pay before the deadline will incur a 10% late penalty, which is added to the postseason payout.
 
-### 10.2 Payout Structure
+### 11.2 Payout Structure
 
 The season payout — funded by the $50/manager dues pool ($500 total in a 10-team league) — is structured as follows:
 
@@ -267,11 +283,11 @@ The season payout — funded by the $50/manager dues pool ($500 total in a 10-te
 
 In addition to the cash prize, the Consolation Bracket champion also receives **$25 FAAB** added to their starting waiver budget for the following season (see 7.2).
 
-The remaining **~$175** is budgeted for trophy shipping, the championship nameplate, and the Division Winner challenge coins (see 10.3) each season.
+The remaining **~$175** is budgeted for trophy shipping, the championship nameplate, and the Division Winner challenge coins (see 11.3) each season.
 
-**Any leftover beyond that** rolls into the *next* season as a proportional dues reduction shared evenly across all managers — or, if applicable, is applied first to offset any roster-adoption dues that were waived to incentivize an incoming manager taking over an orphan roster (see Section 9.3).
+**Any leftover beyond that** rolls into the *next* season as a proportional dues reduction shared evenly across all managers — or, if applicable, is applied first to offset any roster-adoption dues that were waived to incentivize an incoming manager taking over an orphan roster (see Section 10.3).
 
-### 10.3 Trophy Engraving & Division Winner Coins
+### 11.3 Trophy Engraving & Division Winner Coins
 
 > 🏆 **League Champion** — each year, the champion will:
 >
@@ -280,9 +296,9 @@ The remaining **~$175** is budgeted for trophy shipping, the championship namepl
 
 > 🥇 **Division Winners** — each year, the 1st-place finisher in each division (Noob Football Conference and Amateur Football Conference) receives a **custom-engraved challenge coin** commemorating their division title and the season won.
 
-Trophy shipping, the championship nameplate, and the Division Winner challenge coins are all covered by the ~$175 remainder set aside in 10.2.
+Trophy shipping, the championship nameplate, and the Division Winner challenge coins are all covered by the ~$175 remainder set aside in 11.2.
 
-### 10.4 Raising Dues, Co-Managers, and Crowdfunding
+### 11.4 Raising Dues, Co-Managers, and Crowdfunding
 
 A two-thirds majority vote is required to raise league dues.
 
@@ -292,11 +308,11 @@ If a manager is no longer financially comfortable with the buy-in, they should r
 
 > 💸 **Crowdfunding rule:** If a manager's dues are covered (in whole or in part) by crowdfunding from other league members, any **prize money won that season is not distributed to the manager personally**. Instead, all winnings are split **proportionately among the individuals who contributed to the crowdfunding**, based on each contributor's share of the dues raised.
 
-### 10.5 Year 1 Auction Prize Pool & Trophy (Historical)
+### 11.5 Year 1 Auction Prize Pool & Trophy (Historical)
 
 > 🏆 The Year 1 startup auction generated a larger-than-normal pool of dues. That extra money was used to commission the league's **traveling trophy**, which has been passed manager-to-manager every season since.
 
-Auction-driven funds were spread across the first few seasons to support additional prizes and trophy costs, so the value of the inaugural buy-in was felt beyond Year 1. The league has since fully transitioned to the standard payout structure described in 10.2.
+Auction-driven funds were spread across the first few seasons to support additional prizes and trophy costs, so the value of the inaugural buy-in was felt beyond Year 1. The league has since fully transitioned to the standard payout structure described in 11.2.
 
 ---
 
