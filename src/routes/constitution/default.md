@@ -296,7 +296,7 @@ If a manager is no longer financially comfortable with the buy-in, they should r
 
 > 🏆 The Year 1 startup auction generated a larger-than-normal pool of dues. That extra money was used to commission the league's **traveling trophy**, which has been passed manager-to-manager every season since.
 
-Auction-driven funds were spread across the first few seasons to support additional prizes and trophy costs, so the value of the inaugural buy-in was felt beyond Year 1. Now in our fourth season, the league has fully transitioned to the standard payout structure described in 10.2.
+Auction-driven funds were spread across the first few seasons to support additional prizes and trophy costs, so the value of the inaugural buy-in was felt beyond Year 1. The league has since fully transitioned to the standard payout structure described in 10.2.
 
 ---
 
