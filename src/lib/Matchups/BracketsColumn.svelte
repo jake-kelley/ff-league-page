@@ -235,7 +235,7 @@
     }
 
     .bye {
-        color: #999;
+        color: var(--g999);
         font-style: italic;
     }
 

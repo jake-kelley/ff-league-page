@@ -88,12 +88,12 @@ export const tabs = [
             {
                 icon: 'history_edu',
                 label: 'Constitution',
-                dest: '/constitution',
+                dest: '/dynasty-knowledge-base?article=constitution',
             },
             {
                 icon: 'school',
                 label: 'Dynasty 101',
-                dest: '/dynasty-101',
+                dest: '/dynasty-knowledge-base?article=dynasty-101',
             },
             {
                 icon: 'menu_book',

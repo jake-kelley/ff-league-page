@@ -78,7 +78,7 @@
         margin: 0 0 6px;
     }
     .meta {
-        color: #888;
+        color: var(--g999);
         font-size: 0.85em;
         margin-bottom: 20px;
     }
@@ -114,9 +114,9 @@
         color: inherit;
     }
     .pos-chip.active {
-        background: #00316b;
-        color: #fff;
-        border-color: #00316b;
+        background: #1de9d7;
+        color: var(--g000);
+        border-color: #1de9d7;
     }
 
     table {
@@ -148,7 +148,7 @@
         font-size: 0.75em;
         font-weight: 600;
         background: #e8eef7;
-        color: #00316b;
+        color: #1de9d7;
     }
     .player-cell {
         display: flex;
@@ -173,7 +173,7 @@
     .empty {
         text-align: center;
         padding: 30px;
-        color: #888;
+        color: var(--g999);
     }
 </style>
 

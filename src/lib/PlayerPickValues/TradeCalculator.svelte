@@ -264,7 +264,7 @@
     }
     h2 { margin: 0 0 6px; }
     .meta {
-        color: #888;
+        color: var(--g999);
         font-size: 0.9em;
         margin-bottom: 24px;
     }
@@ -325,7 +325,7 @@
         gap: 10px;
     }
     .ac-item:hover { background: var(--f3f3f3); }
-    .ac-meta { color: #888; font-size: 0.85em; }
+    .ac-meta { color: var(--g999); font-size: 0.85em; }
 
     .ac-name {
         display: flex;
@@ -398,7 +398,7 @@
         font-size: 1.1em;
         font-weight: 600;
     }
-    .verdict.neutral { background: #eee; color: #555; }
+    .verdict.neutral { background: #eee; color: var(--g555); }
     .verdict.fair { background: #d4edda; color: #155724; }
     .verdict.lean { background: #fff3cd; color: #856404; }
     .verdict.lopsided { background: #f8d7da; color: #721c24; }
@@ -458,7 +458,7 @@
     }
     .top-piece {
         font-size: 0.85em;
-        color: #666;
+        color: var(--g555);
     }
 
     .suggestions {
@@ -470,7 +470,7 @@
     .hint {
         margin: 0 0 10px;
         font-size: 0.9em;
-        color: #666;
+        color: var(--g555);
     }
     .suggestion-section + .suggestion-section {
         margin-top: 12px;
@@ -506,7 +506,7 @@
         background: var(--fff);
     }
     .sugg-name { flex: 1 1 auto; font-weight: 500; display: flex; align-items: center; gap: 8px; min-width: 0; }
-    .sugg-value { color: #666; font-variant-numeric: tabular-nums; }
+    .sugg-value { color: var(--g555); font-variant-numeric: tabular-nums; }
     .sugg-fairness {
         color: #155724;
         background: #d4edda;

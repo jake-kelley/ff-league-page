@@ -24,6 +24,7 @@ const getPodiums = async (previousSeasonID) => {
 
 	while(previousSeasonID && previousSeasonID != 0) {
 		// use the previous season ID to get the previous league, roster, user, and bracket data
+		const seasonLeagueID = previousSeasonID;
 		const previousSeasonData = await getPreviousLeagueData(previousSeasonID);
 
 		const {
@@ -63,6 +64,7 @@ const getPodiums = async (previousSeasonID) => {
 
 		const podium = {
 			year,
+			leagueID: seasonLeagueID,
 			champion,
 			second,
 			third,

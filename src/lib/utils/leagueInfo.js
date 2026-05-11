@@ -1,13 +1,13 @@
 /*   STEP 1   */
 export const leagueID = "1317629034393276416"; // your league ID
 export const leagueName = "MFFGA - Dynasty"; // your league name
-export const dues = 25; // (optional) used in template constitution page
+export const dues = 50; // (optional) used in template constitution page
 export const dynasty = true; // true for dynasty leagues, false for redraft and keeper
 export const enableBlog = false; // requires VITE_CONTENTFUL_ACCESS_TOKEN and VITE_CONTENTFUL_SPACE environment variables
 
 /*   STEP 2   */
 export const homepageText = `
-  <p>Welcome to <strong>MFFGA &mdash; Dynasty</strong>, a 10-team dynasty fantasy football league split across two divisions: the <em>Nerd Football Conference (NFC)</em> and <em>Florida Men Incorporated (FMI)</em>.</p>
+  <p>Welcome to <strong>MFFGA &mdash; Dynasty</strong>, a 10-team dynasty fantasy football league split across two divisions: the <em>Noob Football Conference (NFC)</em> and <em>Amateur Football Conference (AFC)</em>.</p>
   <p>This is a PPR dynasty format with deep rosters (28 spots), 11 starters (1 QB, 2 RB, 2 WR, 1 TE, 5 FLEX), 4 IR slots, and a 4-round rookie draft. Six teams make the playoffs, with the postseason kicking off in Week 15.</p>
   <p>Trades are open year-round (deadline Week 11), waivers run on a $100 FAAB budget, and rookie picks can be traded. Settle in &mdash; this league is built for the long haul.</p>
 `;
@@ -26,7 +26,7 @@ export const managers = [
       "roster": 1,
       "managerID": "719734510853357568",
       "name": "kdrew3",
-      "bio": "Commissioner. Manages SLAB 49IRs in the Nerd Football Conference (NFC).",
+      "bio": "Commissioner. Manages SLAB 49IRs in the Noob Football Conference (NFC).",
       "photo": "https://sleepercdn.com/uploads/0d3803a5532f6efa7e856c6209d0789b.jpg",
       "favoriteTeam": "min",
       "mode": "Win Now",
@@ -36,7 +36,7 @@ export const managers = [
       "roster": 2,
       "managerID": "1066560974100062208",
       "name": "footballguy07",
-      "bio": "Manages a team in Florida Men Incorporated (FMI).",
+      "bio": "Manages a team in Amateur Football Conference (AFC).",
       "photo": "https://sleepercdn.com/avatars/f0edbf4278f53f9425db175073df6584",
       "favoriteTeam": "hou",
       "mode": "Rebuild",
@@ -46,7 +46,7 @@ export const managers = [
       "roster": 3,
       "managerID": "760976276415733760",
       "name": "Burninator37",
-      "bio": "Commissioner. Manages Naberhood Watch in Florida Men Incorporated (FMI).",
+      "bio": "Commissioner. Manages Naberhood Watch in Amateur Football Conference (AFC).",
       "photo": "https://sleepercdn.com/uploads/5cb0d03209ceb3f74840f104651deee3.jpg",
       "favoriteTeam": "mia",
       "mode": "Win Now",
@@ -56,7 +56,7 @@ export const managers = [
       "roster": 4,
       "managerID": "858878070080262144",
       "name": "enori39",
-      "bio": "Manages enori in the Nerd Football Conference (NFC).",
+      "bio": "Manages enori in the Noob Football Conference (NFC).",
       "photo": "https://sleepercdn.com/avatars/82aec8e811b839b8ec25d7b458afd57b",
       "favoriteTeam": "min",
       "mode": "Win Now",
@@ -66,7 +66,7 @@ export const managers = [
       "roster": 5,
       "managerID": "833872283989831680",
       "name": "iand98",
-      "bio": "Manages a team in the Nerd Football Conference (NFC).",
+      "bio": "Manages a team in the Noob Football Conference (NFC).",
       "photo": "https://sleepercdn.com/avatars/f0edbf4278f53f9425db175073df6584",
       "favoriteTeam": "ne",
       "mode": "Win Now",
@@ -76,7 +76,7 @@ export const managers = [
       "roster": 6,
       "managerID": "861468630037155840",
       "name": "an1k",
-      "bio": "Manages 2Fast 2Felonious pt Deux in the Nerd Football Conference (NFC).",
+      "bio": "Manages 2Fast 2Felonious pt Deux in the Noob Football Conference (NFC).",
       "photo": "https://sleepercdn.com/avatars/e7af4deab0289b4f5505646424895246",
       "favoriteTeam": "kc",
       "mode": "Rebuild",
@@ -86,7 +86,7 @@ export const managers = [
       "roster": 7,
       "managerID": "976106540744699904",
       "name": "fvdiscipline",
-      "bio": "Manages Burrowed time in the Nerd Football Conference (NFC).",
+      "bio": "Manages Burrowed time in the Noob Football Conference (NFC).",
       "photo": "https://sleepercdn.com/avatars/b5b5681f00fd2d43c36488a8d561610a",
       "favoriteTeam": "ne",
       "mode": "Win Now",
@@ -96,7 +96,7 @@ export const managers = [
       "roster": 8,
       "managerID": "547879278974758912",
       "name": "NSDQ",
-      "bio": "Manages Number 90 in Florida Men Incorporated (FMI).",
+      "bio": "Manages Number 90 in Amateur Football Conference (AFC).",
       "photo": "https://sleepercdn.com/avatars/dcf7134f5943f1f2d7cb02500ef12a85",
       "favoriteTeam": "chi",
       "mode": "Win Now",
@@ -106,7 +106,7 @@ export const managers = [
       "roster": 9,
       "managerID": "833791769777938432",
       "name": "KakeJelley",
-      "bio": "Commissioner. Manages GoBills in Florida Men Incorporated (FMI).",
+      "bio": "Commissioner. Manages GoBills in Amateur Football Conference (AFC).",
       "photo": "https://sleepercdn.com/avatars/5b1e688214667d9705bf9a59415414d5",
       "favoriteTeam": "buf",
       "mode": "Win Now",
@@ -116,7 +116,7 @@ export const managers = [
       "roster": 10,
       "managerID": "975882743143825408",
       "name": "Mullma",
-      "bio": "Manages Golden Charbonnet in Florida Men Incorporated (FMI).",
+      "bio": "Manages Golden Charbonnet in Amateur Football Conference (AFC).",
       "photo": "https://sleepercdn.com/uploads/e411a575c26e159e2ceceb093dd40d7a.jpg",
       "favoriteTeam": "mia",
       "mode": "Win Now",

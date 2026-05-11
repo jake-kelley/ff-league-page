@@ -200,8 +200,8 @@
 
 	.banner {
 		display: block;
-		width: 65%;
-		max-width: 450px;
+		width: 32.5%;
+		max-width: 225px;
 		margin: 20px auto 0;
 	}
 

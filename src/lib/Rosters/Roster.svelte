@@ -252,7 +252,7 @@
 	}
 
 	.italic {
-		color: #aaa;
+		color: var(--aaa);
 		font-style: italic;
 	}
 
@@ -272,8 +272,8 @@
 		margin-top: 6px;
 		padding: 3px 10px;
 		border-radius: 12px;
-		background: linear-gradient(135deg, #e3f2fd 0%, #cfe5fb 100%);
-		color: #00316b;
+		background: linear-gradient(135deg, #11302c 0%, #cfe5fb 100%);
+		color: #1de9d7;
 		font-size: 0.78em;
 		font-weight: 600;
 		font-variant-numeric: tabular-nums;

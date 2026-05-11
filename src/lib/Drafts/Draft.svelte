@@ -45,12 +45,12 @@
 
     .accuracyText {
         font-size: 0.7em;
-        color: #666;
+        color: var(--g555);
     }
 
     .disclaimer {
         font-style: italic;
-        color: #888;
+        color: var(--g999);
     }
 
     :global(.draftBoard) {
@@ -101,7 +101,7 @@
     }
 	
 	:global(.curDraftName) {
-        color: #888;
+        color: var(--g999);
         font-size: 0.7em;
         font-style: italic;
     }

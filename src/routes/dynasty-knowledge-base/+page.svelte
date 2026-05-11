@@ -1,12 +1,36 @@
 <script>
     import { marked } from 'marked';
+    import { untrack } from 'svelte';
     import EditButton from '$lib/Edit/EditButton.svelte';
+    import { page } from '$app/state';
 
     let { data } = $props();
     let articles = $state(data.articles);
 
+    const initialSlug = (() => {
+        const q = page.url.searchParams.get('article');
+        if (q && data.articles.some((a) => a.slug === q)) return q;
+        return data.articles[0]?.slug ?? '';
+    })();
+
     let query = $state('');
-    let selectedSlug = $state(data.articles[0]?.slug ?? '');
+    let selectedSlug = $state(initialSlug);
+
+    // Sync external URL → selectedSlug (e.g. menu-link clicks while already on this page).
+    // Read selectedSlug via untrack so clicking the sidebar (which mutates selectedSlug
+    // directly) doesn't refire this effect and clobber it back to the URL value.
+    $effect(() => {
+        const q = page.url.searchParams.get('article');
+        if (!q || !articles.some((a) => a.slug === q)) return;
+        untrack(() => {
+            if (q !== selectedSlug) {
+                selectedSlug = q;
+                if (typeof window !== 'undefined') {
+                    window.scrollTo({ top: 0, behavior: 'smooth' });
+                }
+            }
+        });
+    });
 
     const updateArticleContent = (slug, newContent) => {
         articles = articles.map((a) => {
@@ -73,6 +97,12 @@
     const selectArticle = (slug) => {
         selectedSlug = slug;
         if (typeof window !== 'undefined') {
+            const url = new URL(window.location.href);
+            url.searchParams.set('article', slug);
+            // Use native history so the URL reflects the selected article for
+            // bookmarking, without triggering SvelteKit's `page` rune (which
+            // would re-fire the URL→state $effect and risk reactive thrash).
+            window.history.replaceState(window.history.state, '', url);
             window.scrollTo({ top: 0, behavior: 'smooth' });
         }
     };
@@ -94,13 +124,13 @@
     h1 {
         font-size: 2em;
         margin: 0 0 0.2em;
-        background: linear-gradient(90deg, #1976d2 0%, #00316b 100%);
+        background: linear-gradient(90deg, #1de9d7 0%, #1de9d7 100%);
         -webkit-background-clip: text;
         background-clip: text;
         -webkit-text-fill-color: transparent;
     }
     .subtitle {
-        color: #888;
+        color: var(--g999);
         margin: 0 0 1em;
         font-style: italic;
     }
@@ -121,11 +151,11 @@
     }
     .search input:focus {
         outline: none;
-        border-color: #1976d2;
+        border-color: #1de9d7;
         box-shadow: 0 0 0 3px rgba(25, 118, 210, 0.15);
     }
     .search-meta {
-        color: #888;
+        color: var(--g999);
         font-size: 0.85em;
         white-space: nowrap;
     }
@@ -153,17 +183,18 @@
         align-self: start;
         max-height: calc(100vh - 100px);
         overflow-y: auto;
-        background: linear-gradient(160deg, #1f2a44 0%, #131a2c 100%);
-        color: #e8eaf3;
+        background: linear-gradient(160deg, #11272f 0%, #0a1d24 100%);
+        color: var(--g333);
+        border: 1px solid var(--accentBorder);
         border-radius: 12px;
         padding: 14px 12px;
-        box-shadow: 0 6px 18px rgba(0, 0, 0, 0.18);
+        box-shadow: 0 8px 24px var(--boxShadowOne);
     }
     .sidebar h3 {
         margin: 14px 8px 6px;
         font-size: 0.78em;
         text-transform: uppercase;
-        color: #ffd166;
+        color: var(--accent);
         letter-spacing: 0.08em;
     }
     .sidebar h3:first-child { margin-top: 6px; }
@@ -182,7 +213,7 @@
         border-radius: 6px;
         cursor: pointer;
         font-size: 0.9em;
-        color: #c8cee0;
+        color: var(--g333);
         line-height: 1.3em;
         display: flex;
         justify-content: space-between;
@@ -192,18 +223,18 @@
         transition: background 0.12s, color 0.12s, border-color 0.12s;
     }
     .sidebar li button:hover {
-        background: rgba(255, 255, 255, 0.06);
-        color: #fff;
+        background: var(--accentSoft);
+        color: var(--g000);
     }
     .sidebar li button.active {
-        background: rgba(255, 209, 102, 0.14);
-        color: #fff;
-        border-left-color: #ffd166;
+        background: var(--accentSoft);
+        color: var(--g000);
+        border-left-color: var(--accent);
         font-weight: 600;
     }
     .matchCount {
-        background: rgba(255, 209, 102, 0.22);
-        color: #ffd166;
+        background: var(--accentSoft);
+        color: var(--accent);
         border-radius: 10px;
         padding: 1px 7px;
         font-size: 0.75em;
@@ -211,18 +242,19 @@
         flex-shrink: 0;
     }
     .empty {
-        color: #c8cee0;
+        color: var(--g333);
         font-size: 0.9em;
         padding: 8px 10px;
     }
 
     .content {
-        background: #fff;
-        color: #333;
+        background: var(--fff);
+        color: var(--g333);
+        border: 1px solid var(--ebebeb);
         border-radius: 12px;
         padding: 24px 28px;
         min-width: 0;
-        box-shadow: 0 6px 18px rgba(0, 0, 0, 0.06);
+        box-shadow: 0 8px 24px var(--boxShadowOne);
     }
     .article-meta {
         display: flex;
@@ -231,19 +263,19 @@
         gap: 10px;
         flex-wrap: wrap;
         font-size: 0.85em;
-        color: #888;
+        color: var(--g999);
         margin-bottom: 0.6em;
     }
     .content h2 {
         margin: 0 0 0.6em;
         font-size: 1.4em;
         line-height: 1.25em;
-        color: #00316b;
+        color: #1de9d7;
     }
     .article-content {
         font-size: 0.95em;
         line-height: 1.6em;
-        color: #333;
+        color: var(--g333);
     }
     .article-content :global(h1) {
         font-size: 1.6em;
@@ -254,14 +286,15 @@
         font-size: 1.3em;
         margin: 1.6em 0 0.4em;
         padding-bottom: 0.3em;
-        border-bottom: 2px solid #e0e7f3;
-        color: #00316b;
+        border-bottom: 2px solid var(--accentBorder);
+        color: var(--accent);
         line-height: 1.25em;
     }
     .article-content :global(h3) {
         font-size: 1.1em;
         margin: 1.4em 0 0.3em;
         line-height: 1.3em;
+        color: var(--g000);
     }
     .article-content :global(h4),
     .article-content :global(h5),
@@ -284,31 +317,34 @@
         margin: 0.2em 0;
     }
     .article-content :global(a) {
-        color: #00316b;
+        color: #1de9d7;
         text-decoration: underline;
     }
     .article-content :global(strong) {
-        color: #1a1a1a;
+        color: var(--g000);
     }
     .article-content :global(em) {
-        color: #555;
+        color: var(--g555);
     }
     .article-content :global(blockquote) {
         margin: 1em 0;
-        padding: 0.4em 1em;
-        border-left: 3px solid #ddd;
-        color: #666;
-        background: #fafafa;
+        padding: 0.6em 1.2em;
+        border-left: 3px solid var(--accent);
+        color: var(--g333);
+        background: var(--accentSoft);
+        border-radius: 6px;
     }
     .article-content :global(code) {
-        background: #f3f3f3;
+        background: var(--eee);
+        color: var(--accent);
         padding: 0.1em 0.4em;
         border-radius: 3px;
         font-size: 0.9em;
         font-family: 'SFMono-Regular', Menlo, Monaco, Consolas, monospace;
     }
     .article-content :global(pre) {
-        background: #f3f3f3;
+        background: var(--eee);
+        color: var(--g333);
         padding: 0.8em 1em;
         border-radius: 6px;
         overflow-x: auto;
@@ -328,26 +364,26 @@
     }
     .article-content :global(th),
     .article-content :global(td) {
-        border: 1px solid #e5e5e5;
+        border: 1px solid var(--ebebeb);
         padding: 8px 12px;
         text-align: left;
     }
     .article-content :global(th) {
-        background: linear-gradient(180deg, #f5f9ff 0%, #e8f0fb 100%);
-        color: #00316b;
+        background: var(--f3f3f3);
+        color: var(--accent);
         font-weight: 600;
     }
     .article-content :global(tbody tr:hover) {
-        background: #fafbfd;
+        background: var(--accentSoft);
     }
     .article-content :global(hr) {
         border: 0;
-        border-top: 1px solid #ddd;
+        border-top: 1px solid var(--ebebeb);
         margin: 1.5em 0;
     }
     .article-content :global(mark) {
-        background: #ffe066;
-        color: inherit;
+        background: var(--accent);
+        color: #062420;
         padding: 0 2px;
         border-radius: 2px;
     }
@@ -363,11 +399,11 @@
         .mobile-toggle {
             display: inline-block;
             padding: 8px 14px;
-            border: 0;
-            background: linear-gradient(160deg, #1f2a44 0%, #131a2c 100%);
+            border: 1px solid var(--accentBorder);
+            background: linear-gradient(160deg, #11272f 0%, #0a1d24 100%);
             border-radius: 8px;
             cursor: pointer;
-            color: #ffd166;
+            color: var(--accent);
             margin-bottom: 12px;
             font-size: 0.9em;
             font-weight: 600;
@@ -386,7 +422,7 @@
 {#if selected}
     {#key selected.slug}
         <EditButton
-            storageKey={`kb:${selected.slug}`}
+            storageKey={selected.editKey ?? `kb:${selected.slug}`}
             initialValue={selected.content ?? ''}
             label={`Edit · ${selected.title}`}
             helpText="Markdown for THIS article. Saves an override that replaces the source .md file. Click Reset to restore the built-in default."

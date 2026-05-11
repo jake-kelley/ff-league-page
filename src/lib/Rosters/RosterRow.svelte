@@ -111,7 +111,7 @@
 	}
 
 	span.nickname {
-		color: #888;
+		color: var(--g999);
 		font-style: italic;
 		font-size: 0.8em;
 	}

@@ -4,7 +4,7 @@
     export let rankings, leagueTeamManagers;
 
     const POS_META = [
-        { key: 'QB',    label: 'QB',    color: '#1976d2' },
+        { key: 'QB',    label: 'QB',    color: '#1de9d7' },
         { key: 'RB',    label: 'RB',    color: '#43a047' },
         { key: 'WR',    label: 'WR',    color: '#26a69a' },
         { key: 'TE',    label: 'TE',    color: '#ef6c00' },
@@ -46,8 +46,8 @@
 
 <style>
     .panel {
-        background: #fff;
-        color: #333;
+        background: var(--fff);
+        color: var(--g333);
         border-radius: 12px;
         padding: 1.4em 1.6em 1.6em;
         margin: 1.5em auto;
@@ -58,13 +58,13 @@
     .panel h2 {
         margin: 0 0 0.2em;
         font-size: 1.4em;
-        background: linear-gradient(90deg, #1976d2 0%, #00316b 100%);
+        background: linear-gradient(90deg, #1de9d7 0%, #1de9d7 100%);
         -webkit-background-clip: text;
         background-clip: text;
         -webkit-text-fill-color: transparent;
     }
     .panel .sub {
-        color: #888;
+        color: var(--g999);
         font-size: 0.85em;
         margin: 0 0 1.2em;
     }
@@ -74,7 +74,7 @@
         gap: 12px;
         margin-bottom: 1em;
         font-size: 0.82em;
-        color: #555;
+        color: var(--g555);
     }
     .legend .swatch {
         display: inline-block;
@@ -100,7 +100,7 @@
     .rank {
         font-size: 1.4em;
         font-weight: 700;
-        color: #00316b;
+        color: #1de9d7;
         text-align: center;
         font-variant-numeric: tabular-nums;
     }
@@ -166,7 +166,7 @@
         gap: 6px 12px;
         margin-top: 4px;
         font-size: 0.78em;
-        color: #555;
+        color: var(--g555);
     }
     .breakdown-labels span {
         white-space: nowrap;
@@ -183,7 +183,7 @@
         font-weight: 700;
         font-size: 1.1em;
         font-variant-numeric: tabular-nums;
-        color: #00316b;
+        color: #1de9d7;
         text-align: right;
         white-space: nowrap;
     }
@@ -196,7 +196,7 @@
     }
     .delta.pos { color: #2e7d32; }
     .delta.neg { color: #c62828; }
-    .delta.zero { color: #888; }
+    .delta.zero { color: var(--g999); }
 
     .stats {
         display: flex;
@@ -212,7 +212,7 @@
     }
     .stats .label { color: #6a3010; font-weight: 500; margin-right: 4px; }
     .stats .value {
-        color: #00316b;
+        color: #1de9d7;
         font-weight: 700;
         font-variant-numeric: tabular-nums;
     }
@@ -246,7 +246,7 @@
         border-radius: 999px;
         cursor: pointer;
         font-size: 0.85em;
-        color: #333;
+        color: #000;
         user-select: none;
         transition: background 0.12s;
     }
@@ -254,7 +254,7 @@
         background: #e8eef7;
     }
     .picks-toggle input {
-        accent-color: #1976d2;
+        accent-color: #1de9d7;
         cursor: pointer;
         margin: 0;
     }

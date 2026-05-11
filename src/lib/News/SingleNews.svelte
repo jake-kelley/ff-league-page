@@ -29,7 +29,7 @@
     }
 
     .title-link:hover {
-        color: #920505;
+        color: #ff5a6e;
     }
 
     .body {
@@ -108,7 +108,7 @@
 
     .date {
         font-style: italic;
-        color: #888;
+        color: var(--g999);
     }
 </style>
 

@@ -132,7 +132,7 @@ import { dynasty } from './utils/helper';
     }
 
     .disclaimer {
-        color: #888;
+        color: var(--g999);
         text-align: center;
     }
 </style>

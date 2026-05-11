@@ -126,15 +126,15 @@
     h2 {
         margin: 0;
         font-size: 1.2em;
-        color: #00316b;
+        color: #1de9d7;
     }
     .meta {
-        color: #888;
+        color: var(--g999);
         font-size: 0.85em;
     }
     .scroll {
         overflow-x: auto;
-        background: #fff;
+        background: var(--fff);
         border-radius: 10px;
         box-shadow: 0 4px 14px rgba(0, 0, 0, 0.06);
     }
@@ -144,37 +144,38 @@
         width: 100%;
         font-size: 0.85em;
         font-variant-numeric: tabular-nums;
-        color: #333;
+        color: var(--g333);
     }
     th, td {
         padding: 6px 8px;
         text-align: center;
-        border-bottom: 1px solid #eee;
+        border-bottom: 1px solid var(--ebebeb);
         white-space: nowrap;
     }
     thead th {
         position: sticky;
         top: 0;
-        background: linear-gradient(180deg, #f5f9ff 0%, #e8f0fb 100%);
-        color: #00316b;
+        background: var(--f3f3f3);
+        color: var(--accent);
         font-weight: 600;
         font-size: 0.8em;
         z-index: 2;
+        border-bottom: 1px solid var(--accentBorder);
     }
     .team-cell, thead .team-col {
         position: sticky;
         left: 0;
-        background: #fff;
+        background: var(--fff);
         text-align: left;
         z-index: 1;
         min-width: 160px;
         cursor: pointer;
     }
     thead .team-col {
-        background: linear-gradient(180deg, #f5f9ff 0%, #e8f0fb 100%);
+        background: var(--f3f3f3);
         z-index: 3;
     }
-    .team-cell:hover { background: #f3f6fb; }
+    .team-cell:hover { background: var(--accentSoft); }
     .team-cell .row {
         display: flex;
         align-items: center;
@@ -238,12 +239,12 @@
         white-space: nowrap;
     }
     .summary {
-        background: #fafbfd;
+        background: var(--f3f3f3);
         font-weight: 600;
-        color: #00316b;
+        color: var(--accent);
     }
     .rank {
-        color: #999;
+        color: var(--g999);
         font-weight: 500;
         margin-right: 4px;
     }
@@ -252,7 +253,7 @@
     .empty {
         text-align: center;
         padding: 30px;
-        color: #888;
+        color: var(--g999);
     }
 
     @media (max-width: 700px) {

@@ -1,5 +1,7 @@
 import { marked } from 'marked';
 import { kvGet } from '$lib/server/contentStore';
+import constitutionMd from '../constitution/default.md?raw';
+import dynasty101Md from '../dynasty-101/default.md?raw';
 
 marked.setOptions({ gfm: true, breaks: false });
 
@@ -19,6 +21,8 @@ const SKIP = new Set([
     'DATASET_README.md',
 ]);
 
+const PINNED_CATEGORY = 'League Pages';
+
 const CATEGORIES = [
     { name: 'Foundations', match: /(best_practices|format_quick|glossary|common_mistakes|quick_decision|README_INDEX)/i },
     { name: 'Drafting & Rookies', match: /(startup_draft|rookie_draft|rookie_scouting|nfl_draft_capital|pick_value|2026_rookie)/i },
@@ -33,7 +37,7 @@ const CATEGORIES = [
     { name: 'FantasyCalc Reference', match: /^fantasycalc/i },
 ];
 
-const CATEGORY_ORDER = CATEGORIES.map((c) => c.name).concat(['Other']);
+const CATEGORY_ORDER = [PINNED_CATEGORY, ...CATEGORIES.map((c) => c.name), 'Other'];
 
 function categorize(filename) {
     for (const c of CATEGORIES) {
@@ -61,7 +65,30 @@ function deriveTitle(filename, content) {
     return t;
 }
 
+const PINNED = [
+    { slug: 'constitution', title: 'Constitution', baseContent: constitutionMd, editKey: 'constitution' },
+    { slug: 'dynasty-101', title: 'Dynasty 101', baseContent: dynasty101Md, editKey: 'dynasty-101' },
+];
+
 export async function load() {
+    const pinnedArticles = await Promise.all(
+        PINNED.map(async ({ slug, title, baseContent, editKey }) => {
+            const override = await kvGet(`content:${editKey}`);
+            const content = override ?? baseContent;
+            return {
+                slug,
+                filename: `${slug}.md`,
+                title,
+                category: PINNED_CATEGORY,
+                content,
+                hasOverride: !!override,
+                contentHtml: marked.parse(content),
+                wordCount: content.trim().split(/\s+/).length,
+                editKey,
+            };
+        })
+    );
+
     const files = Object.entries(rawFiles)
         .map(([path, content]) => {
             const filename = path.split('/').pop();
@@ -84,9 +111,10 @@ export async function load() {
                 hasOverride: !!override,
                 contentHtml: marked.parse(content),
                 wordCount: content.trim().split(/\s+/).length,
+                editKey: `kb:${slug}`,
             };
         })
     );
 
-    return { articles, categoryOrder: CATEGORY_ORDER };
+    return { articles: [...pinnedArticles, ...articles], categoryOrder: CATEGORY_ORDER };
 }

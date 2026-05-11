@@ -123,7 +123,7 @@
     }
 
     .basicInfo span {
-        color: #888;
+        color: var(--g999);
         font-size: 0.9em;
     }
 
@@ -161,7 +161,7 @@
     .teamSub {
         font-size: 0.4em;
         line-height: 1em;
-        color: #666;
+        color: var(--g555);
     }
 
     .managerNav {
@@ -187,7 +187,7 @@
 
     .commissionerBadge span {
         font-style: normal;
-        color: #fff;
+        color: var(--g000);
     }
 
     /* media queries */

@@ -28,7 +28,7 @@
 
 <style>
     .activity {
-        background: #fff;
+        background: var(--fff);
         border-radius: 10px;
         padding: 0.8em 1em 1em;
         margin: 0 auto 1.2em;
@@ -37,7 +37,7 @@
     .activity h3 {
         margin: 0 0 0.6em;
         font-size: 0.95em;
-        color: #00316b;
+        color: #1de9d7;
         font-weight: 600;
     }
     .grid {
@@ -75,19 +75,19 @@
     .name {
         font-size: 0.78em;
         font-weight: 600;
-        color: #333;
+        color: var(--g333);
         white-space: nowrap;
         overflow: hidden;
         text-overflow: ellipsis;
     }
     .stats {
         font-size: 0.72em;
-        color: #666;
+        color: var(--g555);
         font-variant-numeric: tabular-nums;
         display: flex;
         gap: 8px;
     }
-    .stats .t { color: #1976d2; font-weight: 600; }
+    .stats .t { color: #1de9d7; font-weight: 600; }
     .stats .w { color: #43a047; font-weight: 600; }
 
     @media (max-width: 768px) {

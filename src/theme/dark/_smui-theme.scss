@@ -2,12 +2,15 @@
 
 @use '@material/theme/color-palette';
 
-// Svelte Colors!
+// SportsBet-style palette: deep navy/teal surface with mint-teal accent.
 @use '@material/theme/index' as theme with (
-  $primary: #0082c3,
-  $secondary: #00316b,
-  $surface: #000000,
-  $background: #000000,
+  $primary: #1de9d7,
+  $secondary: #10c9b8,
+  $surface: #0d1c22,
+  $background: #0a1419,
+  $on-primary: #062420,
+  $on-secondary: #062420,
+  $on-surface: #ffffff,
   $error: color-palette.$red-900,
 );
 
@@ -28,66 +31,72 @@
 //   mdc-typography--button
 //   mdc-typography--overline
 //   mdc-typography--body1
- 
+
 // Import the mixins.
 @use '@material/typography/index' as typography;
 
 :root {
-  --fff: #000000;
-  --fffTransparent: rgba(0,0,0,0);
-  --f8f8f8: #070707;
-  --f3f3f3: #0d0d0d;
-  --eee: #1b1b1b;
-  --ebebeb: #333;
-  --ddd: #282828;
-  --d7d7d7: #171717;
-  --ccc: #444;
-  --bbb: #444;
-  --aaa: #555;
-  --g999: #999;
-  --g444: #bbb;
-  --g555: #aaa;
-  --g333: #ccc;
-  --g111: #eee;
-  --g000: #fff;
-  --boxShadowOne: #070707;
-  --boxShadowTwo: #272727;
-  --boxShadowThree: #0d0d0d;
-  --ir: #222;
-  --champShadow: #111;
-  --transactHeader: #202424;
-  --draftSwapped: #202025;
-  --waiverAdd: #3e4741;
-  --waiverDrop: #423a3a;
-  --bracketMatch: #010102;
-  --matchupSelected: #2f2f35;
-  --fadeOne: rgba(0, 0, 0, 0) 0%;
-  --fadeTwo: rgba(0, 0, 0, 0.7) 50%;
-  --fadeThree: rgba(0, 0, 0, 0.9) 90%;
-  --fadeFour: rgba(0, 0, 0, 1) 100%;
-  --blueOne: #0082c3;
-  --blueTwo: #003c86;
-  --r1: #1c1c1d;
-  --r2: #1f1d1d;
-  --r3: #181a18;
-  --headerPrimary: #2a2e31;
-  --borderOverride: rgba(255,255,255,.3);
-  --rivalryBack: #333;
+  --fff: #0d1c22;
+  --fffTransparent: rgba(13, 28, 34, 0);
+  --f8f8f8: #0f2129;
+  --f3f3f3: #122530;
+  --eee: #152b36;
+  --ebebeb: #1a3340;
+  --ddd: #1f3a48;
+  --d7d7d7: #1a323e;
+  --ccc: #233e4a;
+  --bbb: #324c58;
+  --aaa: #4a6470;
+  --g999: #6e8590;
+  --g555: #96a3a9;
+  --g444: #b1bdc1;
+  --g333: #cfd6d9;
+  --g111: #e8ebec;
+  --g000: #ffffff;
+  --boxShadowOne: rgba(0, 0, 0, 0.55);
+  --boxShadowTwo: rgba(0, 0, 0, 0.45);
+  --boxShadowThree: rgba(0, 0, 0, 0.35);
+  --ir: #1a323e;
+  --champShadow: #000;
+  --transactHeader: #11242c;
+  --draftSwapped: #122832;
+  --waiverAdd: #143a30;
+  --waiverDrop: #3a1f1f;
+  --bracketMatch: #0c1d24;
+  --matchupSelected: #16313c;
+  --fadeOne: rgba(10, 20, 25, 0) 0%;
+  --fadeTwo: rgba(10, 20, 25, 0.7) 50%;
+  --fadeThree: rgba(10, 20, 25, 0.9) 90%;
+  --fadeFour: rgba(10, 20, 25, 1) 100%;
+  --blueOne: #1de9d7;
+  --blueTwo: #10c9b8;
+  --r1: #11252b;
+  --r2: #102228;
+  --r3: #10242a;
+  --headerPrimary: #11272f;
+  --borderOverride: rgba(29, 233, 215, 0.18);
+  --rivalryBack: #122530;
+
+  // Accent helpers
+  --accent: #1de9d7;
+  --accentDeep: #10c9b8;
+  --accentSoft: rgba(29, 233, 215, 0.15);
+  --accentBorder: rgba(29, 233, 215, 0.32);
 
   // Chart bar colors
-  --barChartOne: #446a88;
-  --barChartTwo: #32788f;
-  --barChartThree: #1d808d;
-  --barChartFour: #198886;
-  --barChartFive: #2b8673;
-  --barChartSix: #448864;
+  --barChartOne: #7fc4f5;
+  --barChartTwo: #5bcff7;
+  --barChartThree: #38daf0;
+  --barChartFour: #2fe2e0;
+  --barChartFive: #4fe9c9;
+  --barChartSix: #79edad;
 
-  // Comparisson bar colors
-  --compBarOne: #446a88;
-  --compBarTwo: #448864;
-  --compBarOneText: #7fc4f5;
-  --compBarTwoText: #79edad;
-  
+  // Comparison bar colors
+  --compBarOne: #7fc4f5;
+  --compBarTwo: #79edad;
+  --compBarOneText: #cbe7fb;
+  --compBarTwoText: #c8f3d6;
+
   // Positions
   --QBfade: #ff8fb2;
   --WRfade: #afd4ff;
@@ -103,31 +112,34 @@
   --DLfade: #c392d3;
   --LBfade: #98c097;
 
-	--QB: #ff2a6d;
-	--WR: #58a7ff;
-	--RB: #00ceb8;
-	--TE: #ffae58;
-	--K: #bd66ff;
-	--Budget: #7947d4;
-	--DEF: #fff67a;
-	--DL: #ff795a;
-	--LB: #6d7df5;
-	--DB: #ff7cb6;
-	--BN: #b6d0eb;
+  --QB: #ff2a6d;
+  --WR: #58a7ff;
+  --RB: #00ceb8;
+  --TE: #ffae58;
+  --K: #bd66ff;
+  --Budget: #7947d4;
+  --DEF: #fff67a;
+  --DL: #ff795a;
+  --LB: #6d7df5;
+  --DB: #ff7cb6;
+  --BN: #b6d0eb;
 }
 
 html,
 body {
   position: relative;
   margin: 0;
-  background-color: theme.$surface;
+  background-color: theme.$background;
   color: theme.$on-surface;
   min-height: 100vh;
-  background: #222;
-  background: linear-gradient(to bottom right, #111,#222 );
-  background: -webkit-linear-gradient(to bottom right, #111,#222 );
+  background:
+    radial-gradient(1200px 600px at 85% -10%, rgba(29, 233, 215, 0.07), transparent 60%),
+    radial-gradient(900px 500px at -10% 110%, rgba(29, 233, 215, 0.05), transparent 60%),
+    linear-gradient(to bottom right, #07121a, #0a1d24);
+  background-attachment: fixed;
+  color-scheme: dark;
 }
- 
+
 //
 // Some defaults that may be helpful to you.
 // If you just want to use these, and not the classes, you can instead just
@@ -136,60 +148,60 @@ body {
 html {
   @include typography.typography('body1');
 }
- 
+
 h1 {
   @include typography.typography('headline1');
 }
- 
+
 h2 {
   @include typography.typography('headline2');
 }
- 
+
 h3 {
   @include typography.typography('headline3');
 }
- 
+
 h4 {
   @include typography.typography('headline4');
 }
- 
+
 h5 {
   @include typography.typography('headline5');
 }
- 
+
 h6 {
   @include typography.typography('headline6');
 }
- 
+
 caption {
   @include typography.typography('caption');
 }
- 
+
 code,
 pre {
   font-family: 'Roboto Mono', monospace;
 }
- 
+
 small {
   font-size: 0.9em;
 }
- 
+
 big {
   font-size: 1.1em;
 }
- 
+
 b,
 strong {
   font-weight: bold;
 }
 
 a {
-  color: #40b3ff;
+  color: #1de9d7;
 }
 a:visited {
-  color: color.scale(#40b3ff, $lightness: -35%);
+  color: color.scale(#1de9d7, $lightness: -25%);
 }
 
 .mdc-button--outlined:not(:disabled) {
-  background-color: #070707 !important;
+  background-color: #11252d !important;
 }

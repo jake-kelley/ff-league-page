@@ -61,8 +61,8 @@
 
     .viewAll {
         text-decoration: none;
-        background-color: #920505;
-        color: #fff;
+        background-color: #ff5a6e;
+        color: var(--g000);
         border-radius: 1em;
         padding: 0.5em 1em;
     }

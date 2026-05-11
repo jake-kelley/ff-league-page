@@ -108,7 +108,7 @@
     h2 {
         margin: 0;
         font-size: 1.4em;
-        background: linear-gradient(90deg, #1976d2 0%, #00316b 100%);
+        background: linear-gradient(90deg, #1de9d7 0%, #1de9d7 100%);
         -webkit-background-clip: text;
         background-clip: text;
         -webkit-text-fill-color: transparent;
@@ -123,23 +123,23 @@
         font-weight: 600;
         cursor: pointer;
     }
-    .edit-btn:hover { color: #fff; }
+    .edit-btn:hover { color: var(--g000); }
 
     .list {
         list-style: none;
         margin: 0.5em auto 2em;
         padding: 0;
         max-width: 720px;
-        background: #fff;
+        background: var(--fff);
         border-radius: 10px;
         box-shadow: 0 4px 14px rgba(0, 0, 0, 0.06);
         overflow: hidden;
     }
     .list li { display: flex; align-items: center; gap: 12px; padding: 10px 16px; border-bottom: 1px solid #eee; }
     .list li:last-child { border-bottom: 0; }
-    .list a { color: #00316b; text-decoration: none; flex: 1; font-weight: 500; min-width: 0; overflow: hidden; text-overflow: ellipsis; }
+    .list a { color: #1de9d7; text-decoration: none; flex: 1; font-weight: 500; min-width: 0; overflow: hidden; text-overflow: ellipsis; }
     .list a:hover { text-decoration: underline; }
-    .icon { width: 26px; height: 26px; border-radius: 6px; background: #e3f2fd; color: #00316b; display: inline-flex; align-items: center; justify-content: center; flex-shrink: 0; }
+    .icon { width: 26px; height: 26px; border-radius: 6px; background: #11302c; color: #1de9d7; display: inline-flex; align-items: center; justify-content: center; flex-shrink: 0; }
     .icon i { font-size: 18px; }
     .premium-tag {
         background: #fff3cd;
@@ -152,27 +152,27 @@
     }
 
     .overlay { position: fixed; inset: 0; background: rgba(0,0,0,0.5); z-index: 100; display: flex; align-items: center; justify-content: center; padding: 1em; }
-    .panel { background: #fff; color: #333; border-radius: 12px; padding: 1.4em 1.6em; max-width: 720px; width: 100%; max-height: 90vh; overflow-y: auto; display: flex; flex-direction: column; gap: 0.8em; box-shadow: 0 12px 32px rgba(0,0,0,0.3); }
-    .panel h3 { margin: 0; color: #00316b; font-size: 1.1em; }
+    .panel { background: var(--fff); color: var(--g333); border-radius: 12px; padding: 1.4em 1.6em; max-width: 720px; width: 100%; max-height: 90vh; overflow-y: auto; display: flex; flex-direction: column; gap: 0.8em; box-shadow: 0 12px 32px rgba(0,0,0,0.3); }
+    .panel h3 { margin: 0; color: #1de9d7; font-size: 1.1em; }
     .panel input { padding: 8px 10px; font-size: 0.95em; border: 1px solid #ccc; border-radius: 6px; }
     .row-grid { display: grid; grid-template-columns: 1fr 2fr 1fr auto; gap: 8px; align-items: center; }
     .draft-list { list-style: none; margin: 0; padding: 0; max-height: 50vh; overflow-y: auto; border: 1px solid #eee; border-radius: 8px; }
     .draft-list li { display: flex; gap: 6px; align-items: center; padding: 8px 10px; border-bottom: 1px solid #f3f3f3; }
     .draft-list li:last-child { border-bottom: 0; }
     .draft-list .row-name { flex: 1; min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
-    .draft-list .row-url { flex: 0 0 auto; max-width: 200px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; color: #888; font-size: 0.8em; }
-    .small { padding: 4px 8px; font-size: 0.78em; border-radius: 4px; cursor: pointer; border: 1px solid #ddd; background: #fff; }
+    .draft-list .row-url { flex: 0 0 auto; max-width: 200px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; color: var(--g999); font-size: 0.8em; }
+    .small { padding: 4px 8px; font-size: 0.78em; border-radius: 4px; cursor: pointer; border: 1px solid #ddd; background: var(--fff); }
     .small.danger { background: #fff5f5; color: #c62828; border-color: #f5c6c6; }
 
     .add-row { display: grid; grid-template-columns: 1fr 2fr 1fr auto; gap: 8px; align-items: end; padding: 8px; background: #fafbfd; border-radius: 8px; }
-    .add-row label { display: flex; flex-direction: column; gap: 4px; font-size: 0.78em; color: #666; }
+    .add-row label { display: flex; flex-direction: column; gap: 4px; font-size: 0.78em; color: var(--g555); }
 
     .actions { display: flex; gap: 8px; flex-wrap: wrap; justify-content: flex-end; margin-top: 0.4em; }
     .btn { padding: 8px 14px; border-radius: 6px; cursor: pointer; font-size: 0.9em; font-weight: 500; border: 1px solid transparent; }
-    .btn-cancel { background: #f3f3f3; color: #333; border-color: #ddd; }
+    .btn-cancel { background: #f3f3f3; color: var(--g333); border-color: var(--ddd); }
     .btn-reset { background: #fff5f5; color: #c62828; border-color: #f5c6c6; }
-    .btn-save { background: linear-gradient(160deg, #1976d2 0%, #00316b 100%); color: #fff; }
-    .btn-logout { background: none; color: #888; }
+    .btn-save { background: linear-gradient(160deg, #1de9d7 0%, #1de9d7 100%); color: var(--g000); }
+    .btn-logout { background: none; color: var(--g999); }
     .err { color: #c62828; font-size: 0.85em; }
 </style>
 

@@ -50,10 +50,10 @@
         position: absolute;
         bottom: 0;
 		z-index: 1;
-		border-top: 1px solid #920505;
+		border-top: 1px solid var(--accentBorder);
 		padding: 30px 0 60px;
 		text-align: center;
-		color: #777;
+		color: var(--g555);
 	}
 
 	#navigation {
@@ -81,7 +81,7 @@
 	}
 
 	.navLink:hover {
-		color: #920505;
+		color: var(--accent);
 	}
 
 	.updateNotice {

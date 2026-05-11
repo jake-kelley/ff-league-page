@@ -34,7 +34,7 @@
 		border-radius: 50%;
 		border: 2px solid;
         z-index: 14;
-        background-color: #fff;
+        background-color: var(--fff);
 	}
 
     .statBars {

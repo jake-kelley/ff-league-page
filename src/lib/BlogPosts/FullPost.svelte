@@ -161,7 +161,7 @@
     :global(.body th) {
         padding: 0.8em 0;
         background-color: var(--blueOne);
-        color: #fff;
+        color: var(--g000);
     }
 
     .divider {
