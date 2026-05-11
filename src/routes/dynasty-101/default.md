@@ -110,7 +110,23 @@ By Weeks 4-6 you have enough data to know your team. If you're 1-4 with old vets
 
 ## 🏆 5. Rookie Drafts
 
-Each spring (typically late April through May, after the NFL Draft), this league runs a 4-round rookie-only draft. Pick order in rounds 1-3 is reverse standings; round 4 may be commissioner-adjusted. Every pick has a 5-minute clock.
+Each spring (typically late April through May, after the NFL Draft), this league runs a **4-round rookie-only draft**. Every pick has a **24-hour clock**.
+
+**Round 1 pick order** is a hybrid setup designed to keep every team incentivized to play through the final weeks:
+
+- **1.01–1.04** — the four non-playoff teams (Seeds 7–10) ordered by **lowest Max Points For** during the regular season. Lowest Max PF picks 1.01, next-lowest picks 1.02, and so on.
+- **1.05 / 1.06** — decided by the **5th/6th-place placement game** (Wk 16). The **winner** of that game picks **1.05**; the loser picks 1.06.
+- **1.07 / 1.08** — decided by the **3rd-place game** (Wk 17). The **winner** picks **1.07**; the loser picks 1.08.
+- **1.09** — runner-up (championship-game loser).
+- **1.10** — league champion (picks last).
+
+Winning the placement games earns you the better pick — there's no incentive to "tank" the final week.
+
+**Rounds 2–4 pick order** is straight Max-PF order across all 10 teams: lowest Max PF picks X.01, highest Max PF picks X.10. Same order is reused each round.
+
+**Bench is not expanded for the draft.** You must already have a roster spot open for each pick you make — drop or trade existing players before *or* after the draft to make room.
+
+See Constitution §4.2 for the binding ruleset.
 
 ### 📊 Pick Hit Rates
 
