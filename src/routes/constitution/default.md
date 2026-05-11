@@ -267,16 +267,20 @@ The season payout — funded by the $50/manager dues pool ($500 total in a 10-te
 
 In addition to the cash prize, the Consolation Bracket champion also receives **$25 FAAB** added to their starting waiver budget for the following season (see 7.2).
 
-The remaining **~$175** is budgeted for trophy shipping and the championship nameplate each season.
+The remaining **~$175** is budgeted for trophy shipping, the championship nameplate, and the **Division Winner challenge coins** (see 10.3) each season.
 
 **Any leftover beyond that** rolls into the *next* season as a proportional dues reduction shared evenly across all managers — or, if applicable, is applied first to offset any roster-adoption dues that were waived to incentivize an incoming manager taking over an orphan roster (see Section 9.3).
 
-### 10.3 Trophy Engraving
+### 10.3 Trophy Engraving & Division Winner Coins
 
-> 🥇 Each year, the league champion will:
+> 🥇 **League Champion** — each year, the champion will:
 >
 > - Have their name engraved on a plate that is added to the league trophy.
 > - Have the trophy shipped to them to display until the next champion is crowned.
+
+> 🪙 **Division Winners** — each year, the 1st-place finisher in each division (Noob Football Conference and Amateur Football Conference) receives a **custom-engraved challenge coin** commemorating their division title and the season won.
+
+Trophy shipping, the championship nameplate, and the Division Winner challenge coins are all covered by the ~$175 remainder set aside in 10.2.
 
 ### 10.4 Raising Dues, Co-Managers, and Crowdfunding
 
