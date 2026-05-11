@@ -211,7 +211,7 @@ Tanking also extends to trade behavior — common patterns include:
 
 ### Why this hurts you
 
-In a dynasty league, your roster *is* your long-term asset. Trading away productive players at fire-sale prices — or piling up injured/inactive bodies just to lose games — actively erodes the strength of your team for years, not just the current season. The "future picks" you accumulate rarely make up for the proven players, draft capital, and roster spots you give up to get them. Tanking trades almost always leave the tanking team weaker over a 2-3 year window than they would have been if they'd simply played out the season honestly.
+In a dynasty league, your roster *is* your long-term asset. Trading away productive players at fire-sale prices — or piling up injured/inactive bodies just to lose games — has the potential to erode the strength of your team for years if the players don't return from injury, not just the current season. The "future picks" you accumulate rarely make up for the proven players, draft capital, and roster spots you give up to get them. Tanking trades almost always leave the tanking team weaker over a 2-3 year window than they would have been if they'd simply played out the season honestly.
 
 ### Why this hurts the league
 
