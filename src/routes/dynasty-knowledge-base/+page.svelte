@@ -1,8 +1,8 @@
 <script>
     import { marked } from 'marked';
+    import { untrack } from 'svelte';
     import EditButton from '$lib/Edit/EditButton.svelte';
     import { page } from '$app/state';
-    import { replaceState } from '$app/navigation';
 
     let { data } = $props();
     let articles = $state(data.articles);
@@ -16,14 +16,20 @@
     let query = $state('');
     let selectedSlug = $state(initialSlug);
 
+    // Sync external URL → selectedSlug (e.g. menu-link clicks while already on this page).
+    // Read selectedSlug via untrack so clicking the sidebar (which mutates selectedSlug
+    // directly) doesn't refire this effect and clobber it back to the URL value.
     $effect(() => {
         const q = page.url.searchParams.get('article');
-        if (q && articles.some((a) => a.slug === q) && q !== selectedSlug) {
-            selectedSlug = q;
-            if (typeof window !== 'undefined') {
-                window.scrollTo({ top: 0, behavior: 'smooth' });
+        if (!q || !articles.some((a) => a.slug === q)) return;
+        untrack(() => {
+            if (q !== selectedSlug) {
+                selectedSlug = q;
+                if (typeof window !== 'undefined') {
+                    window.scrollTo({ top: 0, behavior: 'smooth' });
+                }
             }
-        }
+        });
     });
 
     const updateArticleContent = (slug, newContent) => {
@@ -93,7 +99,10 @@
         if (typeof window !== 'undefined') {
             const url = new URL(window.location.href);
             url.searchParams.set('article', slug);
-            replaceState(url, page.state);
+            // Use native history so the URL reflects the selected article for
+            // bookmarking, without triggering SvelteKit's `page` rune (which
+            // would re-fire the URL→state $effect and risk reactive thrash).
+            window.history.replaceState(window.history.state, '', url);
             window.scrollTo({ top: 0, behavior: 'smooth' });
         }
     };
