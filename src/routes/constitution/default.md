@@ -273,12 +273,12 @@ The remaining **~$175** is budgeted for trophy shipping, the championship namepl
 
 ### 10.3 Trophy Engraving & Division Winner Coins
 
-> 🥇 **League Champion** — each year, the champion will:
+> 🏆 **League Champion** — each year, the champion will:
 >
 > - Have their name engraved on a plate that is added to the league trophy.
 > - Have the trophy shipped to them to display until the next champion is crowned.
 
-> 🪙 **Division Winners** — each year, the 1st-place finisher in each division (Noob Football Conference and Amateur Football Conference) receives a **custom-engraved challenge coin** commemorating their division title and the season won.
+> 🥇 **Division Winners** — each year, the 1st-place finisher in each division (Noob Football Conference and Amateur Football Conference) receives a **custom-engraved challenge coin** commemorating their division title and the season won.
 
 Trophy shipping, the championship nameplate, and the Division Winner challenge coins are all covered by the ~$175 remainder set aside in 10.2.
 
