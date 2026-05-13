@@ -97,9 +97,55 @@ export const csvToAssets = (text) => {
     });
 };
 
+const ordinal = (n) => {
+    const v = parseInt(n);
+    if (!Number.isFinite(v)) return String(n);
+    const mod100 = v % 100;
+    if (mod100 >= 11 && mod100 <= 13) return `${v}th`;
+    switch (v % 10) {
+        case 1: return `${v}st`;
+        case 2: return `${v}nd`;
+        case 3: return `${v}rd`;
+        default: return `${v}th`;
+    }
+};
+
 export const formatPickLabel = (a) => {
     if (a.asset_type !== 'pick') return a.player_name;
-    const spot = a.pick_spot ? String(a.pick_spot).padStart(2, '0') : '';
+    const year = a.pick_year || '';
     const round = a.pick_round || '';
-    return `${a.pick_year || ''} ${round}.${spot}`.trim();
+    const spot = a.pick_spot ? String(a.pick_spot).padStart(2, '0') : '';
+    if (spot) return `${year} ${round}.${spot}`.trim();
+    return `${year} ${ordinal(round)}`.trim();
+};
+
+// FC pick-name candidates in priority order: specific spot first, then generic round.
+// Future-year drafts in FantasyCalc usually only carry the generic "{year} {ordinal}" entry,
+// so we fall back to that when the spot-specific name isn't present.
+export const fantasyCalcPickCandidates = (a) => {
+    if (a.asset_type !== 'pick') return [];
+    const year = a.pick_year;
+    const round = a.pick_round;
+    const spot = a.pick_spot;
+    if (!year || !round) return [];
+    const candidates = [];
+    if (spot) candidates.push(`${year} Pick ${round}.${String(spot).padStart(2, '0')}`);
+    candidates.push(`${year} ${ordinal(round)}`);
+    return candidates;
+};
+
+// Apply FC values onto pick rows. Returns a new array.
+export const applyFantasyCalcValues = (assets, fcPlayers) => {
+    const byName = new Map();
+    for (const p of fcPlayers || []) {
+        if (p && p.name) byName.set(p.name, p.value);
+    }
+    return assets.map((a) => {
+        if (a.asset_type !== 'pick') return a;
+        for (const key of fantasyCalcPickCandidates(a)) {
+            const fc = byName.get(key);
+            if (fc != null) return { ...a, fc_value: fc };
+        }
+        return a;
+    });
 };

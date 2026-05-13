@@ -1,6 +1,6 @@
 <script>
     import { onMount, onDestroy } from 'svelte';
-    import { csvToAssets, formatPickLabel } from './csv.js';
+    import { csvToAssets, formatPickLabel, applyFantasyCalcValues } from './csv.js';
 
     let state = $state(null);
     let loadError = $state('');
@@ -126,14 +126,16 @@
             .sort((a, b) => b.fc_value - a.fc_value);
     });
 
-    // Board: row = round, column = original pickInRound (1..N).
-    // Each cell shows the (possibly swapped) team owner. This preserves the snake-draft visualization
-    // even after picks are swapped between teams.
+    // Board: row = round, column = team. Each cell is the list of picks that team owns in that round.
+    // Snake order means R2 reads right-to-left numerically (Team N's R2 cell holds pick 2.01).
+    // The list-per-cell layout handles cross-round swaps where one team can own 0 or 2+ picks in a round.
     const boardCells = $derived.by(() => {
         if (!state) return [];
-        const cells = Array.from({ length: state.rounds }, () => Array(state.teamCount).fill(null));
+        const cells = Array.from({ length: state.rounds }, () =>
+            Array.from({ length: state.teamCount }, () => [])
+        );
         for (const p of state.picks) {
-            cells[p.round - 1][p.pickInRound - 1] = p;
+            cells[p.round - 1][p.teamIndex].push(p);
         }
         return cells;
     });
@@ -248,7 +250,18 @@
         csvError = '';
         try {
             const text = await file.text();
-            csvAssetsPreview = csvToAssets(text);
+            let parsed = csvToAssets(text);
+            // Overlay pick fc_value from FantasyCalc (CSV typically leaves these blank).
+            try {
+                const res = await fetch('/api/fetch_player_pick_values');
+                if (res.ok) {
+                    const data = await res.json();
+                    parsed = applyFantasyCalcValues(parsed, data.players || []);
+                }
+            } catch {
+                // FantasyCalc fetch is best-effort; CSV values still apply if it fails.
+            }
+            csvAssetsPreview = parsed;
         } catch (e) {
             csvAssetsPreview = null;
             csvError = e.message || 'failed to parse CSV';
@@ -349,6 +362,10 @@
         gap: 18px;
         align-items: start;
     }
+    /* Grid children default to min-width:auto, which lets a wide board push past its 1fr
+       column. Forcing min-width:0 lets the board respect its column and scroll horizontally
+       instead of overflowing onto the sidebar. */
+    .layout > * { min-width: 0; }
 
     @media (max-width: 1100px) {
         .layout { grid-template-columns: 1fr; }
@@ -381,20 +398,30 @@
         background: var(--f8f8f8);
         border: 1px solid var(--ebebeb);
         border-radius: 12px;
-        padding: 10px;
+        padding: 14px;
+    }
+    .board.teamStrip {
+        margin-bottom: 22px;
+        padding-bottom: 16px;
     }
     .boardGrid {
         display: grid;
-        gap: 6px;
+        gap: 10px;
         min-width: 100%;
+    }
+    /* Prevent long text inside a cell from pushing its column wider than the track size. */
+    .boardGrid > * { min-width: 0; }
+    /* Separate column-header row from the first round of picks. */
+    .boardGrid .colHeader {
+        margin-bottom: 6px;
     }
     .teamHeader {
         display: flex;
         flex-direction: column;
         align-items: center;
         justify-content: center;
-        gap: 4px;
-        padding: 8px 6px;
+        gap: 6px;
+        padding: 10px 8px;
         background: var(--headerPrimary);
         border-radius: 8px;
         border: 1px solid var(--ebebeb);
@@ -438,6 +465,9 @@
         white-space: nowrap;
     }
     .slot.mine { box-shadow: inset 0 0 0 1px rgba(29, 233, 215, 0.6); }
+    .slot.empty { cursor: default; background: var(--f8f8f8); border-style: dashed; opacity: 0.6; }
+    .slot.empty:hover { border-color: var(--ebebeb); }
+    .cell { display: flex; flex-direction: column; gap: 4px; }
 
     .slot {
         position: relative;
@@ -666,7 +696,7 @@
             <!-- Draft board -->
             <div>
                 <!-- Team claim strip -->
-                <div class="board" style="margin-bottom: 10px;">
+                <div class="board teamStrip">
                     <div class="boardGrid" style="grid-template-columns: 50px repeat({state.teamCount}, minmax(110px, 1fr));">
                         <div></div>
                         {#each state.teams as team, ti (ti)}
@@ -693,49 +723,52 @@
                     </div>
                 </div>
 
-                <!-- Snake-order draft grid: row = round, column = pickInRound -->
+                <!-- Snake-order draft grid: row = round, column = team. R2 reads right-to-left numerically. -->
                 <div class="board">
                     <div class="boardGrid" style="grid-template-columns: 50px repeat({state.teamCount}, minmax(110px, 1fr));">
-                        <!-- column headers showing pick-in-round -->
+                        <!-- column headers echo the team names so the board reads as a real snake -->
                         <div></div>
-                        {#each Array(state.teamCount) as _, ci (ci)}
-                            <div class="colHeader">Pick {ci + 1}</div>
+                        {#each state.teams as team, ci (ci)}
+                            <div class="colHeader" title={team.name}>{team.name}</div>
                         {/each}
 
                         {#each boardCells as row, ri (ri)}
                             <div class="roundLabel">R{ri + 1}</div>
-                            {#each row as slot, ci (ci)}
-                                {#if slot}
-                                    {@const team = state.teams[slot.teamIndex]}
-                                    {@const a = slot.selectedAssetId ? assetById.get(slot.selectedAssetId) : null}
-                                    <div
-                                        class="slot {slot.overall === state.currentPick ? 'current' : ''} {slot.selectedAssetId ? 'completed' : ''} {swapFrom === slot.overall ? 'swapSelected' : ''} {team?.claimedBy === clientId ? 'mine' : ''}"
-                                        onclick={() => handleSwapClick(slot.overall)}
-                                        role="button"
-                                        tabindex="0"
-                                        title="Click to swap with another pick"
-                                    >
-                                        <div class="slotMeta">
-                                            <span>#{slot.overall} ({overallLabel(slot)})</span>
-                                        </div>
-                                        <div class="slotTeam" title={team?.name}>{team?.name ?? '—'}</div>
-                                        {#if slot.selectedAssetId}
-                                            <div class="slotName">{labelFor(slot.selectedAssetId)}</div>
-                                            {#if a}
-                                                <div class="slotSub">
-                                                    <span class="posPill {posClass(a)}">{a.asset_type === 'pick' ? 'PICK' : a.position}</span>
-                                                    {a.asset_type === 'pick' ? '' : (a.nfl_team || '')}
+                            {#each row as cellPicks, ci (ci)}
+                                <div class="cell">
+                                    {#if cellPicks.length === 0}
+                                        <div class="slot empty"><div class="slotEmpty">—</div></div>
+                                    {:else}
+                                        {#each cellPicks as slot (slot.overall)}
+                                            {@const team = state.teams[slot.teamIndex]}
+                                            {@const a = slot.selectedAssetId ? assetById.get(slot.selectedAssetId) : null}
+                                            <div
+                                                class="slot {slot.overall === state.currentPick ? 'current' : ''} {slot.selectedAssetId ? 'completed' : ''} {swapFrom === slot.overall ? 'swapSelected' : ''} {team?.claimedBy === clientId ? 'mine' : ''}"
+                                                onclick={() => handleSwapClick(slot.overall)}
+                                                role="button"
+                                                tabindex="0"
+                                                title="Click to swap with another pick"
+                                            >
+                                                <div class="slotMeta">
+                                                    <span>#{slot.overall} ({overallLabel(slot)})</span>
                                                 </div>
-                                            {/if}
-                                        {:else if slot.overall === state.currentPick}
-                                            <div class="slotEmpty">On the clock…</div>
-                                        {:else}
-                                            <div class="slotEmpty">—</div>
-                                        {/if}
-                                    </div>
-                                {:else}
-                                    <div class="slot"></div>
-                                {/if}
+                                                {#if slot.selectedAssetId}
+                                                    <div class="slotName">{labelFor(slot.selectedAssetId)}</div>
+                                                    {#if a}
+                                                        <div class="slotSub">
+                                                            <span class="posPill {posClass(a)}">{a.asset_type === 'pick' ? 'PICK' : a.position}</span>
+                                                            {a.asset_type === 'pick' ? '' : (a.nfl_team || '')}
+                                                        </div>
+                                                    {/if}
+                                                {:else if slot.overall === state.currentPick}
+                                                    <div class="slotEmpty">On the clock…</div>
+                                                {:else}
+                                                    <div class="slotEmpty">—</div>
+                                                {/if}
+                                            </div>
+                                        {/each}
+                                    {/if}
+                                </div>
                             {/each}
                         {/each}
                     </div>
