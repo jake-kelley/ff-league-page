@@ -1,0 +1,36 @@
+asset_type,player_name,position,nfl_team,fc_value,pick_year,pick_round,pick_spot
+player,Ja'Marr Chase,WR,CIN,9500,,,
+player,Bijan Robinson,RB,ATL,9100,,,
+player,Justin Jefferson,WR,MIN,9000,,,
+player,CeeDee Lamb,WR,DAL,8700,,,
+player,Jahmyr Gibbs,RB,DET,8400,,,
+player,Puka Nacua,WR,LAR,8100,,,
+player,Amon-Ra St. Brown,WR,DET,7900,,,
+player,Saquon Barkley,RB,PHI,7600,,,
+player,Brock Bowers,TE,LV,7300,,,
+player,Malik Nabers,WR,NYG,7000,,,
+player,Jayden Daniels,QB,WAS,6800,,,
+player,Drake London,WR,ATL,6500,,,
+player,Patrick Mahomes,QB,KC,6200,,,
+player,Sam LaPorta,TE,DET,6000,,,
+player,Trey McBride,TE,ARI,5800,,,
+player,Josh Allen,QB,BUF,5600,,,
+player,Caleb Williams,QB,CHI,5300,,,
+player,Marvin Harrison Jr.,WR,ARI,5100,,,
+player,Brian Thomas Jr.,WR,JAX,4900,,,
+player,Rome Odunze,WR,CHI,4600,,,
+pick,,PICK,,3500,2026,1,1
+pick,,PICK,,3300,2026,1,2
+pick,,PICK,,3100,2026,1,3
+pick,,PICK,,2900,2026,1,4
+pick,,PICK,,2700,2026,1,5
+pick,,PICK,,2500,2026,1,6
+pick,,PICK,,2300,2026,1,7
+pick,,PICK,,2100,2026,1,8
+pick,,PICK,,1900,2026,1,9
+pick,,PICK,,1700,2026,1,10
+pick,,PICK,,1500,2026,2,1
+pick,,PICK,,1200,2026,2,5
+pick,,PICK,,900,2026,2,10
+pick,,PICK,,600,2026,3,5
+pick,,PICK,,400,2026,4,5

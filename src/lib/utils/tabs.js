@@ -110,7 +110,19 @@ export const tabs = [
     {
         icon: 'lightbulb',
         label: 'Resources & News',
-        dest: '/resources',
+        nest: true,
         key: 'resources',
+        children: [
+            {
+                icon: 'lightbulb',
+                label: 'Resources & News',
+                dest: '/resources',
+            },
+            {
+                icon: 'gavel',
+                label: 'Draft Tool',
+                dest: '/draft-tool',
+            },
+        ]
     },
 ];
