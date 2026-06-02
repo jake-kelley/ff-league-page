@@ -210,6 +210,48 @@ export const pickAsset = async ({ clientId, assetId }) => {
     return await saveState(state);
 };
 
+// Auto-pick for the team on the clock once its timer has expired. Safe to call from any
+// client: the server re-checks the deadline and that `expectedPick` is still on the clock,
+// so concurrent firings collapse into a single selection.
+//   - preferredAssetId: used if still available (e.g. the on-clock manager's queue top);
+//     otherwise the highest-value remaining asset is taken.
+//   - graceMs: clients may fire slightly early due to clock skew; we allow a small slack.
+export const autoPick = async ({ expectedPick, preferredAssetId, graceMs = 750 }) => {
+    const state = await getState();
+    if (!state.started) throw new Error('draft not started');
+    if (state.currentPick > state.picks.length) throw new Error('draft is complete');
+    if (expectedPick != null && state.currentPick !== Number(expectedPick)) {
+        // Someone else already advanced the clock; treat as a no-op.
+        return state;
+    }
+    if (!state.pickStartedAt) throw new Error('no active pick clock');
+    const elapsed = Date.now() - state.pickStartedAt;
+    if (elapsed < state.secondsPerPick * 1000 - graceMs) {
+        throw new Error('pick clock has not expired');
+    }
+
+    const drafted = new Set(state.picks.map((p) => p.selectedAssetId).filter(Boolean));
+    let asset = null;
+    if (preferredAssetId && !drafted.has(preferredAssetId)) {
+        asset = state.assets.find((a) => a.id === preferredAssetId) || null;
+    }
+    if (!asset) {
+        asset = state.assets
+            .filter((a) => !drafted.has(a.id))
+            .sort((a, b) => (Number(b.fc_value) || 0) - (Number(a.fc_value) || 0))[0] || null;
+    }
+    if (!asset) throw new Error('no assets remaining');
+
+    const slot = state.picks[state.currentPick - 1];
+    slot.selectedAssetId = asset.id;
+    slot.selectedAt = Date.now();
+    slot.selectedByClientId = 'auto';
+    state.currentPick = state.currentPick + 1;
+    state.pickStartedAt = state.currentPick <= state.picks.length ? Date.now() : null;
+    if (state.currentPick > state.picks.length) state.started = false;
+    return await saveState(state);
+};
+
 export const undoLastPick = async ({ clientId }) => {
     const state = await getState();
     const lastPickIdx = state.currentPick - 2; // most recent completed slot

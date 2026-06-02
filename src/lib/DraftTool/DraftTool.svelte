@@ -17,8 +17,37 @@
     const POSITION_FILTERS = ['QB', 'RB', 'WR', 'TE', 'PICK'];
     let activePositions = $state(new Set(POSITION_FILTERS));
 
+    // Starting lineup template for the roster panel (league: 1 QB, 2 RB, 2 WR, 1 TE, 5 FLEX).
+    // Slots fill in draft order of preference; FLEX accepts RB/WR/TE.
+    const STARTING_SLOTS = [
+        { label: 'QB', accepts: ['QB'] },
+        { label: 'RB', accepts: ['RB'] },
+        { label: 'RB', accepts: ['RB'] },
+        { label: 'WR', accepts: ['WR'] },
+        { label: 'WR', accepts: ['WR'] },
+        { label: 'TE', accepts: ['TE'] },
+        { label: 'FLEX', accepts: ['RB', 'WR', 'TE'] },
+        { label: 'FLEX', accepts: ['RB', 'WR', 'TE'] },
+        { label: 'FLEX', accepts: ['RB', 'WR', 'TE'] },
+        { label: 'FLEX', accepts: ['RB', 'WR', 'TE'] },
+        { label: 'FLEX', accepts: ['RB', 'WR', 'TE'] },
+    ];
+
+    // Personal pick queue (per-client, localStorage-backed list of asset ids)
+    let queue = $state([]);
+
+    // Turn notifications
+    let notifyEnabled = $state(false);
+
     // Swap mode
     let swapFrom = $state(null);
+
+    // Auto-pick guards (non-reactive: drive timers without re-triggering effects)
+    let autoPickArmedFor = null;
+    let autoPickTimer = null;
+    let prevMyTurn = false;
+    let baseTitle = '';
+    let audioCtx = null;
 
     // Config form
     let showConfig = $state(false);
@@ -38,6 +67,17 @@
         }
         clientId = stored;
         displayName = localStorage.getItem('draft_tool_display_name') || '';
+        baseTitle = document.title;
+        try {
+            queue = JSON.parse(localStorage.getItem('draft_tool_queue') || '[]');
+            if (!Array.isArray(queue)) queue = [];
+        } catch {
+            queue = [];
+        }
+        notifyEnabled =
+            localStorage.getItem('draft_tool_notify') === 'on' &&
+            typeof Notification !== 'undefined' &&
+            Notification.permission === 'granted';
         fetchState();
         pollTimer = setInterval(fetchState, 1500);
         tickTimer = setInterval(() => (now = Date.now()), 250);
@@ -46,6 +86,8 @@
     onDestroy(() => {
         if (pollTimer) clearInterval(pollTimer);
         if (tickTimer) clearInterval(tickTimer);
+        if (autoPickTimer) clearTimeout(autoPickTimer);
+        if (typeof document !== 'undefined' && baseTitle) document.title = baseTitle;
     });
 
     const fetchState = async () => {
@@ -60,8 +102,8 @@
         }
     };
 
-    const doAction = async (action, payload = {}) => {
-        actionError = '';
+    const doAction = async (action, payload = {}, opts = {}) => {
+        if (!opts.silent) actionError = '';
         try {
             const res = await fetch('/api/draft-tool/action', {
                 method: 'POST',
@@ -75,7 +117,7 @@
             const next = await res.json();
             state = next;
         } catch (e) {
-            actionError = e.message || 'action failed';
+            if (!opts.silent) actionError = e.message || 'action failed';
         }
     };
 
@@ -157,6 +199,112 @@
             .slice(0, 12);
     });
 
+    // Per-team drafted value + positional counts (fairness + roster construction view).
+    const teamStats = $derived.by(() => {
+        if (!state) return [];
+        const stats = state.teams.map(() => ({
+            value: 0,
+            count: 0,
+            pos: { QB: 0, RB: 0, WR: 0, TE: 0, PICK: 0 },
+        }));
+        for (const p of state.picks) {
+            if (!p.selectedAssetId) continue;
+            const a = assetById.get(p.selectedAssetId);
+            if (!a) continue;
+            const s = stats[p.teamIndex];
+            if (!s) continue;
+            s.value += Number(a.fc_value) || 0;
+            s.count += 1;
+            const key = a.asset_type === 'pick' ? 'PICK' : a.position;
+            if (key in s.pos) s.pos[key] += 1;
+        }
+        return stats;
+    });
+
+    const maxTeamValue = $derived.by(() =>
+        teamStats.reduce((m, s) => Math.max(m, s.value), 0)
+    );
+
+    // Each team's drafted assets slotted into the starting lineup, with overflow on the bench.
+    // Players are placed best-first (by value) into the first eligible open slot; because the
+    // template lists dedicated spots before FLEX, position slots fill before flex does.
+    const lineupsByTeam = $derived.by(() => {
+        if (!state) return [];
+        const perTeam = state.teams.map(() => []);
+        for (const p of state.picks) {
+            if (!p.selectedAssetId) continue;
+            const a = assetById.get(p.selectedAssetId);
+            if (!a) continue;
+            perTeam[p.teamIndex]?.push(a);
+        }
+        return perTeam.map((assets) => {
+            const players = assets
+                .filter((a) => a.asset_type !== 'pick')
+                .sort((x, y) => (Number(y.fc_value) || 0) - (Number(x.fc_value) || 0));
+            const picks = assets.filter((a) => a.asset_type === 'pick');
+            const used = new Set();
+            const slots = STARTING_SLOTS.map((slot) => {
+                let idx = -1;
+                for (let i = 0; i < players.length; i++) {
+                    if (used.has(i)) continue;
+                    if (slot.accepts.includes(players[i].position)) {
+                        idx = i;
+                        break;
+                    }
+                }
+                if (idx >= 0) {
+                    used.add(idx);
+                    return { label: slot.label, asset: players[idx] };
+                }
+                return { label: slot.label, asset: null };
+            });
+            const bench = [...players.filter((_, i) => !used.has(i)), ...picks];
+            return { slots, bench };
+        });
+    });
+
+    // Average drafted value across teams — the live fairness reference line.
+    const avgTeamValue = $derived.by(() => {
+        if (!state || state.teamCount === 0) return 0;
+        const total = teamStats.reduce((sum, s) => sum + s.value, 0);
+        return total / state.teamCount;
+    });
+
+    // Whole-pool value: total, drafted so far, and remaining on the board.
+    const poolTotals = $derived.by(() => {
+        if (!state) return { total: 0, drafted: 0, remaining: 0 };
+        let total = 0;
+        for (const a of state.assets) total += Number(a.fc_value) || 0;
+        let drafted = 0;
+        for (const id of draftedAssetIds) {
+            const a = assetById.get(id);
+            if (a) drafted += Number(a.fc_value) || 0;
+        }
+        return { total, drafted, remaining: total - drafted };
+    });
+
+    // Queue resolved to live assets, dropping anything already drafted or no longer in the pool.
+    const queuedAssets = $derived.by(() => {
+        if (!state) return [];
+        return queue
+            .map((id) => assetById.get(id))
+            .filter((a) => a && !draftedAssetIds.has(a.id));
+    });
+
+    // Tier-break markers: ids in the value-sorted available list that begin a new tier,
+    // i.e. where the value drop from the previous asset clears a dynamic threshold.
+    const tierBreakIds = $derived.by(() => {
+        const breaks = new Set();
+        for (let i = 1; i < filteredAssets.length; i++) {
+            const prev = filteredAssets[i - 1].fc_value;
+            const cur = filteredAssets[i].fc_value;
+            if (prev <= 0 || cur <= 0) continue;
+            const gap = prev - cur;
+            if (gap >= Math.max(prev * 0.2, 250)) breaks.add(filteredAssets[i].id);
+        }
+        return breaks;
+    });
+
     // ---------- Actions ----------
     const togglePosition = (key) => {
         const next = new Set(activePositions);
@@ -214,6 +362,183 @@
         swapFrom = null;
         doAction('swap', { overallA: a, overallB: overall });
     };
+
+    // ---------- Pick queue ----------
+    const persistQueue = () => {
+        try {
+            localStorage.setItem('draft_tool_queue', JSON.stringify(queue));
+        } catch {
+            // ignore storage failures (private mode, quota)
+        }
+    };
+
+    const isQueued = (id) => queue.includes(id);
+
+    const toggleQueue = (id) => {
+        queue = isQueued(id) ? queue.filter((q) => q !== id) : [...queue, id];
+        persistQueue();
+    };
+
+    const removeFromQueue = (id) => {
+        queue = queue.filter((q) => q !== id);
+        persistQueue();
+    };
+
+    const moveQueueUp = (id) => {
+        const i = queue.indexOf(id);
+        if (i <= 0) return;
+        const next = [...queue];
+        [next[i - 1], next[i]] = [next[i], next[i - 1]];
+        queue = next;
+        persistQueue();
+    };
+
+    // Prune drafted / stale ids from the queue whenever the board or pool changes.
+    $effect(() => {
+        if (!state || state.assets.length === 0) return;
+        const valid = queue.filter((id) => assetById.has(id) && !draftedAssetIds.has(id));
+        if (valid.length !== queue.length) {
+            queue = valid;
+            persistQueue();
+        }
+    });
+
+    // ---------- Export ----------
+    const csvCell = (v) => {
+        const s = v == null ? '' : String(v);
+        return /[",\n]/.test(s) ? `"${s.replace(/"/g, '""')}"` : s;
+    };
+
+    const exportResults = () => {
+        if (!state) return;
+        const rows = [
+            ['overall', 'round', 'pick_in_round', 'team', 'asset', 'asset_type', 'position', 'nfl_team', 'fc_value'],
+        ];
+        for (const p of state.picks) {
+            if (!p.selectedAssetId) continue;
+            const a = assetById.get(p.selectedAssetId);
+            if (!a) continue;
+            rows.push([
+                p.overall,
+                p.round,
+                p.pickInRound,
+                state.teams[p.teamIndex]?.name ?? '',
+                a.asset_type === 'pick' ? formatPickLabel(a) : a.player_name,
+                a.asset_type,
+                a.asset_type === 'pick' ? 'PICK' : a.position,
+                a.nfl_team || '',
+                a.fc_value,
+            ]);
+        }
+        const csv = rows.map((r) => r.map(csvCell).join(',')).join('\n');
+        const blob = new Blob([csv], { type: 'text/csv' });
+        const url = URL.createObjectURL(blob);
+        const link = document.createElement('a');
+        link.href = url;
+        link.download = `draft-results-${new Date().toISOString().slice(0, 10)}.csv`;
+        document.body.appendChild(link);
+        link.click();
+        link.remove();
+        URL.revokeObjectURL(url);
+    };
+
+    // ---------- Notifications ----------
+    const playBeep = () => {
+        try {
+            audioCtx = audioCtx || new (window.AudioContext || window.webkitAudioContext)();
+            if (audioCtx.state === 'suspended') audioCtx.resume();
+            const osc = audioCtx.createOscillator();
+            const gain = audioCtx.createGain();
+            osc.type = 'sine';
+            osc.frequency.value = 880;
+            gain.gain.setValueAtTime(0.0001, audioCtx.currentTime);
+            gain.gain.exponentialRampToValueAtTime(0.25, audioCtx.currentTime + 0.02);
+            gain.gain.exponentialRampToValueAtTime(0.0001, audioCtx.currentTime + 0.35);
+            osc.connect(gain).connect(audioCtx.destination);
+            osc.start();
+            osc.stop(audioCtx.currentTime + 0.36);
+        } catch {
+            // audio not available; tab title + Notification still cover it
+        }
+    };
+
+    const toggleNotify = async () => {
+        if (notifyEnabled) {
+            notifyEnabled = false;
+            localStorage.setItem('draft_tool_notify', 'off');
+            return;
+        }
+        if (typeof Notification === 'undefined') {
+            notifyEnabled = true; // sound + title only
+            return;
+        }
+        let perm = Notification.permission;
+        if (perm === 'default') perm = await Notification.requestPermission();
+        notifyEnabled = true;
+        localStorage.setItem('draft_tool_notify', 'on');
+        // Unlock audio under the click gesture so the first beep isn't blocked.
+        try {
+            audioCtx = audioCtx || new (window.AudioContext || window.webkitAudioContext)();
+            if (audioCtx.state === 'suspended') audioCtx.resume();
+        } catch {
+            // ignore
+        }
+    };
+
+    // Alert the manager the moment their turn begins, and reflect it in the tab title.
+    $effect(() => {
+        const mine = !!(isMyTurn && state?.started);
+        if (mine && !prevMyTurn) {
+            if (notifyEnabled) playBeep();
+            if (
+                notifyEnabled &&
+                typeof Notification !== 'undefined' &&
+                Notification.permission === 'granted'
+            ) {
+                try {
+                    new Notification('🟢 You are on the clock', {
+                        body: 'Your pick is up in the dispersal draft.',
+                    });
+                } catch {
+                    // some browsers require a ServiceWorker; ignore
+                }
+            }
+        }
+        if (typeof document !== 'undefined' && baseTitle) {
+            document.title = mine ? '🟢 Your pick! — Draft Tool' : baseTitle;
+        }
+        prevMyTurn = mine;
+    });
+
+    // ---------- Auto-pick on clock expiry ----------
+    const fireAutoPick = async (overall, mine) => {
+        // Re-validate against the freshest state right before firing.
+        if (!state?.started || !currentSlot || currentSlot.overall !== overall) return;
+        if (remainingSeconds == null || remainingSeconds > 0) return;
+        let preferredAssetId;
+        if (mine && queuedAssets.length > 0) preferredAssetId = queuedAssets[0].id;
+        await doAction('autopick', { expectedPick: overall, preferredAssetId }, { silent: true });
+    };
+
+    // When the timer hits zero, schedule an auto-pick. The on-clock manager fires fast
+    // (using their queue top); everyone else fires later as a fallback for absent managers.
+    // The server re-checks the deadline + pick number, so duplicate firings are harmless.
+    $effect(() => {
+        const slot = currentSlot;
+        const rs = remainingSeconds;
+        if (!state?.started || !slot || rs == null) return;
+        if (rs > 0) {
+            autoPickArmedFor = null; // fresh clock; allow arming again
+            return;
+        }
+        if (autoPickArmedFor === slot.overall) return;
+        autoPickArmedFor = slot.overall;
+        const overall = slot.overall;
+        const mine = isMyTurn;
+        const delay = mine ? 300 + Math.random() * 500 : 2000 + Math.random() * 2500;
+        clearTimeout(autoPickTimer);
+        autoPickTimer = setTimeout(() => fireAutoPick(overall, mine), delay);
+    });
 
     // ---------- Config form ----------
     const openConfig = () => {
@@ -594,6 +919,84 @@
     .recentRow .who { color: var(--g000); overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
     .recentRow .team { color: var(--g555); font-size: 0.75em; text-align: right; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
 
+    .statusMuted { color: var(--g999); font-weight: 400; font-size: 0.85em; }
+    .btn.ghost { color: var(--g555); border-color: var(--ccc); background: transparent; }
+    .btn.ghost:hover:not(:disabled) { background: var(--accentSoft); color: var(--accent); border-color: var(--accentBorder); }
+
+    /* Team value + roster summary (claim strip) */
+    .teamValueRow { display: flex; align-items: baseline; justify-content: center; gap: 6px; }
+    .teamValue { font-variant-numeric: tabular-nums; font-weight: 700; color: var(--accent); font-size: 1.05em; }
+    .teamDelta { font-size: 0.72em; font-variant-numeric: tabular-nums; font-weight: 600; }
+    .teamDelta.up { color: var(--RB); }
+    .teamDelta.down { color: #e8888f; }
+    .teamBar { width: 100%; height: 4px; background: var(--ebebeb); border-radius: 999px; overflow: hidden; }
+    .teamBarFill { height: 100%; background: var(--accent); border-radius: 999px; transition: width 0.3s ease; }
+    .teamPos { font-size: 0.68em; color: var(--g555); font-variant-numeric: tabular-nums; letter-spacing: 0.01em; }
+
+    /* Asset row actions: queue star + value/draft stack */
+    .rowActions { display: flex; align-items: center; gap: 6px; }
+    .valueStack { display: flex; flex-direction: column; align-items: flex-end; gap: 3px; }
+    .starBtn {
+        background: transparent;
+        border: 0;
+        cursor: pointer;
+        font-size: 1.05em;
+        line-height: 1;
+        color: var(--g999);
+        padding: 2px;
+    }
+    .starBtn:hover { color: var(--TE); }
+    .starBtn.on { color: var(--TE); }
+
+    /* Tier break divider in the available list */
+    .tierBreak {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        margin: 4px 2px;
+        color: var(--g999);
+        font-size: 0.62em;
+        letter-spacing: 0.12em;
+        text-transform: uppercase;
+    }
+    .tierBreak::before, .tierBreak::after {
+        content: '';
+        flex: 1;
+        height: 1px;
+        background: repeating-linear-gradient(90deg, var(--ccc) 0 4px, transparent 4px 8px);
+    }
+
+    /* Queue panel */
+    .queueList { display: flex; flex-direction: column; gap: 4px; }
+    .queueRow {
+        display: grid;
+        grid-template-columns: 16px 38px 1fr auto;
+        gap: 6px;
+        align-items: center;
+        padding: 5px 6px;
+        background: var(--f3f3f3);
+        border: 1px solid var(--ebebeb);
+        border-radius: 6px;
+        font-size: 0.8em;
+    }
+    .queueRow .qNum { color: var(--g999); font-variant-numeric: tabular-nums; text-align: center; }
+    .queueRow .qName { color: var(--g000); overflow: hidden; text-overflow: ellipsis; white-space: nowrap; min-width: 0; }
+    .queueRow .qValue { font-variant-numeric: tabular-nums; color: var(--accent); font-weight: 700; text-align: right; }
+    .qActions { display: flex; gap: 3px; align-items: center; grid-column: 1 / -1; justify-content: flex-end; margin-top: 2px; }
+    .qBtn {
+        font-size: 0.7em;
+        padding: 2px 7px;
+        border-radius: 4px;
+        border: 1px solid var(--ccc);
+        background: transparent;
+        color: var(--g555);
+        cursor: pointer;
+    }
+    .qBtn:hover:not(:disabled) { border-color: var(--accent); color: var(--accent); }
+    .qBtn:disabled { opacity: 0.35; cursor: not-allowed; }
+    .qBtn.draft { background: var(--accent); color: #062420; border-color: var(--accent); font-weight: 700; }
+    .qBtn.draft:disabled { background: var(--ddd); color: var(--g555); border-color: var(--ddd); }
+
     /* Modal */
     .overlay {
         position: fixed; inset: 0; background: rgba(0,0,0,0.6);
@@ -622,6 +1025,62 @@
 
     .infoLine { font-size: 0.78em; color: var(--g999); margin: 4px 0 8px; }
     .swapHint { font-size: 0.78em; color: #ffcc7a; }
+
+    /* Drafted rosters panel */
+    .board.rosters { margin-top: 18px; }
+    .rostersGrid {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+        gap: 12px;
+    }
+    .rosterCard {
+        background: var(--f3f3f3);
+        border: 1px solid var(--ebebeb);
+        border-radius: 10px;
+        padding: 10px 12px;
+        display: flex;
+        flex-direction: column;
+        gap: 6px;
+    }
+    .rosterCard.mine { border-color: var(--accent); box-shadow: inset 0 0 0 1px rgba(29, 233, 215, 0.4); }
+    .rosterCard.onClock { border-color: var(--accent); box-shadow: 0 0 0 2px var(--accentBorder); }
+    .rosterHead { display: flex; align-items: baseline; justify-content: space-between; gap: 8px; }
+    .rosterTeam { font-weight: 700; color: var(--g000); overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+    .rosterTotal { font-variant-numeric: tabular-nums; font-weight: 700; color: var(--accent); font-size: 0.95em; }
+    .rosterMeta { font-size: 0.7em; color: var(--g555); font-variant-numeric: tabular-nums; }
+    .lineup { display: flex; flex-direction: column; margin-top: 4px; }
+    .lineupRow {
+        display: grid;
+        grid-template-columns: 40px 36px 1fr auto auto;
+        gap: 6px;
+        align-items: center;
+        font-size: 0.8em;
+        padding: 3px 0;
+        border-top: 1px solid var(--ebebeb);
+    }
+    .lineupRow.empty { opacity: 0.65; }
+    .slotLabel {
+        font-size: 0.62em;
+        font-weight: 700;
+        letter-spacing: 0.05em;
+        text-transform: uppercase;
+        text-align: center;
+        padding: 2px 0;
+        border-radius: 3px;
+        background: var(--headerPrimary);
+        color: var(--g555);
+    }
+    .slotLabel.QB { color: var(--QB); }
+    .slotLabel.RB { color: var(--RB); }
+    .slotLabel.WR { color: var(--WR); }
+    .slotLabel.TE { color: var(--TE); }
+    .slotLabel.FLEX { color: var(--accent); }
+    .slotLabel.BN { color: var(--g999); }
+    .slotEmptyText { grid-column: 2 / -1; color: var(--g999); font-style: italic; font-size: 0.92em; }
+    .rItemName { color: var(--g000); overflow: hidden; text-overflow: ellipsis; white-space: nowrap; min-width: 0; }
+    .rItemTeam { color: var(--g555); font-size: 0.85em; }
+    .rItemVal { font-variant-numeric: tabular-nums; color: var(--accent); font-weight: 600; text-align: right; }
+    .benchHead { margin-top: 8px; font-size: 0.62em; letter-spacing: 0.1em; text-transform: uppercase; color: var(--g999); font-weight: 700; }
 </style>
 
 <div class="wrap">
@@ -667,6 +1126,13 @@
                     {/if}
                 </span>
             </div>
+            <div class="statusBlock">
+                <span class="statusLabel">Value drafted</span>
+                <span class="statusValue">
+                    {Math.round(poolTotals.drafted).toLocaleString()} / {Math.round(poolTotals.total).toLocaleString()}
+                    <span class="statusMuted">· {Math.round(poolTotals.remaining).toLocaleString()} left</span>
+                </span>
+            </div>
 
             <div class="spacer"></div>
 
@@ -677,12 +1143,16 @@
                 bind:value={displayName}
                 onchange={() => localStorage.setItem('draft_tool_display_name', (displayName || '').trim())}
             />
+            <button class="btn {notifyEnabled ? '' : 'ghost'}" onclick={toggleNotify} title="Sound + browser alert when it's your turn">
+                {notifyEnabled ? '🔔 Alerts on' : '🔕 Alerts off'}
+            </button>
             {#if state.started}
                 <button class="btn warn" onclick={pauseDraft}>⏸ Pause</button>
             {:else if state.currentPick <= state.picks.length}
                 <button class="btn" onclick={startDraft} disabled={state.assets.length === 0}>▶ Start</button>
             {/if}
             <button class="btn" onclick={undo} disabled={state.currentPick <= 1}>↶ Undo</button>
+            <button class="btn" onclick={exportResults} disabled={state.currentPick <= 1}>⬇ Export</button>
             <button class="btn" onclick={openConfig}>⚙ Configure</button>
             <button class="btn warn" onclick={clearDraft}>Clear</button>
             <button class="btn danger" onclick={resetDraft}>Reset</button>
@@ -700,6 +1170,8 @@
                     <div class="boardGrid" style="grid-template-columns: 50px repeat({state.teamCount}, minmax(110px, 1fr));">
                         <div></div>
                         {#each state.teams as team, ti (ti)}
+                            {@const st = teamStats[ti] ?? { value: 0, count: 0, pos: { QB: 0, RB: 0, WR: 0, TE: 0, PICK: 0 } }}
+                            {@const delta = st.value - avgTeamValue}
                             <div class="teamHeader {team.claimedBy === clientId ? 'claimedSelf' : ''}">
                                 <div class="teamName" title={team.name}>{team.name}</div>
                                 <div class="teamMeta">
@@ -710,6 +1182,20 @@
                                     {:else}
                                         <em>Open</em>
                                     {/if}
+                                </div>
+                                <div class="teamValueRow">
+                                    <span class="teamValue">{Math.round(st.value).toLocaleString()}</span>
+                                    {#if st.count > 0}
+                                        <span class="teamDelta {delta >= 0 ? 'up' : 'down'}" title="vs. average team value">
+                                            {delta >= 0 ? '+' : '−'}{Math.round(Math.abs(delta)).toLocaleString()}
+                                        </span>
+                                    {/if}
+                                </div>
+                                <div class="teamBar" title="Drafted value vs. league leader">
+                                    <div class="teamBarFill" style="width: {maxTeamValue > 0 ? (st.value / maxTeamValue) * 100 : 0}%"></div>
+                                </div>
+                                <div class="teamPos">
+                                    QB{st.pos.QB} · RB{st.pos.RB} · WR{st.pos.WR} · TE{st.pos.TE}{st.pos.PICK ? ` · PK${st.pos.PICK}` : ''}
                                 </div>
                                 <div class="teamActions">
                                     {#if team.claimedBy === clientId}
@@ -792,6 +1278,9 @@
                     {:else}
                         <div class="assetList">
                             {#each filteredAssets as a (a.id)}
+                                {#if tierBreakIds.has(a.id)}
+                                    <div class="tierBreak"><span>value drop-off</span></div>
+                                {/if}
                                 <div class="assetRow">
                                     <span class="posPill {posClass(a)}">{a.asset_type === 'pick' ? 'PICK' : a.position}</span>
                                     <div class="nameCol">
@@ -806,9 +1295,42 @@
                                             {/if}
                                         </span>
                                     </div>
-                                    <div style="display:flex; flex-direction:column; align-items:flex-end; gap:3px;">
-                                        <span class="value">{a.fc_value.toLocaleString()}</span>
-                                        <button onclick={() => pickAsset(a.id)} disabled={!isMyTurn || !state.started}>Draft</button>
+                                    <div class="rowActions">
+                                        <button
+                                            class="starBtn {isQueued(a.id) ? 'on' : ''}"
+                                            onclick={() => toggleQueue(a.id)}
+                                            title={isQueued(a.id) ? 'Remove from queue' : 'Add to queue'}
+                                            aria-label={isQueued(a.id) ? 'Remove from queue' : 'Add to queue'}
+                                        >{isQueued(a.id) ? '★' : '☆'}</button>
+                                        <div class="valueStack">
+                                            <span class="value">{a.fc_value.toLocaleString()}</span>
+                                            <button onclick={() => pickAsset(a.id)} disabled={!isMyTurn || !state.started}>Draft</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            {/each}
+                        </div>
+                    {/if}
+                </div>
+
+                <div class="panel">
+                    <h6 class="panelTitle">My Queue — {queuedAssets.length}</h6>
+                    {#if queuedAssets.length === 0}
+                        <div class="infoLine">Star players in the list to queue them. On your turn the top of the queue is one click away — and is what auto-pick uses if your clock runs out.</div>
+                    {:else}
+                        <div class="queueList">
+                            {#each queuedAssets as a, qi (a.id)}
+                                <div class="queueRow">
+                                    <span class="qNum">{qi + 1}</span>
+                                    <span class="posPill {posClass(a)}">{a.asset_type === 'pick' ? 'PICK' : a.position}</span>
+                                    <span class="qName" title={a.asset_type === 'pick' ? formatPickLabel(a) : a.player_name}>
+                                        {a.asset_type === 'pick' ? formatPickLabel(a) : a.player_name}
+                                    </span>
+                                    <span class="qValue">{a.fc_value.toLocaleString()}</span>
+                                    <div class="qActions">
+                                        <button class="qBtn" onclick={() => moveQueueUp(a.id)} disabled={qi === 0} title="Move up" aria-label="Move up">▲</button>
+                                        <button class="qBtn draft" onclick={() => pickAsset(a.id)} disabled={!isMyTurn || !state.started} title="Draft now">Draft</button>
+                                        <button class="qBtn" onclick={() => removeFromQueue(a.id)} title="Remove" aria-label="Remove">✕</button>
                                     </div>
                                 </div>
                             {/each}
@@ -832,6 +1354,57 @@
                         </div>
                     {/if}
                 </div>
+            </div>
+        </div>
+
+        <!-- Per-manager drafted rosters -->
+        <div class="board rosters">
+            <h6 class="panelTitle">Drafted Rosters</h6>
+            <div class="rostersGrid">
+                {#each state.teams as team, ti (ti)}
+                    {@const lu = lineupsByTeam[ti] ?? { slots: [], bench: [] }}
+                    {@const st = teamStats[ti] ?? { value: 0, count: 0, pos: { QB: 0, RB: 0, WR: 0, TE: 0, PICK: 0 } }}
+                    <div class="rosterCard {team.claimedBy === clientId ? 'mine' : ''} {currentSlot && state.teams[currentSlot.teamIndex] === team ? 'onClock' : ''}">
+                        <div class="rosterHead">
+                            <span class="rosterTeam" title={team.name}>{team.name}</span>
+                            <span class="rosterTotal">{Math.round(st.value).toLocaleString()}</span>
+                        </div>
+                        <div class="rosterMeta">
+                            {st.count} pick{st.count === 1 ? '' : 's'} · QB{st.pos.QB} · RB{st.pos.RB} · WR{st.pos.WR} · TE{st.pos.TE}{st.pos.PICK ? ` · PK${st.pos.PICK}` : ''}
+                        </div>
+                        <div class="lineup">
+                            {#each lu.slots as s, si (si)}
+                                <div class="lineupRow {s.asset ? 'filled' : 'empty'}">
+                                    <span class="slotLabel {s.label}">{s.label}</span>
+                                    {#if s.asset}
+                                        <span class="posPill {posClass(s.asset)}">{s.asset.position}</span>
+                                        <span class="rItemName" title={s.asset.player_name}>{s.asset.player_name}</span>
+                                        <span class="rItemTeam">{s.asset.nfl_team || ''}</span>
+                                        <span class="rItemVal">{s.asset.fc_value.toLocaleString()}</span>
+                                    {:else}
+                                        <span class="slotEmptyText">Empty</span>
+                                    {/if}
+                                </div>
+                            {/each}
+                        </div>
+                        {#if lu.bench.length > 0}
+                            <div class="benchHead">Bench</div>
+                            <div class="lineup bench">
+                                {#each lu.bench as a (a.id)}
+                                    <div class="lineupRow filled">
+                                        <span class="slotLabel BN">BN</span>
+                                        <span class="posPill {posClass(a)}">{a.asset_type === 'pick' ? 'PICK' : a.position}</span>
+                                        <span class="rItemName" title={a.asset_type === 'pick' ? formatPickLabel(a) : a.player_name}>
+                                            {a.asset_type === 'pick' ? formatPickLabel(a) : a.player_name}
+                                        </span>
+                                        <span class="rItemTeam">{a.asset_type === 'pick' ? '' : (a.nfl_team || '')}</span>
+                                        <span class="rItemVal">{a.fc_value.toLocaleString()}</span>
+                                    </div>
+                                {/each}
+                            </div>
+                        {/if}
+                    </div>
+                {/each}
             </div>
         </div>
     {/if}
