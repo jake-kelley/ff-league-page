@@ -40,7 +40,9 @@
         // first look through annual awards (champion, second, etc)
         for(const podium of awards) {
             for(const award in podium) {
-                if(award == 'year') continue;
+                // `year` and `leagueID` are metadata on the podium, not award rosterIDs —
+                // skip them so they aren't mistaken for a roster and looked up in the team map.
+                if(award == 'year' || award == 'leagueID') continue;
                 if(award == 'divisions') {
                     for(const division of podium[award]) {
                         if(checkIfDeserves(division.rosterID, cRosterID, podium.year)) {

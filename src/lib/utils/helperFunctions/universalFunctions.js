@@ -305,5 +305,10 @@ export const getRosterIDFromManagerIDAndYear = (teamManagers, managerID, year) =
 
 export const checkIfManagerReceivedAward = (teamManagers, awardRosterID, year, managerID) => {
     if(!managerID) return false;
-    return teamManagers.teamManagersMap[year][awardRosterID].managers.indexOf(managerID) > -1;
+    // Guard against awards/records referencing a (year, rosterID) that isn't in the team map
+    // (e.g. league size changes, stray metadata keys). A missing entry just means "no award"
+    // rather than a crash that takes down the whole manager page.
+    const roster = teamManagers.teamManagersMap[year]?.[awardRosterID];
+    if(!roster) return false;
+    return roster.managers.indexOf(managerID) > -1;
 }
