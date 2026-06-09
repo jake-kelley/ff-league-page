@@ -5,6 +5,7 @@ const KEY = 'draft:current';
 const DEFAULT_TEAM_COUNT = 10;
 const DEFAULT_ROUNDS = 4;
 const DEFAULT_SECONDS_PER_PICK = 60;
+const DEFAULT_REVERSAL_ROUND = 0; // 0 = plain snake; 3 = third-round reversal
 
 const defaultTeams = (n) => Array.from({ length: n }, (_, i) => ({
     name: `Team ${i + 1}`,
@@ -12,14 +13,31 @@ const defaultTeams = (n) => Array.from({ length: n }, (_, i) => ({
     claimedAt: null,
 }));
 
-// Snake order: round r, if r odd → 1..N; if r even → N..1.
-const buildSnakePicks = (teamCount, rounds) => {
+// Normalize a requested reversal round: 0 disables it; values below 2 are meaningless
+// (there is no earlier round to flip against), so they collapse to 0.
+const normalizeReversalRound = (value) => {
+    const n = Math.floor(Number(value) || 0);
+    return n >= 2 ? n : 0;
+};
+
+// Whether round `r` runs in reversed (N..1) order.
+// Plain snake reverses even rounds. A reversal round R flips the parity from R onward,
+// so round R repeats round R-1's order instead of swinging back — this is the extra
+// reversal that "third-round reversal" (R = 3) inserts to even out the talent spread.
+const isRoundReversed = (r, reversalRound) => {
+    const evenReversed = r % 2 === 0;
+    if (!reversalRound || r < reversalRound) return evenReversed;
+    return !evenReversed;
+};
+
+// Snake order: round r, if r odd → 1..N; if r even → N..1 (subject to reversalRound).
+const buildSnakePicks = (teamCount, rounds, reversalRound = 0) => {
     const picks = [];
     let overall = 1;
     for (let r = 1; r <= rounds; r++) {
         const order = [];
         for (let t = 0; t < teamCount; t++) order.push(t);
-        if (r % 2 === 0) order.reverse();
+        if (isRoundReversed(r, reversalRound)) order.reverse();
         for (let p = 0; p < teamCount; p++) {
             picks.push({
                 overall,
@@ -41,9 +59,10 @@ export const defaultState = () => ({
     teamCount: DEFAULT_TEAM_COUNT,
     rounds: DEFAULT_ROUNDS,
     secondsPerPick: DEFAULT_SECONDS_PER_PICK,
+    reversalRound: DEFAULT_REVERSAL_ROUND,
     teams: defaultTeams(DEFAULT_TEAM_COUNT),
     assets: [],
-    picks: buildSnakePicks(DEFAULT_TEAM_COUNT, DEFAULT_ROUNDS),
+    picks: buildSnakePicks(DEFAULT_TEAM_COUNT, DEFAULT_ROUNDS, DEFAULT_REVERSAL_ROUND),
     currentPick: 1,
     started: false,
     pickStartedAt: null,
@@ -78,24 +97,28 @@ export const resetState = async () => {
 // Wipe selections but keep team/round/asset config.
 export const clearDraft = async () => {
     const state = await getState();
-    state.picks = buildSnakePicks(state.teamCount, state.rounds);
+    state.picks = buildSnakePicks(state.teamCount, state.rounds, state.reversalRound ?? 0);
     state.currentPick = 1;
     state.started = false;
     state.pickStartedAt = null;
     return await saveState(state);
 };
 
-export const configure = async ({ teamCount, rounds, secondsPerPick, teamNames, assets }) => {
+export const configure = async ({ teamCount, rounds, secondsPerPick, reversalRound, teamNames, assets }) => {
     const state = await getState();
     const tc = Math.max(2, Math.min(32, Number(teamCount) || state.teamCount));
     const rd = Math.max(1, Math.min(40, Number(rounds) || state.rounds));
     const sp = Math.max(5, Math.min(3600, Number(secondsPerPick) || state.secondsPerPick));
+    const rr = normalizeReversalRound(
+        reversalRound === undefined ? state.reversalRound : reversalRound
+    );
 
-    const sameStructure = tc === state.teamCount && rd === state.rounds;
+    const sameStructure = tc === state.teamCount && rd === state.rounds && rr === (state.reversalRound ?? 0);
 
     state.teamCount = tc;
     state.rounds = rd;
     state.secondsPerPick = sp;
+    state.reversalRound = rr;
 
     if (Array.isArray(teamNames) && teamNames.length === tc) {
         const oldTeams = state.teams || [];
@@ -123,7 +146,7 @@ export const configure = async ({ teamCount, rounds, secondsPerPick, teamNames, 
     }
 
     if (!sameStructure || !Array.isArray(state.picks) || state.picks.length !== tc * rd) {
-        state.picks = buildSnakePicks(tc, rd);
+        state.picks = buildSnakePicks(tc, rd, rr);
         state.currentPick = 1;
         state.started = false;
         state.pickStartedAt = null;

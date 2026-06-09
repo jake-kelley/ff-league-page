@@ -54,6 +54,7 @@
     let cfgTeamCount = $state(10);
     let cfgRounds = $state(4);
     let cfgSeconds = $state(60);
+    let cfgThirdRoundReversal = $state(false);
     let cfgTeamNames = $state([]);
     let csvFileName = $state('');
     let csvAssetsPreview = $state(null);
@@ -546,6 +547,7 @@
         cfgTeamCount = state.teamCount;
         cfgRounds = state.rounds;
         cfgSeconds = state.secondsPerPick;
+        cfgThirdRoundReversal = (state.reversalRound ?? 0) === 3;
         cfgTeamNames = state.teams.map((t) => t.name);
         csvFileName = '';
         csvAssetsPreview = null;
@@ -598,6 +600,7 @@
             teamCount: cfgTeamCount,
             rounds: cfgRounds,
             secondsPerPick: cfgSeconds,
+            reversalRound: cfgThirdRoundReversal ? 3 : 0,
             teamNames: cfgTeamNames,
             assets: csvAssetsPreview ?? undefined,
         });
@@ -1017,6 +1020,11 @@
     .formRow { display: flex; gap: 12px; flex-wrap: wrap; margin-bottom: 12px; }
     .formRow label { display: flex; flex-direction: column; gap: 4px; font-size: 0.8em; color: var(--g555); }
     .formRow input { padding: 6px 10px; border-radius: 6px; border: 1px solid var(--ccc); background: var(--f3f3f3); color: var(--g111); font-size: 0.9em; }
+    .checkRow { display: flex; align-items: flex-start; gap: 10px; margin: 0 0 14px; font-size: 0.85em; color: var(--g111); cursor: pointer; }
+    .checkRow input { margin-top: 2px; flex-shrink: 0; }
+    .checkRow strong { color: var(--g000); }
+    .checkRow input:disabled + span { opacity: 0.5; }
+    .checkHint { display: block; font-size: 0.85em; color: var(--g999); margin-top: 2px; }
     .teamNamesGrid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 8px; margin: 8px 0 14px; }
     .teamNamesGrid label { display: flex; flex-direction: column; gap: 2px; font-size: 0.75em; color: var(--g999); }
     .csvHelper { font-size: 0.75em; color: var(--g999); margin-bottom: 8px; }
@@ -1113,6 +1121,10 @@
                     {currentSlot ? state.teams[currentSlot.teamIndex].name : 'Draft complete'}
                     {#if isMyTurn}— Your pick{/if}
                 </span>
+            </div>
+            <div class="statusBlock">
+                <span class="statusLabel">Format</span>
+                <span class="statusValue">Snake{(state.reversalRound ?? 0) === 3 ? ' · 3RR' : ((state.reversalRound ?? 0) >= 2 ? ` · R${state.reversalRound} reversal` : '')}</span>
             </div>
             <div class="statusBlock">
                 <span class="statusLabel">Timer</span>
@@ -1428,6 +1440,14 @@
                     <input type="number" min="5" max="3600" bind:value={cfgSeconds} />
                 </label>
             </div>
+
+            <label class="checkRow">
+                <input type="checkbox" bind:checked={cfgThirdRoundReversal} disabled={cfgRounds < 3} />
+                <span>
+                    <strong>3rd Round Reversal (3RR)</strong>
+                    <span class="checkHint">Round 3 repeats round 2's order instead of swinging back, evening out the talent spread. Rounds 1–2 stay a normal snake.</span>
+                </span>
+            </label>
 
             <div class="csvHelper">
                 Upload a CSV with columns:
