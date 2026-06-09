@@ -9,33 +9,13 @@
 
 	let active = $state(tabs.find(tab => tab.dest == page.url.pathname || (tab.nest && tab.children.find(subTab => subTab.dest == page.url.pathname))));
 
-	let display = $state(false);
-	let el = $state();
-	let width = $state();
-	let height= $state();
-	let left = $state();
-	let top = $state();
-
-	$effect(() => {
-		top = el?.getBoundingClientRect() ? el?.getBoundingClientRect().top  : 0;
-		const bottom = el?.getBoundingClientRect() ? el?.getBoundingClientRect().bottom  : 0;
-
-		height = bottom - top + 1;
-
-		left = el?.getBoundingClientRect() ? el?.getBoundingClientRect().left  : 0;
-		const right = el?.getBoundingClientRect() ? el?.getBoundingClientRect().right  : 0;
-
-		width = right - left;
-	});
-
+	// Which nested tab's submenu is open (null = none)
+	let openKey = $state(null);
+	let anchors = $state({});      // key -> element ref for each nested tab tile
 	let innerWidth = $state();
 
-	const open = () => {
-		display = !display;
-	}
-
 	const subGoto = (dest) => {
-		open(false);
+		openKey = null;
 		if (typeof dest === 'string' && /^https?:\/\//.test(dest)) {
 			window.open(dest, '_blank', 'noopener,noreferrer');
 			return;
@@ -43,14 +23,25 @@
 		goto(dest);
 	}
 
-	let tabChildren = $state([]);
-
-	for(const tab of tabs) {
-		if(tab.nest) {
-			tabChildren = tab.children;
-		}
+	const toggle = (key) => {
+		openKey = openKey === key ? null : key;
 	}
 
+	const openTab = $derived(tabs.find(t => t.nest && t.key === openKey));
+
+	const submenuStyle = $derived.by(() => {
+		if (!openKey) return 'max-height: 0px; box-shadow: none; border: 0; border-top: none;';
+		const el = anchors[openKey];
+		if (!el || typeof el.getBoundingClientRect !== 'function') return 'max-height: 0px;';
+		const rect = el.getBoundingClientRect();
+		const height = rect.bottom - rect.top + 1;
+		const width = rect.right - rect.left;
+		const children = openTab?.children ?? [];
+		// Hide the Managers item when there are no managers, like the original logic.
+		const visibleCount = children.filter(c => c.label !== 'Managers' || managers.length).length;
+		const maxH = 49 * visibleCount - 1;
+		return `max-height: ${maxH}px; width: ${width}px; top: ${height}px; left: ${rect.left}px; box-shadow: 0 0 3px 0 #1de9d7; border: 1px solid #1de9d7; border-top: none;`;
+	});
 </script>
 
 <svelte:window bind:innerWidth={innerWidth} />
@@ -78,7 +69,7 @@
 		position: absolute;
 		z-index: 5;
 		background-color: var(--fff);
-		transition: all 0.4s;
+		transition: max-height 0.4s;
 	}
 
 	.overlay {
@@ -105,17 +96,17 @@
 	}
 </style>
 
-<div tabindex="0" role="button" class="overlay" style="display: {display ? "block" : "none"};" onclick={() => open(true)}></div>
+<div tabindex="0" role="button" class="overlay" style="display: {openKey ? 'block' : 'none'};" onclick={() => openKey = null}></div>
 
 <div class="parent">
 	<TabBar class="navBar" {tabs} key={(tab) => tab.key} bind:active>
 		{#snippet tab(tab)}
 			{#if tab.nest}
-				<div bind:this={el}>
+				<div bind:this={anchors[tab.key]}>
 					<Tab
 						{tab}
 						minWidth
-						onclick={() => open()}
+						onclick={() => toggle(tab.key)}
 					>
 						<Icon class="material-icons">{tab.icon}</Icon>
 						<Label>{tab.label}</Label>
@@ -136,27 +127,29 @@
 			{/if}
 		{/snippet}
 	</TabBar>
-	<div class="subMenu" style="max-height: {display ? 49 * tabChildren.length - 1 - (managers.length ? 0 : 48) : 0}px; width: {width}px; top: {height}px; left: {left}px; box-shadow: 0 0 {display ? "3px" : "0"} 0 #1de9d7; border: {display ? "1px" : "0"} solid #1de9d7; border-top: none;">
-		<List>
-			{#each tabChildren as subTab, ix}
-				{#if subTab.label == 'Managers'}
-					<Item class="{managers.length ? '' : 'dontDisplay'}" onSMUIAction={() => subGoto(subTab.dest)} ontouchstart={() => preloadData(subTab.dest)} onmouseover={() => preloadData(subTab.dest)}>
-						<Graphic class="material-icons">{subTab.icon}</Graphic>
-						<Text class="subText">{subTab.label}</Text>
-					</Item>
-					{#if ix != tabChildren.length - 1}
-						<Separator />
+	<div class="subMenu" style={submenuStyle}>
+		{#if openTab}
+			<List>
+				{#each openTab.children as subTab, ix}
+					{#if subTab.label == 'Managers'}
+						<Item class="{managers.length ? '' : 'dontDisplay'}" onSMUIAction={() => subGoto(subTab.dest)} ontouchstart={() => preloadData(subTab.dest)} onmouseover={() => preloadData(subTab.dest)}>
+							<Graphic class="material-icons">{subTab.icon}</Graphic>
+							<Text class="subText">{subTab.label}</Text>
+						</Item>
+						{#if ix != openTab.children.length - 1}
+							<Separator />
+						{/if}
+					{:else}
+						<Item onSMUIAction={() => subGoto(subTab.dest)} ontouchstart={() => {if(subTab.label != 'Go to Sleeper') preloadData(subTab.dest)}} onmouseover={() => {if(subTab.label != 'Go to Sleeper') preloadData(subTab.dest)}}>
+							<Graphic class="material-icons">{subTab.icon}</Graphic>
+							<Text class="subText">{subTab.label}</Text>
+						</Item>
+						{#if ix != openTab.children.length - 1}
+							<Separator />
+						{/if}
 					{/if}
-				{:else}
-					<Item onSMUIAction={() => subGoto(subTab.dest)} ontouchstart={() => {if(subTab.label != 'Go to Sleeper') preloadData(subTab.dest)}} onmouseover={() => {if(subTab.label != 'Go to Sleeper') preloadData(subTab.dest)}}>
-						<Graphic class="material-icons">{subTab.icon}</Graphic>
-						<Text class="subText">{subTab.label}</Text>
-					</Item>
-					{#if ix != tabChildren.length - 1}
-						<Separator />
-					{/if}
-				{/if}
-			{/each}
-		</List>
+				{/each}
+			</List>
+		{/if}
 	</div>
 </div>

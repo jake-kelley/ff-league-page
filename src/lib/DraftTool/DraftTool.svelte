@@ -1,0 +1,1490 @@
+<script>
+    import { onMount, onDestroy } from 'svelte';
+    import { csvToAssets, formatPickLabel, applyFantasyCalcValues } from './csv.js';
+
+    let state = $state(null);
+    let loadError = $state('');
+    let actionError = $state('');
+    let pollTimer;
+    let tickTimer;
+    let now = $state(Date.now());
+
+    let clientId = $state('');
+    let displayName = $state('');
+
+    // UI filters
+    let searchTerm = $state('');
+    const POSITION_FILTERS = ['QB', 'RB', 'WR', 'TE', 'PICK'];
+    let activePositions = $state(new Set(POSITION_FILTERS));
+
+    // Starting lineup template for the roster panel (league: 1 QB, 2 RB, 2 WR, 1 TE, 5 FLEX).
+    // Slots fill in draft order of preference; FLEX accepts RB/WR/TE.
+    const STARTING_SLOTS = [
+        { label: 'QB', accepts: ['QB'] },
+        { label: 'RB', accepts: ['RB'] },
+        { label: 'RB', accepts: ['RB'] },
+        { label: 'WR', accepts: ['WR'] },
+        { label: 'WR', accepts: ['WR'] },
+        { label: 'TE', accepts: ['TE'] },
+        { label: 'FLEX', accepts: ['RB', 'WR', 'TE'] },
+        { label: 'FLEX', accepts: ['RB', 'WR', 'TE'] },
+        { label: 'FLEX', accepts: ['RB', 'WR', 'TE'] },
+        { label: 'FLEX', accepts: ['RB', 'WR', 'TE'] },
+        { label: 'FLEX', accepts: ['RB', 'WR', 'TE'] },
+    ];
+
+    // Personal pick queue (per-client, localStorage-backed list of asset ids)
+    let queue = $state([]);
+
+    // Turn notifications
+    let notifyEnabled = $state(false);
+
+    // Swap mode
+    let swapFrom = $state(null);
+
+    // Auto-pick guards (non-reactive: drive timers without re-triggering effects)
+    let autoPickArmedFor = null;
+    let autoPickTimer = null;
+    let prevMyTurn = false;
+    let baseTitle = '';
+    let audioCtx = null;
+
+    // Config form
+    let showConfig = $state(false);
+    let cfgTeamCount = $state(10);
+    let cfgRounds = $state(4);
+    let cfgSeconds = $state(60);
+    let cfgThirdRoundReversal = $state(false);
+    let cfgTeamNames = $state([]);
+    let csvFileName = $state('');
+    let csvAssetsPreview = $state(null);
+    let csvError = $state('');
+
+    onMount(() => {
+        let stored = localStorage.getItem('draft_tool_client_id');
+        if (!stored) {
+            stored = crypto.randomUUID();
+            localStorage.setItem('draft_tool_client_id', stored);
+        }
+        clientId = stored;
+        displayName = localStorage.getItem('draft_tool_display_name') || '';
+        baseTitle = document.title;
+        try {
+            queue = JSON.parse(localStorage.getItem('draft_tool_queue') || '[]');
+            if (!Array.isArray(queue)) queue = [];
+        } catch {
+            queue = [];
+        }
+        notifyEnabled =
+            localStorage.getItem('draft_tool_notify') === 'on' &&
+            typeof Notification !== 'undefined' &&
+            Notification.permission === 'granted';
+        fetchState();
+        pollTimer = setInterval(fetchState, 1500);
+        tickTimer = setInterval(() => (now = Date.now()), 250);
+    });
+
+    onDestroy(() => {
+        if (pollTimer) clearInterval(pollTimer);
+        if (tickTimer) clearInterval(tickTimer);
+        if (autoPickTimer) clearTimeout(autoPickTimer);
+        if (typeof document !== 'undefined' && baseTitle) document.title = baseTitle;
+    });
+
+    const fetchState = async () => {
+        try {
+            const res = await fetch('/api/draft-tool', { headers: { 'cache-control': 'no-store' } });
+            if (!res.ok) throw new Error(`Server ${res.status}`);
+            const next = await res.json();
+            state = next;
+            loadError = '';
+        } catch (e) {
+            loadError = e.message || 'failed to load';
+        }
+    };
+
+    const doAction = async (action, payload = {}, opts = {}) => {
+        if (!opts.silent) actionError = '';
+        try {
+            const res = await fetch('/api/draft-tool/action', {
+                method: 'POST',
+                headers: { 'content-type': 'application/json' },
+                body: JSON.stringify({ action, clientId, ...payload }),
+            });
+            if (!res.ok) {
+                const text = await res.text();
+                throw new Error(text || `Server ${res.status}`);
+            }
+            const next = await res.json();
+            state = next;
+        } catch (e) {
+            if (!opts.silent) actionError = e.message || 'action failed';
+        }
+    };
+
+    // ---------- Derived ----------
+    const myTeamIndex = $derived.by(() => {
+        if (!state) return -1;
+        return state.teams.findIndex((t) => t.claimedBy === clientId);
+    });
+
+    const currentSlot = $derived.by(() => {
+        if (!state) return null;
+        if (state.currentPick > state.picks.length) return null;
+        return state.picks[state.currentPick - 1];
+    });
+
+    const isMyTurn = $derived.by(() => {
+        if (!state || !currentSlot) return false;
+        const team = state.teams[currentSlot.teamIndex];
+        return team?.claimedBy === clientId;
+    });
+
+    const remainingSeconds = $derived.by(() => {
+        if (!state?.started || !state.pickStartedAt) return null;
+        const elapsed = (now - state.pickStartedAt) / 1000;
+        return Math.max(0, Math.ceil(state.secondsPerPick - elapsed));
+    });
+
+    const draftedAssetIds = $derived.by(() => {
+        if (!state) return new Set();
+        return new Set(state.picks.map((p) => p.selectedAssetId).filter(Boolean));
+    });
+
+    const filteredAssets = $derived.by(() => {
+        if (!state) return [];
+        const q = searchTerm.trim().toLowerCase();
+        return state.assets
+            .filter((a) => !draftedAssetIds.has(a.id))
+            .filter((a) => {
+                if (a.asset_type === 'pick') return activePositions.has('PICK');
+                return activePositions.has(a.position);
+            })
+            .filter((a) => {
+                if (!q) return true;
+                const label = a.asset_type === 'pick' ? formatPickLabel(a) : a.player_name;
+                return label.toLowerCase().includes(q) || (a.nfl_team || '').toLowerCase().includes(q);
+            })
+            .slice()
+            .sort((a, b) => b.fc_value - a.fc_value);
+    });
+
+    // Board: row = round, column = team. Each cell is the list of picks that team owns in that round.
+    // Snake order means R2 reads right-to-left numerically (Team N's R2 cell holds pick 2.01).
+    // The list-per-cell layout handles cross-round swaps where one team can own 0 or 2+ picks in a round.
+    const boardCells = $derived.by(() => {
+        if (!state) return [];
+        const cells = Array.from({ length: state.rounds }, () =>
+            Array.from({ length: state.teamCount }, () => [])
+        );
+        for (const p of state.picks) {
+            cells[p.round - 1][p.teamIndex].push(p);
+        }
+        return cells;
+    });
+
+    const assetById = $derived.by(() => {
+        if (!state) return new Map();
+        const m = new Map();
+        for (const a of state.assets) m.set(a.id, a);
+        return m;
+    });
+
+    // Recent picks (newest first)
+    const recentPicks = $derived.by(() => {
+        if (!state) return [];
+        return state.picks
+            .filter((p) => p.selectedAssetId)
+            .slice()
+            .sort((a, b) => (b.selectedAt || 0) - (a.selectedAt || 0))
+            .slice(0, 12);
+    });
+
+    // Per-team drafted value + positional counts (fairness + roster construction view).
+    const teamStats = $derived.by(() => {
+        if (!state) return [];
+        const stats = state.teams.map(() => ({
+            value: 0,
+            count: 0,
+            pos: { QB: 0, RB: 0, WR: 0, TE: 0, PICK: 0 },
+        }));
+        for (const p of state.picks) {
+            if (!p.selectedAssetId) continue;
+            const a = assetById.get(p.selectedAssetId);
+            if (!a) continue;
+            const s = stats[p.teamIndex];
+            if (!s) continue;
+            s.value += Number(a.fc_value) || 0;
+            s.count += 1;
+            const key = a.asset_type === 'pick' ? 'PICK' : a.position;
+            if (key in s.pos) s.pos[key] += 1;
+        }
+        return stats;
+    });
+
+    const maxTeamValue = $derived.by(() =>
+        teamStats.reduce((m, s) => Math.max(m, s.value), 0)
+    );
+
+    // Each team's drafted assets slotted into the starting lineup, with overflow on the bench.
+    // Players are placed best-first (by value) into the first eligible open slot; because the
+    // template lists dedicated spots before FLEX, position slots fill before flex does.
+    const lineupsByTeam = $derived.by(() => {
+        if (!state) return [];
+        const perTeam = state.teams.map(() => []);
+        for (const p of state.picks) {
+            if (!p.selectedAssetId) continue;
+            const a = assetById.get(p.selectedAssetId);
+            if (!a) continue;
+            perTeam[p.teamIndex]?.push(a);
+        }
+        return perTeam.map((assets) => {
+            const players = assets
+                .filter((a) => a.asset_type !== 'pick')
+                .sort((x, y) => (Number(y.fc_value) || 0) - (Number(x.fc_value) || 0));
+            const picks = assets.filter((a) => a.asset_type === 'pick');
+            const used = new Set();
+            const slots = STARTING_SLOTS.map((slot) => {
+                let idx = -1;
+                for (let i = 0; i < players.length; i++) {
+                    if (used.has(i)) continue;
+                    if (slot.accepts.includes(players[i].position)) {
+                        idx = i;
+                        break;
+                    }
+                }
+                if (idx >= 0) {
+                    used.add(idx);
+                    return { label: slot.label, asset: players[idx] };
+                }
+                return { label: slot.label, asset: null };
+            });
+            const bench = [...players.filter((_, i) => !used.has(i)), ...picks];
+            return { slots, bench };
+        });
+    });
+
+    // Average drafted value across teams — the live fairness reference line.
+    const avgTeamValue = $derived.by(() => {
+        if (!state || state.teamCount === 0) return 0;
+        const total = teamStats.reduce((sum, s) => sum + s.value, 0);
+        return total / state.teamCount;
+    });
+
+    // Whole-pool value: total, drafted so far, and remaining on the board.
+    const poolTotals = $derived.by(() => {
+        if (!state) return { total: 0, drafted: 0, remaining: 0 };
+        let total = 0;
+        for (const a of state.assets) total += Number(a.fc_value) || 0;
+        let drafted = 0;
+        for (const id of draftedAssetIds) {
+            const a = assetById.get(id);
+            if (a) drafted += Number(a.fc_value) || 0;
+        }
+        return { total, drafted, remaining: total - drafted };
+    });
+
+    // Queue resolved to live assets, dropping anything already drafted or no longer in the pool.
+    const queuedAssets = $derived.by(() => {
+        if (!state) return [];
+        return queue
+            .map((id) => assetById.get(id))
+            .filter((a) => a && !draftedAssetIds.has(a.id));
+    });
+
+    // Tier-break markers: ids in the value-sorted available list that begin a new tier,
+    // i.e. where the value drop from the previous asset clears a dynamic threshold.
+    const tierBreakIds = $derived.by(() => {
+        const breaks = new Set();
+        for (let i = 1; i < filteredAssets.length; i++) {
+            const prev = filteredAssets[i - 1].fc_value;
+            const cur = filteredAssets[i].fc_value;
+            if (prev <= 0 || cur <= 0) continue;
+            const gap = prev - cur;
+            if (gap >= Math.max(prev * 0.2, 250)) breaks.add(filteredAssets[i].id);
+        }
+        return breaks;
+    });
+
+    // ---------- Actions ----------
+    const togglePosition = (key) => {
+        const next = new Set(activePositions);
+        if (next.has(key)) next.delete(key);
+        else next.add(key);
+        activePositions = next;
+    };
+
+    const claimTeam = async (teamIndex) => {
+        const trimmedName = (displayName || '').trim();
+        if (trimmedName) localStorage.setItem('draft_tool_display_name', trimmedName);
+        await doAction('claim', { teamIndex, displayName: trimmedName || undefined });
+    };
+
+    const releaseTeam = async (teamIndex) => {
+        await doAction('release', { teamIndex });
+    };
+
+    const pickAsset = async (assetId) => {
+        await doAction('pick', { assetId });
+    };
+
+    const undo = async () => {
+        await doAction('undo', {});
+    };
+
+    const startDraft = async () => {
+        await doAction('start', {});
+    };
+
+    const pauseDraft = async () => {
+        await doAction('pause', {});
+    };
+
+    const clearDraft = async () => {
+        if (!confirm('Clear all picks and stop the draft? Teams, rounds, and asset pool stay.')) return;
+        await doAction('clear', {});
+    };
+
+    const resetDraft = async () => {
+        if (!confirm('Reset all settings to defaults? This wipes teams, rounds, and the asset pool.')) return;
+        await doAction('reset', {});
+    };
+
+    const handleSwapClick = (overall) => {
+        if (swapFrom == null) {
+            swapFrom = overall;
+            return;
+        }
+        if (swapFrom === overall) {
+            swapFrom = null;
+            return;
+        }
+        const a = swapFrom;
+        swapFrom = null;
+        doAction('swap', { overallA: a, overallB: overall });
+    };
+
+    // ---------- Pick queue ----------
+    const persistQueue = () => {
+        try {
+            localStorage.setItem('draft_tool_queue', JSON.stringify(queue));
+        } catch {
+            // ignore storage failures (private mode, quota)
+        }
+    };
+
+    const isQueued = (id) => queue.includes(id);
+
+    const toggleQueue = (id) => {
+        queue = isQueued(id) ? queue.filter((q) => q !== id) : [...queue, id];
+        persistQueue();
+    };
+
+    const removeFromQueue = (id) => {
+        queue = queue.filter((q) => q !== id);
+        persistQueue();
+    };
+
+    const moveQueueUp = (id) => {
+        const i = queue.indexOf(id);
+        if (i <= 0) return;
+        const next = [...queue];
+        [next[i - 1], next[i]] = [next[i], next[i - 1]];
+        queue = next;
+        persistQueue();
+    };
+
+    // Prune drafted / stale ids from the queue whenever the board or pool changes.
+    $effect(() => {
+        if (!state || state.assets.length === 0) return;
+        const valid = queue.filter((id) => assetById.has(id) && !draftedAssetIds.has(id));
+        if (valid.length !== queue.length) {
+            queue = valid;
+            persistQueue();
+        }
+    });
+
+    // ---------- Export ----------
+    const csvCell = (v) => {
+        const s = v == null ? '' : String(v);
+        return /[",\n]/.test(s) ? `"${s.replace(/"/g, '""')}"` : s;
+    };
+
+    const exportResults = () => {
+        if (!state) return;
+        const rows = [
+            ['overall', 'round', 'pick_in_round', 'team', 'asset', 'asset_type', 'position', 'nfl_team', 'fc_value'],
+        ];
+        for (const p of state.picks) {
+            if (!p.selectedAssetId) continue;
+            const a = assetById.get(p.selectedAssetId);
+            if (!a) continue;
+            rows.push([
+                p.overall,
+                p.round,
+                p.pickInRound,
+                state.teams[p.teamIndex]?.name ?? '',
+                a.asset_type === 'pick' ? formatPickLabel(a) : a.player_name,
+                a.asset_type,
+                a.asset_type === 'pick' ? 'PICK' : a.position,
+                a.nfl_team || '',
+                a.fc_value,
+            ]);
+        }
+        const csv = rows.map((r) => r.map(csvCell).join(',')).join('\n');
+        const blob = new Blob([csv], { type: 'text/csv' });
+        const url = URL.createObjectURL(blob);
+        const link = document.createElement('a');
+        link.href = url;
+        link.download = `draft-results-${new Date().toISOString().slice(0, 10)}.csv`;
+        document.body.appendChild(link);
+        link.click();
+        link.remove();
+        URL.revokeObjectURL(url);
+    };
+
+    // ---------- Notifications ----------
+    const playBeep = () => {
+        try {
+            audioCtx = audioCtx || new (window.AudioContext || window.webkitAudioContext)();
+            if (audioCtx.state === 'suspended') audioCtx.resume();
+            const osc = audioCtx.createOscillator();
+            const gain = audioCtx.createGain();
+            osc.type = 'sine';
+            osc.frequency.value = 880;
+            gain.gain.setValueAtTime(0.0001, audioCtx.currentTime);
+            gain.gain.exponentialRampToValueAtTime(0.25, audioCtx.currentTime + 0.02);
+            gain.gain.exponentialRampToValueAtTime(0.0001, audioCtx.currentTime + 0.35);
+            osc.connect(gain).connect(audioCtx.destination);
+            osc.start();
+            osc.stop(audioCtx.currentTime + 0.36);
+        } catch {
+            // audio not available; tab title + Notification still cover it
+        }
+    };
+
+    const toggleNotify = async () => {
+        if (notifyEnabled) {
+            notifyEnabled = false;
+            localStorage.setItem('draft_tool_notify', 'off');
+            return;
+        }
+        if (typeof Notification === 'undefined') {
+            notifyEnabled = true; // sound + title only
+            return;
+        }
+        let perm = Notification.permission;
+        if (perm === 'default') perm = await Notification.requestPermission();
+        notifyEnabled = true;
+        localStorage.setItem('draft_tool_notify', 'on');
+        // Unlock audio under the click gesture so the first beep isn't blocked.
+        try {
+            audioCtx = audioCtx || new (window.AudioContext || window.webkitAudioContext)();
+            if (audioCtx.state === 'suspended') audioCtx.resume();
+        } catch {
+            // ignore
+        }
+    };
+
+    // Alert the manager the moment their turn begins, and reflect it in the tab title.
+    $effect(() => {
+        const mine = !!(isMyTurn && state?.started);
+        if (mine && !prevMyTurn) {
+            if (notifyEnabled) playBeep();
+            if (
+                notifyEnabled &&
+                typeof Notification !== 'undefined' &&
+                Notification.permission === 'granted'
+            ) {
+                try {
+                    new Notification('🟢 You are on the clock', {
+                        body: 'Your pick is up in the dispersal draft.',
+                    });
+                } catch {
+                    // some browsers require a ServiceWorker; ignore
+                }
+            }
+        }
+        if (typeof document !== 'undefined' && baseTitle) {
+            document.title = mine ? '🟢 Your pick! — Draft Tool' : baseTitle;
+        }
+        prevMyTurn = mine;
+    });
+
+    // ---------- Auto-pick on clock expiry ----------
+    const fireAutoPick = async (overall, mine) => {
+        // Re-validate against the freshest state right before firing.
+        if (!state?.started || !currentSlot || currentSlot.overall !== overall) return;
+        if (remainingSeconds == null || remainingSeconds > 0) return;
+        let preferredAssetId;
+        if (mine && queuedAssets.length > 0) preferredAssetId = queuedAssets[0].id;
+        await doAction('autopick', { expectedPick: overall, preferredAssetId }, { silent: true });
+    };
+
+    // When the timer hits zero, schedule an auto-pick. The on-clock manager fires fast
+    // (using their queue top); everyone else fires later as a fallback for absent managers.
+    // The server re-checks the deadline + pick number, so duplicate firings are harmless.
+    $effect(() => {
+        const slot = currentSlot;
+        const rs = remainingSeconds;
+        if (!state?.started || !slot || rs == null) return;
+        if (rs > 0) {
+            autoPickArmedFor = null; // fresh clock; allow arming again
+            return;
+        }
+        if (autoPickArmedFor === slot.overall) return;
+        autoPickArmedFor = slot.overall;
+        const overall = slot.overall;
+        const mine = isMyTurn;
+        const delay = mine ? 300 + Math.random() * 500 : 2000 + Math.random() * 2500;
+        clearTimeout(autoPickTimer);
+        autoPickTimer = setTimeout(() => fireAutoPick(overall, mine), delay);
+    });
+
+    // ---------- Config form ----------
+    const openConfig = () => {
+        if (!state) return;
+        cfgTeamCount = state.teamCount;
+        cfgRounds = state.rounds;
+        cfgSeconds = state.secondsPerPick;
+        cfgThirdRoundReversal = (state.reversalRound ?? 0) === 3;
+        cfgTeamNames = state.teams.map((t) => t.name);
+        csvFileName = '';
+        csvAssetsPreview = null;
+        csvError = '';
+        showConfig = true;
+    };
+
+    const closeConfig = () => {
+        showConfig = false;
+    };
+
+    // Keep cfgTeamNames length in sync with cfgTeamCount whenever the count changes.
+    $effect(() => {
+        if (!showConfig) return;
+        const n = Math.max(2, Math.min(32, parseInt(cfgTeamCount) || 0));
+        if (cfgTeamNames.length === n) return;
+        const names = [...cfgTeamNames];
+        while (names.length < n) names.push(`Team ${names.length + 1}`);
+        names.length = n;
+        cfgTeamNames = names;
+    });
+
+    const handleCSV = async (event) => {
+        const file = event.target.files?.[0];
+        if (!file) return;
+        csvFileName = file.name;
+        csvError = '';
+        try {
+            const text = await file.text();
+            let parsed = csvToAssets(text);
+            // Overlay pick fc_value from FantasyCalc (CSV typically leaves these blank).
+            try {
+                const res = await fetch('/api/fetch_player_pick_values');
+                if (res.ok) {
+                    const data = await res.json();
+                    parsed = applyFantasyCalcValues(parsed, data.players || []);
+                }
+            } catch {
+                // FantasyCalc fetch is best-effort; CSV values still apply if it fails.
+            }
+            csvAssetsPreview = parsed;
+        } catch (e) {
+            csvAssetsPreview = null;
+            csvError = e.message || 'failed to parse CSV';
+        }
+    };
+
+    const applyConfig = async () => {
+        await doAction('configure', {
+            teamCount: cfgTeamCount,
+            rounds: cfgRounds,
+            secondsPerPick: cfgSeconds,
+            reversalRound: cfgThirdRoundReversal ? 3 : 0,
+            teamNames: cfgTeamNames,
+            assets: csvAssetsPreview ?? undefined,
+        });
+        showConfig = false;
+    };
+
+    const onClickOverlay = (e) => {
+        if (e.target === e.currentTarget) closeConfig();
+    };
+
+    // ---------- Display helpers ----------
+    const labelFor = (assetId) => {
+        if (!assetId) return '';
+        const a = assetById.get(assetId);
+        if (!a) return '';
+        return a.asset_type === 'pick' ? formatPickLabel(a) : a.player_name;
+    };
+
+    const subLabelFor = (assetId) => {
+        const a = assetById.get(assetId);
+        if (!a) return '';
+        if (a.asset_type === 'pick') return 'Draft Pick';
+        return `${a.position}${a.nfl_team ? ' · ' + a.nfl_team : ''}`;
+    };
+
+    const posClass = (a) => {
+        if (!a) return '';
+        if (a.asset_type === 'pick') return 'PICK';
+        return a.position;
+    };
+
+    const overallLabel = (slot) => `${slot.round}.${String(slot.pickInRound).padStart(2, '0')}`;
+</script>
+
+<style>
+    .wrap {
+        max-width: 1400px;
+        margin: 24px auto 60px;
+        padding: 0 18px;
+        color: var(--g111);
+    }
+    h2 { margin: 0 0 6px; color: var(--accent); }
+    .subtitle { color: var(--g999); font-size: 0.9em; margin: 0 0 18px; }
+
+    .controlBar {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 10px;
+        align-items: center;
+        margin-bottom: 14px;
+    }
+    .controlBar .spacer { flex: 1; }
+
+    .btn {
+        background: var(--accentSoft);
+        color: var(--accent);
+        border: 1px solid var(--accentBorder);
+        border-radius: 999px;
+        padding: 6px 14px;
+        font-size: 0.85em;
+        font-weight: 600;
+        cursor: pointer;
+        transition: all 0.15s;
+    }
+    .btn:hover:not(:disabled) { background: var(--accent); color: #062420; }
+    .btn:disabled { opacity: 0.4; cursor: not-allowed; }
+    .btn.danger { color: #ff7a7a; border-color: rgba(255,122,122,0.35); background: rgba(255,122,122,0.08); }
+    .btn.danger:hover:not(:disabled) { background: #ff7a7a; color: #2a0a0a; }
+    .btn.warn { color: #ffcc7a; border-color: rgba(255,204,122,0.35); background: rgba(255,204,122,0.08); }
+    .btn.warn:hover:not(:disabled) { background: #ffcc7a; color: #2a1f0a; }
+
+    .nameInput {
+        padding: 6px 10px;
+        border-radius: 6px;
+        border: 1px solid var(--ccc);
+        background: var(--f8f8f8);
+        color: var(--g111);
+        font-size: 0.9em;
+        max-width: 180px;
+    }
+
+    .err { color: #ff7a7a; font-size: 0.85em; margin: 4px 0; }
+
+    .layout {
+        display: grid;
+        grid-template-columns: 1fr 360px;
+        gap: 18px;
+        align-items: start;
+    }
+    /* Grid children default to min-width:auto, which lets a wide board push past its 1fr
+       column. Forcing min-width:0 lets the board respect its column and scroll horizontally
+       instead of overflowing onto the sidebar. */
+    .layout > * { min-width: 0; }
+
+    @media (max-width: 1100px) {
+        .layout { grid-template-columns: 1fr; }
+    }
+
+    /* Status header */
+    .status {
+        background: linear-gradient(135deg, var(--f8f8f8) 0%, var(--headerPrimary) 100%);
+        border: 1px solid var(--accentBorder);
+        border-radius: 12px;
+        padding: 14px 18px;
+        margin-bottom: 14px;
+        display: flex;
+        gap: 18px;
+        align-items: center;
+        flex-wrap: wrap;
+    }
+    .statusBlock { display: flex; flex-direction: column; gap: 2px; }
+    .statusLabel { font-size: 0.7em; letter-spacing: 0.08em; text-transform: uppercase; color: var(--g999); }
+    .statusValue { font-size: 1.05em; color: var(--g000); font-weight: 600; }
+    .clock { font-size: 1.4em; font-weight: 700; font-variant-numeric: tabular-nums; }
+    .clock.warning { color: #ffcc7a; }
+    .clock.danger { color: #ff7a7a; }
+    .myTurn { color: var(--accent); animation: pulse 1.5s infinite; }
+    @keyframes pulse { 50% { opacity: 0.6; } }
+
+    /* Board */
+    .board {
+        overflow-x: auto;
+        background: var(--f8f8f8);
+        border: 1px solid var(--ebebeb);
+        border-radius: 12px;
+        padding: 14px;
+    }
+    .board.teamStrip {
+        margin-bottom: 22px;
+        padding-bottom: 16px;
+    }
+    .boardGrid {
+        display: grid;
+        gap: 10px;
+        min-width: 100%;
+    }
+    /* Prevent long text inside a cell from pushing its column wider than the track size. */
+    .boardGrid > * { min-width: 0; }
+    /* Separate column-header row from the first round of picks. */
+    .boardGrid .colHeader {
+        margin-bottom: 6px;
+    }
+    .teamHeader {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        gap: 6px;
+        padding: 10px 8px;
+        background: var(--headerPrimary);
+        border-radius: 8px;
+        border: 1px solid var(--ebebeb);
+        font-size: 0.78em;
+        min-width: 110px;
+        text-align: center;
+    }
+    .teamHeader.claimedSelf { border-color: var(--accent); box-shadow: 0 0 0 1px var(--accent); }
+    .teamName { font-weight: 600; color: var(--g000); overflow: hidden; text-overflow: ellipsis; max-width: 100%; }
+    .teamMeta { color: var(--g999); font-size: 0.95em; }
+    .teamActions { display: flex; gap: 4px; margin-top: 2px; }
+    .teamActions button { font-size: 0.7em; padding: 2px 8px; }
+
+    .roundLabel {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-weight: 700;
+        color: var(--accent);
+        font-size: 0.8em;
+        padding: 8px 6px;
+        background: var(--f3f3f3);
+        border-radius: 8px;
+        min-width: 50px;
+    }
+    .colHeader {
+        text-align: center;
+        font-size: 0.7em;
+        font-weight: 700;
+        letter-spacing: 0.06em;
+        text-transform: uppercase;
+        color: var(--g999);
+        padding: 4px 0 2px;
+    }
+    .slotTeam {
+        font-size: 0.7em;
+        color: var(--accent);
+        font-weight: 700;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+    }
+    .slot.mine { box-shadow: inset 0 0 0 1px rgba(29, 233, 215, 0.6); }
+    .slot.empty { cursor: default; background: var(--f8f8f8); border-style: dashed; opacity: 0.6; }
+    .slot.empty:hover { border-color: var(--ebebeb); }
+    .cell { display: flex; flex-direction: column; gap: 4px; }
+
+    .slot {
+        position: relative;
+        background: var(--f3f3f3);
+        border: 1px solid var(--ebebeb);
+        border-radius: 8px;
+        padding: 8px 6px;
+        min-height: 62px;
+        display: flex;
+        flex-direction: column;
+        gap: 2px;
+        cursor: pointer;
+        transition: all 0.12s;
+        min-width: 110px;
+    }
+    .slot:hover { border-color: var(--accent); }
+    .slot.current {
+        border-color: var(--accent);
+        box-shadow: 0 0 0 2px var(--accentBorder);
+        background: var(--matchupSelected);
+    }
+    .slot.completed { background: var(--f8f8f8); }
+    .slot.swapSelected { border-color: #ffcc7a; box-shadow: 0 0 0 2px rgba(255,204,122,0.35); }
+
+    .slotMeta { font-size: 0.7em; color: var(--g999); display: flex; justify-content: space-between; }
+    .slotName { font-size: 0.85em; font-weight: 600; color: var(--g000); overflow: hidden; text-overflow: ellipsis; }
+    .slotSub { font-size: 0.7em; color: var(--g555); }
+    .slotEmpty { color: var(--g555); font-style: italic; font-size: 0.8em; align-self: center; margin: auto; }
+
+    .posPill {
+        display: inline-block;
+        font-size: 0.65em;
+        padding: 1px 6px;
+        border-radius: 3px;
+        font-weight: 700;
+        letter-spacing: 0.04em;
+    }
+    .posPill.QB { background: rgba(255,42,109,0.15); color: var(--QB); }
+    .posPill.RB { background: rgba(0,206,184,0.15); color: var(--RB); }
+    .posPill.WR { background: rgba(88,167,255,0.15); color: var(--WR); }
+    .posPill.TE { background: rgba(255,174,88,0.15); color: var(--TE); }
+    .posPill.PICK { background: rgba(115,182,71,0.15); color: var(--PICKSfade); }
+
+    /* Right column */
+    .sidebar {
+        position: sticky;
+        top: 12px;
+        display: flex;
+        flex-direction: column;
+        gap: 14px;
+    }
+    .panel {
+        background: var(--f8f8f8);
+        border: 1px solid var(--ebebeb);
+        border-radius: 12px;
+        padding: 12px 14px;
+    }
+    .panelTitle { margin: 0 0 10px; color: var(--accent); font-size: 0.78em; letter-spacing: 0.1em; text-transform: uppercase; }
+
+    .posFilters { display: flex; flex-wrap: wrap; gap: 6px; margin-bottom: 10px; }
+    .posChip {
+        padding: 4px 10px;
+        border-radius: 999px;
+        font-size: 0.75em;
+        font-weight: 600;
+        border: 1px solid var(--ccc);
+        background: transparent;
+        color: var(--g555);
+        cursor: pointer;
+        user-select: none;
+    }
+    .posChip.active { background: var(--accent); color: #062420; border-color: var(--accent); }
+
+    .search {
+        width: 100%;
+        padding: 8px 10px;
+        border-radius: 6px;
+        border: 1px solid var(--ccc);
+        background: var(--f3f3f3);
+        color: var(--g111);
+        margin-bottom: 10px;
+        box-sizing: border-box;
+        font-size: 0.9em;
+    }
+
+    .assetList { max-height: 60vh; overflow-y: auto; display: flex; flex-direction: column; gap: 4px; padding-right: 2px; }
+    .assetRow {
+        display: grid;
+        grid-template-columns: 38px 1fr auto;
+        gap: 8px;
+        align-items: center;
+        padding: 6px 8px;
+        background: var(--f3f3f3);
+        border: 1px solid var(--ebebeb);
+        border-radius: 6px;
+        font-size: 0.85em;
+    }
+    .assetRow .value { font-variant-numeric: tabular-nums; color: var(--accent); font-weight: 700; font-size: 0.95em; text-align: right; }
+    .assetRow .nameCol { display: flex; flex-direction: column; gap: 2px; min-width: 0; }
+    .assetRow .nameLine { font-weight: 600; color: var(--g000); overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+    .assetRow .subLine { font-size: 0.75em; color: var(--g555); }
+    .assetRow button {
+        font-size: 0.7em;
+        padding: 4px 8px;
+        background: var(--accent);
+        color: #062420;
+        border: 0;
+        border-radius: 4px;
+        font-weight: 700;
+        cursor: pointer;
+    }
+    .assetRow button:disabled { background: var(--ddd); color: var(--g555); cursor: not-allowed; }
+
+    .recentList { display: flex; flex-direction: column; gap: 4px; }
+    .recentRow {
+        display: grid;
+        grid-template-columns: 46px 1fr 60px;
+        gap: 8px;
+        font-size: 0.8em;
+        padding: 4px 6px;
+        align-items: center;
+    }
+    .recentRow .pickNo { color: var(--g999); font-variant-numeric: tabular-nums; }
+    .recentRow .who { color: var(--g000); overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+    .recentRow .team { color: var(--g555); font-size: 0.75em; text-align: right; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+
+    .statusMuted { color: var(--g999); font-weight: 400; font-size: 0.85em; }
+    .btn.ghost { color: var(--g555); border-color: var(--ccc); background: transparent; }
+    .btn.ghost:hover:not(:disabled) { background: var(--accentSoft); color: var(--accent); border-color: var(--accentBorder); }
+
+    /* Team value + roster summary (claim strip) */
+    .teamValueRow { display: flex; align-items: baseline; justify-content: center; gap: 6px; }
+    .teamValue { font-variant-numeric: tabular-nums; font-weight: 700; color: var(--accent); font-size: 1.05em; }
+    .teamDelta { font-size: 0.72em; font-variant-numeric: tabular-nums; font-weight: 600; }
+    .teamDelta.up { color: var(--RB); }
+    .teamDelta.down { color: #e8888f; }
+    .teamBar { width: 100%; height: 4px; background: var(--ebebeb); border-radius: 999px; overflow: hidden; }
+    .teamBarFill { height: 100%; background: var(--accent); border-radius: 999px; transition: width 0.3s ease; }
+    .teamPos { font-size: 0.68em; color: var(--g555); font-variant-numeric: tabular-nums; letter-spacing: 0.01em; }
+
+    /* Asset row actions: queue star + value/draft stack */
+    .rowActions { display: flex; align-items: center; gap: 6px; }
+    .valueStack { display: flex; flex-direction: column; align-items: flex-end; gap: 3px; }
+    .starBtn {
+        background: transparent;
+        border: 0;
+        cursor: pointer;
+        font-size: 1.05em;
+        line-height: 1;
+        color: var(--g999);
+        padding: 2px;
+    }
+    .starBtn:hover { color: var(--TE); }
+    .starBtn.on { color: var(--TE); }
+
+    /* Tier break divider in the available list */
+    .tierBreak {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        margin: 4px 2px;
+        color: var(--g999);
+        font-size: 0.62em;
+        letter-spacing: 0.12em;
+        text-transform: uppercase;
+    }
+    .tierBreak::before, .tierBreak::after {
+        content: '';
+        flex: 1;
+        height: 1px;
+        background: repeating-linear-gradient(90deg, var(--ccc) 0 4px, transparent 4px 8px);
+    }
+
+    /* Queue panel */
+    .queueList { display: flex; flex-direction: column; gap: 4px; }
+    .queueRow {
+        display: grid;
+        grid-template-columns: 16px 38px 1fr auto;
+        gap: 6px;
+        align-items: center;
+        padding: 5px 6px;
+        background: var(--f3f3f3);
+        border: 1px solid var(--ebebeb);
+        border-radius: 6px;
+        font-size: 0.8em;
+    }
+    .queueRow .qNum { color: var(--g999); font-variant-numeric: tabular-nums; text-align: center; }
+    .queueRow .qName { color: var(--g000); overflow: hidden; text-overflow: ellipsis; white-space: nowrap; min-width: 0; }
+    .queueRow .qValue { font-variant-numeric: tabular-nums; color: var(--accent); font-weight: 700; text-align: right; }
+    .qActions { display: flex; gap: 3px; align-items: center; grid-column: 1 / -1; justify-content: flex-end; margin-top: 2px; }
+    .qBtn {
+        font-size: 0.7em;
+        padding: 2px 7px;
+        border-radius: 4px;
+        border: 1px solid var(--ccc);
+        background: transparent;
+        color: var(--g555);
+        cursor: pointer;
+    }
+    .qBtn:hover:not(:disabled) { border-color: var(--accent); color: var(--accent); }
+    .qBtn:disabled { opacity: 0.35; cursor: not-allowed; }
+    .qBtn.draft { background: var(--accent); color: #062420; border-color: var(--accent); font-weight: 700; }
+    .qBtn.draft:disabled { background: var(--ddd); color: var(--g555); border-color: var(--ddd); }
+
+    /* Modal */
+    .overlay {
+        position: fixed; inset: 0; background: rgba(0,0,0,0.6);
+        display: flex; align-items: center; justify-content: center; padding: 1em; z-index: 100;
+    }
+    .modal {
+        background: var(--f8f8f8);
+        border: 1px solid var(--ebebeb);
+        border-radius: 12px;
+        padding: 20px;
+        max-width: 720px;
+        width: 100%;
+        max-height: 88vh;
+        overflow-y: auto;
+        color: var(--g111);
+    }
+    .modal h3 { margin: 0 0 12px; color: var(--accent); }
+    .formRow { display: flex; gap: 12px; flex-wrap: wrap; margin-bottom: 12px; }
+    .formRow label { display: flex; flex-direction: column; gap: 4px; font-size: 0.8em; color: var(--g555); }
+    .formRow input { padding: 6px 10px; border-radius: 6px; border: 1px solid var(--ccc); background: var(--f3f3f3); color: var(--g111); font-size: 0.9em; }
+    .checkRow { display: flex; align-items: flex-start; gap: 10px; margin: 0 0 14px; font-size: 0.85em; color: var(--g111); cursor: pointer; }
+    .checkRow input { margin-top: 2px; flex-shrink: 0; }
+    .checkRow strong { color: var(--g000); }
+    .checkRow input:disabled + span { opacity: 0.5; }
+    .checkHint { display: block; font-size: 0.85em; color: var(--g999); margin-top: 2px; }
+    .teamNamesGrid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 8px; margin: 8px 0 14px; }
+    .teamNamesGrid label { display: flex; flex-direction: column; gap: 2px; font-size: 0.75em; color: var(--g999); }
+    .csvHelper { font-size: 0.75em; color: var(--g999); margin-bottom: 8px; }
+    .csvPreview { font-size: 0.8em; color: var(--g333); margin: 6px 0 12px; padding: 8px 10px; background: var(--f3f3f3); border-radius: 6px; border: 1px solid var(--ebebeb); }
+    .modalActions { display: flex; justify-content: flex-end; gap: 8px; margin-top: 14px; }
+
+    .infoLine { font-size: 0.78em; color: var(--g999); margin: 4px 0 8px; }
+    .swapHint { font-size: 0.78em; color: #ffcc7a; }
+
+    /* Drafted rosters panel */
+    .board.rosters { margin-top: 18px; }
+    .rostersGrid {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+        gap: 12px;
+    }
+    .rosterCard {
+        background: var(--f3f3f3);
+        border: 1px solid var(--ebebeb);
+        border-radius: 10px;
+        padding: 10px 12px;
+        display: flex;
+        flex-direction: column;
+        gap: 6px;
+    }
+    .rosterCard.mine { border-color: var(--accent); box-shadow: inset 0 0 0 1px rgba(29, 233, 215, 0.4); }
+    .rosterCard.onClock { border-color: var(--accent); box-shadow: 0 0 0 2px var(--accentBorder); }
+    .rosterHead { display: flex; align-items: baseline; justify-content: space-between; gap: 8px; }
+    .rosterTeam { font-weight: 700; color: var(--g000); overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+    .rosterTotal { font-variant-numeric: tabular-nums; font-weight: 700; color: var(--accent); font-size: 0.95em; }
+    .rosterMeta { font-size: 0.7em; color: var(--g555); font-variant-numeric: tabular-nums; }
+    .lineup { display: flex; flex-direction: column; margin-top: 4px; }
+    .lineupRow {
+        display: grid;
+        grid-template-columns: 40px 36px 1fr auto auto;
+        gap: 6px;
+        align-items: center;
+        font-size: 0.8em;
+        padding: 3px 0;
+        border-top: 1px solid var(--ebebeb);
+    }
+    .lineupRow.empty { opacity: 0.65; }
+    .slotLabel {
+        font-size: 0.62em;
+        font-weight: 700;
+        letter-spacing: 0.05em;
+        text-transform: uppercase;
+        text-align: center;
+        padding: 2px 0;
+        border-radius: 3px;
+        background: var(--headerPrimary);
+        color: var(--g555);
+    }
+    .slotLabel.QB { color: var(--QB); }
+    .slotLabel.RB { color: var(--RB); }
+    .slotLabel.WR { color: var(--WR); }
+    .slotLabel.TE { color: var(--TE); }
+    .slotLabel.FLEX { color: var(--accent); }
+    .slotLabel.BN { color: var(--g999); }
+    .slotEmptyText { grid-column: 2 / -1; color: var(--g999); font-style: italic; font-size: 0.92em; }
+    .rItemName { color: var(--g000); overflow: hidden; text-overflow: ellipsis; white-space: nowrap; min-width: 0; }
+    .rItemTeam { color: var(--g555); font-size: 0.85em; }
+    .rItemVal { font-variant-numeric: tabular-nums; color: var(--accent); font-weight: 600; text-align: right; }
+    .benchHead { margin-top: 8px; font-size: 0.62em; letter-spacing: 0.1em; text-transform: uppercase; color: var(--g999); font-weight: 700; }
+</style>
+
+<div class="wrap">
+    <h2>⚙️ Draft Tool</h2>
+    <p class="subtitle">Interactive snake draft with live sync. Anyone viewing the page can claim a team and pick when it's their turn.</p>
+
+    {#if loadError}
+        <div class="err">Couldn't reach the draft server: {loadError}</div>
+    {/if}
+    {#if actionError}
+        <div class="err">{actionError}</div>
+    {/if}
+
+    {#if !state}
+        <div class="infoLine">Loading draft state…</div>
+    {:else}
+        <!-- Status row -->
+        <div class="status">
+            <div class="statusBlock">
+                <span class="statusLabel">Round</span>
+                <span class="statusValue">{currentSlot ? currentSlot.round : '—'} / {state.rounds}</span>
+            </div>
+            <div class="statusBlock">
+                <span class="statusLabel">Pick</span>
+                <span class="statusValue">{currentSlot ? currentSlot.overall : '—'} / {state.picks.length}</span>
+            </div>
+            <div class="statusBlock">
+                <span class="statusLabel">On the clock</span>
+                <span class="statusValue {isMyTurn ? 'myTurn' : ''}">
+                    {currentSlot ? state.teams[currentSlot.teamIndex].name : 'Draft complete'}
+                    {#if isMyTurn}— Your pick{/if}
+                </span>
+            </div>
+            <div class="statusBlock">
+                <span class="statusLabel">Format</span>
+                <span class="statusValue">Snake{(state.reversalRound ?? 0) === 3 ? ' · 3RR' : ((state.reversalRound ?? 0) >= 2 ? ` · R${state.reversalRound} reversal` : '')}</span>
+            </div>
+            <div class="statusBlock">
+                <span class="statusLabel">Timer</span>
+                <span class="clock {remainingSeconds != null && remainingSeconds <= 10 ? 'danger' : (remainingSeconds != null && remainingSeconds <= 20 ? 'warning' : '')}">
+                    {#if !state.started}
+                        {state.currentPick > state.picks.length ? 'Done' : 'Paused'}
+                    {:else if remainingSeconds == null}
+                        --:--
+                    {:else}
+                        {Math.floor(remainingSeconds / 60)}:{String(remainingSeconds % 60).padStart(2, '0')}
+                    {/if}
+                </span>
+            </div>
+            <div class="statusBlock">
+                <span class="statusLabel">Value drafted</span>
+                <span class="statusValue">
+                    {Math.round(poolTotals.drafted).toLocaleString()} / {Math.round(poolTotals.total).toLocaleString()}
+                    <span class="statusMuted">· {Math.round(poolTotals.remaining).toLocaleString()} left</span>
+                </span>
+            </div>
+
+            <div class="spacer"></div>
+
+            <input
+                class="nameInput"
+                type="text"
+                placeholder="Your display name"
+                bind:value={displayName}
+                onchange={() => localStorage.setItem('draft_tool_display_name', (displayName || '').trim())}
+            />
+            <button class="btn {notifyEnabled ? '' : 'ghost'}" onclick={toggleNotify} title="Sound + browser alert when it's your turn">
+                {notifyEnabled ? '🔔 Alerts on' : '🔕 Alerts off'}
+            </button>
+            {#if state.started}
+                <button class="btn warn" onclick={pauseDraft}>⏸ Pause</button>
+            {:else if state.currentPick <= state.picks.length}
+                <button class="btn" onclick={startDraft} disabled={state.assets.length === 0}>▶ Start</button>
+            {/if}
+            <button class="btn" onclick={undo} disabled={state.currentPick <= 1}>↶ Undo</button>
+            <button class="btn" onclick={exportResults} disabled={state.currentPick <= 1}>⬇ Export</button>
+            <button class="btn" onclick={openConfig}>⚙ Configure</button>
+            <button class="btn warn" onclick={clearDraft}>Clear</button>
+            <button class="btn danger" onclick={resetDraft}>Reset</button>
+        </div>
+
+        {#if swapFrom != null}
+            <div class="swapHint">Swap mode: click another pick to swap teams (or click the same pick to cancel).</div>
+        {/if}
+
+        <div class="layout">
+            <!-- Draft board -->
+            <div>
+                <!-- Team claim strip -->
+                <div class="board teamStrip">
+                    <div class="boardGrid" style="grid-template-columns: 50px repeat({state.teamCount}, minmax(110px, 1fr));">
+                        <div></div>
+                        {#each state.teams as team, ti (ti)}
+                            {@const st = teamStats[ti] ?? { value: 0, count: 0, pos: { QB: 0, RB: 0, WR: 0, TE: 0, PICK: 0 } }}
+                            {@const delta = st.value - avgTeamValue}
+                            <div class="teamHeader {team.claimedBy === clientId ? 'claimedSelf' : ''}">
+                                <div class="teamName" title={team.name}>{team.name}</div>
+                                <div class="teamMeta">
+                                    {#if team.claimedBy === clientId}
+                                        <em>You</em>
+                                    {:else if team.claimedBy}
+                                        <em>Claimed</em>
+                                    {:else}
+                                        <em>Open</em>
+                                    {/if}
+                                </div>
+                                <div class="teamValueRow">
+                                    <span class="teamValue">{Math.round(st.value).toLocaleString()}</span>
+                                    {#if st.count > 0}
+                                        <span class="teamDelta {delta >= 0 ? 'up' : 'down'}" title="vs. average team value">
+                                            {delta >= 0 ? '+' : '−'}{Math.round(Math.abs(delta)).toLocaleString()}
+                                        </span>
+                                    {/if}
+                                </div>
+                                <div class="teamBar" title="Drafted value vs. league leader">
+                                    <div class="teamBarFill" style="width: {maxTeamValue > 0 ? (st.value / maxTeamValue) * 100 : 0}%"></div>
+                                </div>
+                                <div class="teamPos">
+                                    QB{st.pos.QB} · RB{st.pos.RB} · WR{st.pos.WR} · TE{st.pos.TE}{st.pos.PICK ? ` · PK${st.pos.PICK}` : ''}
+                                </div>
+                                <div class="teamActions">
+                                    {#if team.claimedBy === clientId}
+                                        <button class="btn" onclick={() => releaseTeam(ti)}>Release</button>
+                                    {:else if !team.claimedBy}
+                                        <button class="btn" onclick={() => claimTeam(ti)}>Claim</button>
+                                    {/if}
+                                </div>
+                            </div>
+                        {/each}
+                    </div>
+                </div>
+
+                <!-- Snake-order draft grid: row = round, column = team. R2 reads right-to-left numerically. -->
+                <div class="board">
+                    <div class="boardGrid" style="grid-template-columns: 50px repeat({state.teamCount}, minmax(110px, 1fr));">
+                        <!-- column headers echo the team names so the board reads as a real snake -->
+                        <div></div>
+                        {#each state.teams as team, ci (ci)}
+                            <div class="colHeader" title={team.name}>{team.name}</div>
+                        {/each}
+
+                        {#each boardCells as row, ri (ri)}
+                            <div class="roundLabel">R{ri + 1}</div>
+                            {#each row as cellPicks, ci (ci)}
+                                <div class="cell">
+                                    {#if cellPicks.length === 0}
+                                        <div class="slot empty"><div class="slotEmpty">—</div></div>
+                                    {:else}
+                                        {#each cellPicks as slot (slot.overall)}
+                                            {@const team = state.teams[slot.teamIndex]}
+                                            {@const a = slot.selectedAssetId ? assetById.get(slot.selectedAssetId) : null}
+                                            <div
+                                                class="slot {slot.overall === state.currentPick ? 'current' : ''} {slot.selectedAssetId ? 'completed' : ''} {swapFrom === slot.overall ? 'swapSelected' : ''} {team?.claimedBy === clientId ? 'mine' : ''}"
+                                                onclick={() => handleSwapClick(slot.overall)}
+                                                role="button"
+                                                tabindex="0"
+                                                title="Click to swap with another pick"
+                                            >
+                                                <div class="slotMeta">
+                                                    <span>#{slot.overall} ({overallLabel(slot)})</span>
+                                                </div>
+                                                {#if slot.selectedAssetId}
+                                                    <div class="slotName">{labelFor(slot.selectedAssetId)}</div>
+                                                    {#if a}
+                                                        <div class="slotSub">
+                                                            <span class="posPill {posClass(a)}">{a.asset_type === 'pick' ? 'PICK' : a.position}</span>
+                                                            {a.asset_type === 'pick' ? '' : (a.nfl_team || '')}
+                                                        </div>
+                                                    {/if}
+                                                {:else if slot.overall === state.currentPick}
+                                                    <div class="slotEmpty">On the clock…</div>
+                                                {:else}
+                                                    <div class="slotEmpty">—</div>
+                                                {/if}
+                                            </div>
+                                        {/each}
+                                    {/if}
+                                </div>
+                            {/each}
+                        {/each}
+                    </div>
+                </div>
+            </div>
+
+            <!-- Sidebar -->
+            <div class="sidebar">
+                <div class="panel">
+                    <h6 class="panelTitle">Available — {filteredAssets.length}</h6>
+                    <div class="posFilters">
+                        {#each POSITION_FILTERS as f (f)}
+                            <button class="posChip {activePositions.has(f) ? 'active' : ''}" onclick={() => togglePosition(f)}>
+                                {f === 'PICK' ? 'Draft Pick' : f}
+                            </button>
+                        {/each}
+                    </div>
+                    <input class="search" type="search" placeholder="Search…" bind:value={searchTerm} />
+                    {#if state.assets.length === 0}
+                        <div class="infoLine">No assets loaded. Click Configure to upload a CSV.</div>
+                    {:else}
+                        <div class="assetList">
+                            {#each filteredAssets as a (a.id)}
+                                {#if tierBreakIds.has(a.id)}
+                                    <div class="tierBreak"><span>value drop-off</span></div>
+                                {/if}
+                                <div class="assetRow">
+                                    <span class="posPill {posClass(a)}">{a.asset_type === 'pick' ? 'PICK' : a.position}</span>
+                                    <div class="nameCol">
+                                        <span class="nameLine" title={a.asset_type === 'pick' ? formatPickLabel(a) : a.player_name}>
+                                            {a.asset_type === 'pick' ? formatPickLabel(a) : a.player_name}
+                                        </span>
+                                        <span class="subLine">
+                                            {#if a.asset_type === 'pick'}
+                                                Rookie pick
+                                            {:else}
+                                                {a.nfl_team || '—'}
+                                            {/if}
+                                        </span>
+                                    </div>
+                                    <div class="rowActions">
+                                        <button
+                                            class="starBtn {isQueued(a.id) ? 'on' : ''}"
+                                            onclick={() => toggleQueue(a.id)}
+                                            title={isQueued(a.id) ? 'Remove from queue' : 'Add to queue'}
+                                            aria-label={isQueued(a.id) ? 'Remove from queue' : 'Add to queue'}
+                                        >{isQueued(a.id) ? '★' : '☆'}</button>
+                                        <div class="valueStack">
+                                            <span class="value">{a.fc_value.toLocaleString()}</span>
+                                            <button onclick={() => pickAsset(a.id)} disabled={!isMyTurn || !state.started}>Draft</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            {/each}
+                        </div>
+                    {/if}
+                </div>
+
+                <div class="panel">
+                    <h6 class="panelTitle">My Queue — {queuedAssets.length}</h6>
+                    {#if queuedAssets.length === 0}
+                        <div class="infoLine">Star players in the list to queue them. On your turn the top of the queue is one click away — and is what auto-pick uses if your clock runs out.</div>
+                    {:else}
+                        <div class="queueList">
+                            {#each queuedAssets as a, qi (a.id)}
+                                <div class="queueRow">
+                                    <span class="qNum">{qi + 1}</span>
+                                    <span class="posPill {posClass(a)}">{a.asset_type === 'pick' ? 'PICK' : a.position}</span>
+                                    <span class="qName" title={a.asset_type === 'pick' ? formatPickLabel(a) : a.player_name}>
+                                        {a.asset_type === 'pick' ? formatPickLabel(a) : a.player_name}
+                                    </span>
+                                    <span class="qValue">{a.fc_value.toLocaleString()}</span>
+                                    <div class="qActions">
+                                        <button class="qBtn" onclick={() => moveQueueUp(a.id)} disabled={qi === 0} title="Move up" aria-label="Move up">▲</button>
+                                        <button class="qBtn draft" onclick={() => pickAsset(a.id)} disabled={!isMyTurn || !state.started} title="Draft now">Draft</button>
+                                        <button class="qBtn" onclick={() => removeFromQueue(a.id)} title="Remove" aria-label="Remove">✕</button>
+                                    </div>
+                                </div>
+                            {/each}
+                        </div>
+                    {/if}
+                </div>
+
+                <div class="panel">
+                    <h6 class="panelTitle">Recent Picks</h6>
+                    {#if recentPicks.length === 0}
+                        <div class="infoLine">No picks yet.</div>
+                    {:else}
+                        <div class="recentList">
+                            {#each recentPicks as p (p.overall)}
+                                <div class="recentRow">
+                                    <span class="pickNo">{overallLabel(p)}</span>
+                                    <span class="who">{labelFor(p.selectedAssetId)}</span>
+                                    <span class="team" title={state.teams[p.teamIndex]?.name}>{state.teams[p.teamIndex]?.name}</span>
+                                </div>
+                            {/each}
+                        </div>
+                    {/if}
+                </div>
+            </div>
+        </div>
+
+        <!-- Per-manager drafted rosters -->
+        <div class="board rosters">
+            <h6 class="panelTitle">Drafted Rosters</h6>
+            <div class="rostersGrid">
+                {#each state.teams as team, ti (ti)}
+                    {@const lu = lineupsByTeam[ti] ?? { slots: [], bench: [] }}
+                    {@const st = teamStats[ti] ?? { value: 0, count: 0, pos: { QB: 0, RB: 0, WR: 0, TE: 0, PICK: 0 } }}
+                    <div class="rosterCard {team.claimedBy === clientId ? 'mine' : ''} {currentSlot && state.teams[currentSlot.teamIndex] === team ? 'onClock' : ''}">
+                        <div class="rosterHead">
+                            <span class="rosterTeam" title={team.name}>{team.name}</span>
+                            <span class="rosterTotal">{Math.round(st.value).toLocaleString()}</span>
+                        </div>
+                        <div class="rosterMeta">
+                            {st.count} pick{st.count === 1 ? '' : 's'} · QB{st.pos.QB} · RB{st.pos.RB} · WR{st.pos.WR} · TE{st.pos.TE}{st.pos.PICK ? ` · PK${st.pos.PICK}` : ''}
+                        </div>
+                        <div class="lineup">
+                            {#each lu.slots as s, si (si)}
+                                <div class="lineupRow {s.asset ? 'filled' : 'empty'}">
+                                    <span class="slotLabel {s.label}">{s.label}</span>
+                                    {#if s.asset}
+                                        <span class="posPill {posClass(s.asset)}">{s.asset.position}</span>
+                                        <span class="rItemName" title={s.asset.player_name}>{s.asset.player_name}</span>
+                                        <span class="rItemTeam">{s.asset.nfl_team || ''}</span>
+                                        <span class="rItemVal">{s.asset.fc_value.toLocaleString()}</span>
+                                    {:else}
+                                        <span class="slotEmptyText">Empty</span>
+                                    {/if}
+                                </div>
+                            {/each}
+                        </div>
+                        {#if lu.bench.length > 0}
+                            <div class="benchHead">Bench</div>
+                            <div class="lineup bench">
+                                {#each lu.bench as a (a.id)}
+                                    <div class="lineupRow filled">
+                                        <span class="slotLabel BN">BN</span>
+                                        <span class="posPill {posClass(a)}">{a.asset_type === 'pick' ? 'PICK' : a.position}</span>
+                                        <span class="rItemName" title={a.asset_type === 'pick' ? formatPickLabel(a) : a.player_name}>
+                                            {a.asset_type === 'pick' ? formatPickLabel(a) : a.player_name}
+                                        </span>
+                                        <span class="rItemTeam">{a.asset_type === 'pick' ? '' : (a.nfl_team || '')}</span>
+                                        <span class="rItemVal">{a.fc_value.toLocaleString()}</span>
+                                    </div>
+                                {/each}
+                            </div>
+                        {/if}
+                    </div>
+                {/each}
+            </div>
+        </div>
+    {/if}
+</div>
+
+{#if showConfig}
+    <div class="overlay" onclick={onClickOverlay} role="dialog">
+        <div class="modal">
+            <h3>⚙ Configure Draft</h3>
+            <div class="formRow">
+                <label>
+                    Teams (2–32)
+                    <input type="number" min="2" max="32" bind:value={cfgTeamCount} />
+                </label>
+                <label>
+                    Rounds (1–40)
+                    <input type="number" min="1" max="40" bind:value={cfgRounds} />
+                </label>
+                <label>
+                    Seconds per pick
+                    <input type="number" min="5" max="3600" bind:value={cfgSeconds} />
+                </label>
+            </div>
+
+            <label class="checkRow">
+                <input type="checkbox" bind:checked={cfgThirdRoundReversal} disabled={cfgRounds < 3} />
+                <span>
+                    <strong>3rd Round Reversal (3RR)</strong>
+                    <span class="checkHint">Round 3 repeats round 2's order instead of swinging back, evening out the talent spread. Rounds 1–2 stay a normal snake.</span>
+                </span>
+            </label>
+
+            <div class="csvHelper">
+                Upload a CSV with columns:
+                <code>asset_type, player_name, position, nfl_team, fc_value, pick_year, pick_round, pick_spot</code>.
+                Picks use <code>asset_type=pick</code> and the pick_* columns; players leave them blank.
+            </div>
+            <input type="file" accept=".csv,text/csv" onchange={handleCSV} />
+            {#if csvFileName}
+                <div class="csvPreview">
+                    <strong>{csvFileName}</strong>
+                    {#if csvError}
+                        <div class="err">{csvError}</div>
+                    {:else if csvAssetsPreview}
+                        — parsed {csvAssetsPreview.length} assets
+                        ({csvAssetsPreview.filter((a) => a.asset_type === 'player').length} players,
+                        {csvAssetsPreview.filter((a) => a.asset_type === 'pick').length} picks).
+                    {/if}
+                </div>
+            {/if}
+            {#if state && !csvAssetsPreview && state.assets.length > 0}
+                <div class="csvHelper"><em>(Keeping existing {state.assets.length} assets — upload to replace.)</em></div>
+            {/if}
+
+            <h6 style="margin: 8px 0 4px; color: var(--accent); font-size: 0.78em; letter-spacing: 0.08em; text-transform: uppercase;">Team Names</h6>
+            <div class="teamNamesGrid">
+                {#each Array(cfgTeamCount) as _, i (i)}
+                    <label>
+                        Team {i + 1}
+                        <input type="text" bind:value={cfgTeamNames[i]} placeholder={`Team ${i + 1}`} />
+                    </label>
+                {/each}
+            </div>
+
+            <div class="modalActions">
+                <button class="btn" onclick={closeConfig}>Cancel</button>
+                <button class="btn" onclick={applyConfig}>Apply</button>
+            </div>
+        </div>
+    </div>
+{/if}
