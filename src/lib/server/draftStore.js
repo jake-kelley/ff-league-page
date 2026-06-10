@@ -142,6 +142,7 @@ export const configure = async ({ teamCount, rounds, secondsPerPick, reversalRou
             pick_year: a.pick_year ?? null,
             pick_round: a.pick_round ?? null,
             pick_spot: a.pick_spot ?? null,
+            pick_original_owner: a.pick_original_owner ?? null,
         }));
     }
 

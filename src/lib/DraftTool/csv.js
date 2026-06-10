@@ -73,6 +73,10 @@ export const csvToAssets = (text) => {
         if (i < 0) throw new Error(`Missing required column: ${col}`);
         idx[col] = i;
     }
+    // Optional: the original owner of a pick (e.g. dispersal/traded picks). The team/manager
+    // handle is the display-worthy value; fall back to the numeric owner id column if that's all there is.
+    const ownerTeamIdx = headers.indexOf('pick_original_owner_team');
+    const ownerIdx = headers.indexOf('pick_original_owner');
     return rows.map((r, n) => {
         const asset_type = (r[idx.asset_type] || '').trim().toLowerCase();
         const player_name = (r[idx.player_name] || '').trim();
@@ -83,6 +87,9 @@ export const csvToAssets = (text) => {
         const pick_round = (r[idx.pick_round] || '').trim();
         const pick_spot = (r[idx.pick_spot] || '').trim();
         const isPick = asset_type === 'pick' || (!!pick_year && !!pick_round);
+        const ownerTeam = ownerTeamIdx >= 0 ? (r[ownerTeamIdx] || '').trim() : '';
+        const ownerId = ownerIdx >= 0 ? (r[ownerIdx] || '').trim() : '';
+        const pick_original_owner = ownerTeam || ownerId || null;
         return {
             id: `a${n}_${(player_name || `pick-${pick_year}-${pick_round}-${pick_spot}`).replace(/\s+/g, '_').toLowerCase()}`,
             asset_type: isPick ? 'pick' : 'player',
@@ -93,6 +100,7 @@ export const csvToAssets = (text) => {
             pick_year: isPick ? pick_year : null,
             pick_round: isPick ? pick_round : null,
             pick_spot: isPick ? pick_spot : null,
+            pick_original_owner: isPick ? pick_original_owner : null,
         };
     });
 };

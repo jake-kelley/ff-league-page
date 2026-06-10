@@ -163,7 +163,9 @@
             .filter((a) => {
                 if (!q) return true;
                 const label = a.asset_type === 'pick' ? formatPickLabel(a) : a.player_name;
-                return label.toLowerCase().includes(q) || (a.nfl_team || '').toLowerCase().includes(q);
+                return label.toLowerCase().includes(q)
+                    || (a.nfl_team || '').toLowerCase().includes(q)
+                    || ownerOf(a).toLowerCase().includes(q);
             })
             .slice()
             .sort((a, b) => b.fc_value - a.fc_value);
@@ -413,7 +415,7 @@
     const exportResults = () => {
         if (!state) return;
         const rows = [
-            ['overall', 'round', 'pick_in_round', 'team', 'asset', 'asset_type', 'position', 'nfl_team', 'fc_value'],
+            ['overall', 'round', 'pick_in_round', 'team', 'asset', 'asset_type', 'position', 'nfl_team', 'fc_value', 'pick_original_owner'],
         ];
         for (const p of state.picks) {
             if (!p.selectedAssetId) continue;
@@ -429,6 +431,7 @@
                 a.asset_type === 'pick' ? 'PICK' : a.position,
                 a.nfl_team || '',
                 a.fc_value,
+                ownerOf(a),
             ]);
         }
         const csv = rows.map((r) => r.map(csvCell).join(',')).join('\n');
@@ -619,10 +622,16 @@
         return a.asset_type === 'pick' ? formatPickLabel(a) : a.player_name;
     };
 
+    // Original owner of a pick (dispersal/traded picks carry this; rookie picks usually don't).
+    const ownerOf = (a) => (a && a.asset_type === 'pick' && a.pick_original_owner) || '';
+
     const subLabelFor = (assetId) => {
         const a = assetById.get(assetId);
         if (!a) return '';
-        if (a.asset_type === 'pick') return 'Draft Pick';
+        if (a.asset_type === 'pick') {
+            const owner = ownerOf(a);
+            return owner ? `Pick · ${owner}` : 'Draft Pick';
+        }
         return `${a.position}${a.nfl_team ? ' · ' + a.nfl_team : ''}`;
     };
 
@@ -897,6 +906,7 @@
     .assetRow .nameCol { display: flex; flex-direction: column; gap: 2px; min-width: 0; }
     .assetRow .nameLine { font-weight: 600; color: var(--g000); overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
     .assetRow .subLine { font-size: 0.75em; color: var(--g555); }
+    .assetRow .subLine .owner { color: var(--g333); font-weight: 600; }
     .assetRow button {
         font-size: 0.7em;
         padding: 4px 8px;
@@ -1255,7 +1265,7 @@
                                                     {#if a}
                                                         <div class="slotSub">
                                                             <span class="posPill {posClass(a)}">{a.asset_type === 'pick' ? 'PICK' : a.position}</span>
-                                                            {a.asset_type === 'pick' ? '' : (a.nfl_team || '')}
+                                                            {a.asset_type === 'pick' ? ownerOf(a) : (a.nfl_team || '')}
                                                         </div>
                                                     {/if}
                                                 {:else if slot.overall === state.currentPick}
@@ -1301,7 +1311,11 @@
                                         </span>
                                         <span class="subLine">
                                             {#if a.asset_type === 'pick'}
-                                                Rookie pick
+                                                {#if ownerOf(a)}
+                                                    From <span class="owner">{ownerOf(a)}</span>
+                                                {:else}
+                                                    Draft pick
+                                                {/if}
                                             {:else}
                                                 {a.nfl_team || '—'}
                                             {/if}
@@ -1409,7 +1423,7 @@
                                         <span class="rItemName" title={a.asset_type === 'pick' ? formatPickLabel(a) : a.player_name}>
                                             {a.asset_type === 'pick' ? formatPickLabel(a) : a.player_name}
                                         </span>
-                                        <span class="rItemTeam">{a.asset_type === 'pick' ? '' : (a.nfl_team || '')}</span>
+                                        <span class="rItemTeam">{a.asset_type === 'pick' ? ownerOf(a) : (a.nfl_team || '')}</span>
                                         <span class="rItemVal">{a.fc_value.toLocaleString()}</span>
                                     </div>
                                 {/each}
@@ -1453,6 +1467,7 @@
                 Upload a CSV with columns:
                 <code>asset_type, player_name, position, nfl_team, fc_value, pick_year, pick_round, pick_spot</code>.
                 Picks use <code>asset_type=pick</code> and the pick_* columns; players leave them blank.
+                Add an optional <code>pick_original_owner_team</code> column to label a pick's original owner.
             </div>
             <input type="file" accept=".csv,text/csv" onchange={handleCSV} />
             {#if csvFileName}
